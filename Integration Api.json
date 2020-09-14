@@ -1,0 +1,1083 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Integration Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/integration",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/alternative-login/get-sms/{number}": {
+      "get": {
+        "description": "Obtiene el codigo del mensaje par el llogin alternativo",
+        "operationId": "getCodeSmsUsingGET",
+        "summary": "alternative Login",
+        "tags": [
+          "alternative-login-controller"
+        ],
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "description": "number",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AlternativeLoginGetCodeData"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/alternative-login/validate/number/{number}/code/{code}": {
+      "get": {
+        "description": "valida el codigo y el numero dando acceso al login",
+        "operationId": "validateCodeAndNumberUsingGET",
+        "summary": "valida el codigo y el numero dando acceso al login",
+        "tags": [
+          "alternative-login-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "number",
+            "in": "path",
+            "description": "number",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Alternative-loginValidateNumberNumberCodeCodeGet200ApplicationStream-jsonRes"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/integration/product-inventory/app/publicId/{publicId}/type/{type}": {
+      "get": {
+        "description": "Obtiene el product inventory integrandose con los servicios de tdp, solo para app",
+        "operationId": "getProductInventoryAppUsingGET",
+        "summary": "product inventory",
+        "tags": [
+          "product-inventory-controller"
+        ],
+        "parameters": [
+          {
+            "name": "publicId",
+            "in": "path",
+            "description": "publicId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DataProductInventoryResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/integration/get-access-token": {
+      "get": {
+        "description": "obtiene el token",
+        "operationId": "getAccessTokenForRefreshTokenUsingGET",
+        "summary": "Obtiene token ",
+        "tags": [
+          "auth-controller"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TokenResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/integration/reniec/person": {
+      "get": {
+        "description": "Obtiene los datos de la persona",
+        "operationId": "getDataPersonReniecUsingGET",
+        "summary": "Reniec",
+        "tags": [
+          "reniec-controller"
+        ],
+        "parameters": [
+          {
+            "name": "app",
+            "in": "query",
+            "description": "app",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "numberDocument",
+            "in": "query",
+            "description": "numberDocument",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/IntegrationReniecPersonGet200ApplicationJsonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/balances-consumption/number/{number}": {
+      "get": {
+        "description": "obtiene la data para balances y consumos",
+        "operationId": "getCodeSmsUsingGET_1",
+        "summary": "Balance Comsumption",
+        "tags": [
+          "balances-consumption-controller"
+        ],
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "description": "number",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Balances-consumptionNumberNumberGet200ApplicationJsonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/financing/filter": {
+      "get": {
+        "description": "obtiene datos para el financiamiento de deuda",
+        "operationId": "validateCodeAndNumberUsingGET_1",
+        "summary": "Financing",
+        "tags": [
+          "financing-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "query",
+            "description": "companyCode",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "10"
+          },
+          {
+            "name": "typeService",
+            "in": "query",
+            "description": "typeService",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AccountBalanceResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/retrieve-bills/filter": {
+      "get": {
+        "description": "Lista factuarcion por codigo",
+        "operationId": "validateCodeAndNumberUsingGET_2",
+        "summary": "Facturacion ",
+        "tags": [
+          "retrieve-bills-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "query",
+            "description": "companyCode",
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "10"
+          },
+          {
+            "name": "starDate",
+            "in": "query",
+            "description": "starDate",
+            "type": "string"
+          },
+          {
+            "name": "typeService",
+            "in": "query",
+            "description": "typeService",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BillsResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/line/customer-code/{customerCode}": {
+      "get": {
+        "description": "obtiene datos para el financiamiento de deuda",
+        "operationId": "getListLineByCustomerCodeUsingGET",
+        "summary": "getListLineByCustomerCode",
+        "tags": [
+          "line-by-customer-code-controller"
+        ],
+        "parameters": [
+          {
+            "name": "customerCode",
+            "in": "path",
+            "description": "customerCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FinancialAccountLandLineResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/get-report/mock": {
+      "get": {
+        "description": "mock",
+        "operationId": "mockUsingGET",
+        "summary": "mock",
+        "tags": [
+          "get-report-controller"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Callable«string»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/get-report/process": {
+      "get": {
+        "description": "Actualiza planta",
+        "operationId": "updateFactoryGetReportUsingGET",
+        "summary": "Get Report",
+        "tags": [
+          "get-report-controller"
+        ],
+        "parameters": [
+          {
+            "name": "numberDocument",
+            "in": "query",
+            "description": "numberDocument",
+            "type": "string"
+          },
+          {
+            "name": "typeDocument",
+            "in": "query",
+            "description": "typeDocument",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AccountBalanceResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/integration/sunat/{ruc}": {
+      "get": {
+        "description": "findRucSunat",
+        "operationId": "findRucSunatUsingGET",
+        "summary": "findRucSunat",
+        "tags": [
+          "sunat-controller"
+        ],
+        "parameters": [
+          {
+            "name": "ruc",
+            "in": "path",
+            "description": "ruc",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«SunatCompanyResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AccountBalanceResponse": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "boolean"
+        },
+        "caseDetail": {
+          "$ref": "#/definitions/CaseDetailResponse"
+        },
+        "financialAccount": {
+          "type": "string"
+        },
+        "history": {
+          "type": "boolean"
+        },
+        "numberDueReceipts": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "receiptList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReceiptResponse"
+          }
+        },
+        "totalDue": {
+          "type": "number",
+          "format": "double"
+        },
+        "unit": {
+          "type": "string"
+        }
+      },
+      "title": "AccountBalanceResponse"
+    },
+    "AlternativeLoginGetCodeData": {
+      "type": "object",
+      "properties": {
+        "BodyOut": {
+          "$ref": "#/definitions/BodyOutGetCode"
+        },
+        "HeaderOut": {
+          "$ref": "#/definitions/HeaderOut"
+        }
+      },
+      "title": "AlternativeLoginGetCodeData"
+    },
+    "AlternativeLoginResponse": {
+      "type": "object",
+      "properties": {
+        "authenticated": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "responseCode": {
+          "type": "string"
+        },
+        "responseDescription": {
+          "type": "string"
+        },
+        "sessionToken": {
+          "type": "string"
+        }
+      },
+      "title": "AlternativeLoginResponse"
+    },
+    "BalancesConsumptionDetail": {
+      "type": "object",
+      "properties": {
+        "available": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "consumption": {
+          "type": "string"
+        },
+        "destinations": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "title": "BalancesConsumptionDetail"
+    },
+    "BalancesConsumptionResponse": {
+      "type": "object",
+      "properties": {
+        "available": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "consumption": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BalancesConsumptionDetail"
+          }
+        },
+        "usageData": {
+          "type": "string"
+        }
+      },
+      "title": "BalancesConsumptionResponse"
+    },
+    "BillsResponse": {
+      "type": "object",
+      "properties": {
+        "billingCycle": {
+          "type": "string"
+        },
+        "corporateAccount": {
+          "type": "string"
+        },
+        "daysForDigitalInvoice": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "downloadAddress": {
+          "type": "string"
+        },
+        "emissionDate": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string"
+        },
+        "numberReceipt": {
+          "type": "string"
+        },
+        "receiptId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "totalAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "typeReceipt": {
+          "type": "string"
+        }
+      },
+      "title": "BillsResponse"
+    },
+    "BodyOutGetCode": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "type": "string"
+        },
+        "responseDescription": {
+          "type": "string"
+        },
+        "smsCode": {
+          "type": "string"
+        }
+      },
+      "title": "BodyOutGetCode"
+    },
+    "Callable«string»": {
+      "type": "object",
+      "title": "Callable«string»"
+    },
+    "CaseDetailResponse": {
+      "type": "object",
+      "properties": {
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "CaseDetailResponse"
+    },
+    "CodeSmsResponse": {
+      "type": "object",
+      "properties": {
+        "responseDescription": {
+          "type": "string"
+        },
+        "smsCode": {
+          "type": "string"
+        }
+      },
+      "title": "CodeSmsResponse"
+    },
+    "DataProductInventoryResponse": {
+      "type": "object",
+      "properties": {
+        "benefits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dataQuota": {
+          "type": "string"
+        },
+        "dataSms": {
+          "type": "string"
+        },
+        "dataVoice": {
+          "type": "string"
+        },
+        "hiringDate": {
+          "type": "string"
+        },
+        "permanenceTime": {
+          "type": "string"
+        },
+        "plan": {
+          "type": "string"
+        },
+        "renovationDays": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unlimitedApp": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "DataProductInventoryResponse"
+    },
+    "FinancialAccountLandLineResponse": {
+      "type": "object",
+      "properties": {
+        "financialAccount": {
+          "type": "string"
+        },
+        "servicesAssociated": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "FinancialAccountLandLineResponse"
+    },
+    "Flux«AccountBalanceResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«AccountBalanceResponse»"
+    },
+    "Flux«BalancesConsumptionResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«BalancesConsumptionResponse»"
+    },
+    "Flux«BillsResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«BillsResponse»"
+    },
+    "Flux«FinancialAccountLandLineResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«FinancialAccountLandLineResponse»"
+    },
+    "GenericResponse": {
+      "type": "object",
+      "properties": {
+        "messageResponse": {
+          "type": "string"
+        },
+        "object": {
+          "type": "boolean"
+        }
+      },
+      "title": "GenericResponse"
+    },
+    "HeaderOut": {
+      "type": "object",
+      "properties": {
+        "destination": {
+          "type": "string"
+        },
+        "execId": {
+          "type": "string"
+        },
+        "originator": {
+          "type": "string"
+        },
+        "pid": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      },
+      "title": "HeaderOut"
+    },
+    "Mono«AlternativeLoginResponse»": {
+      "type": "object",
+      "title": "Mono«AlternativeLoginResponse»"
+    },
+    "Mono«CodeSmsResponse»": {
+      "type": "object",
+      "title": "Mono«CodeSmsResponse»"
+    },
+    "Mono«DataProductInventoryResponse»": {
+      "type": "object",
+      "title": "Mono«DataProductInventoryResponse»"
+    },
+    "Mono«GenericResponse»": {
+      "type": "object",
+      "title": "Mono«GenericResponse»"
+    },
+    "Mono«SunatCompanyResponse»": {
+      "type": "object",
+      "title": "Mono«SunatCompanyResponse»"
+    },
+    "Mono«TokenResponse»": {
+      "type": "object",
+      "title": "Mono«TokenResponse»"
+    },
+    "ReceiptResponse": {
+      "type": "object",
+      "properties": {
+        "amountReceipt": {
+          "type": "number",
+          "format": "double"
+        },
+        "dueDate": {
+          "type": "string"
+        },
+        "numberReceipt": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        }
+      },
+      "title": "ReceiptResponse"
+    },
+    "SunatCompanyResponse": {
+      "type": "object",
+      "properties": {
+        "codeZone": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "interior": {
+          "type": "string"
+        },
+        "kilometro": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "manzana": {
+          "type": "string"
+        },
+        "nameVia": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "statusContribuyente": {
+          "type": "string"
+        },
+        "statusDomicilio": {
+          "type": "string"
+        },
+        "typeVia": {
+          "type": "string"
+        },
+        "typeZone": {
+          "type": "string"
+        },
+        "ubigeo": {
+          "type": "string"
+        }
+      },
+      "title": "SunatCompanyResponse"
+    },
+    "TokenResponse": {
+      "type": "object",
+      "properties": {
+        "generateDate": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "TokenResponse"
+    },
+    "Alternative-loginValidateNumberNumberCodeCodeGet200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "Alternative-loginValidateNumberNumberCodeCodeGet200ApplicationStream-jsonRes": {
+      "type": "object"
+    },
+    "Balances-consumptionNumberNumberGet200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "IntegrationReniecPersonGet200ApplicationJsonResponse": {
+      "type": "object"
+    }
+  },
+  "tags": [
+    {
+      "name": "product-inventory-controller",
+      "description": "Product Inventory Controller"
+    },
+    {
+      "name": "reniec-controller",
+      "description": "Reniec Controller"
+    },
+    {
+      "name": "alternative-login-controller",
+      "description": "Alternative Login Controller"
+    },
+    {
+      "name": "auth-controller",
+      "description": "Auth Controller"
+    },
+    {
+      "name": "financing-controller",
+      "description": "Financing Controller"
+    },
+    {
+      "name": "balances-consumption-controller",
+      "description": "Balances Consumption Controller"
+    },
+    {
+      "name": "retrieve-bills-controller",
+      "description": "Retrieve Bills Controller"
+    },
+    {
+      "name": "line-by-customer-code-controller",
+      "description": "Line By Customer Code Controller"
+    },
+    {
+      "name": "get-report-controller",
+      "description": "Get Report Controller"
+    },
+    {
+      "name": "sunat-controller",
+      "description": "Sunat Controller"
+    }
+  ]
+}
