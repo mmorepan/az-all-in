@@ -12,30 +12,21 @@
   "variables": {},
   "resources": [
     {
-      "name": "[concat(parameters('ApimServiceName'), '/commercial-contact-controller')]",
+      "name": "[concat(parameters('ApimServiceName'), '/company-controller')]",
       "type": "Microsoft.ApiManagement/service/tags",
       "apiVersion": "2019-01-01",
       "dependsOn": [],
       "properties": {
-        "displayName": "commercial-contact-controller"
+        "displayName": "company-controller"
       }
     },
     {
-      "name": "[concat(parameters('ApimServiceName'), '/contact-controller')]",
+      "name": "[concat(parameters('ApimServiceName'), '/company-for-sale-controller')]",
       "type": "Microsoft.ApiManagement/service/tags",
       "apiVersion": "2019-01-01",
       "dependsOn": [],
       "properties": {
-        "displayName": "contact-controller"
-      }
-    },
-    {
-      "name": "[concat(parameters('ApimServiceName'), '/reniec-controller')]",
-      "type": "Microsoft.ApiManagement/service/tags",
-      "apiVersion": "2019-01-01",
-      "dependsOn": [],
-      "properties": {
-        "displayName": "reniec-controller"
+        "displayName": "company-for-sale-controller"
       }
     }
   ],

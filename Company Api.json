@@ -1,0 +1,1859 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Company Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/company",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/company": {
+      "get": {
+        "description": "Lista todas las empresas activas",
+        "operationId": "findAllUsingGET",
+        "summary": "Lista todas las empresas activas",
+        "tags": [
+          "company-controller"
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Company"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/": {
+      "post": {
+        "description": "save",
+        "operationId": "saveUsingPOST",
+        "summary": "save",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CompanyRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«Company»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/attention": {
+      "get": {
+        "description": "findByGroupAttentionUser",
+        "operationId": "findByGroupAttentionUserUsingGET",
+        "summary": "findByGroupAttentionUser",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idAttention",
+            "in": "query",
+            "description": "idAttention",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«PageSupport«Company»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/delete": {
+      "put": {
+        "description": "deleteCompany",
+        "operationId": "deleteCompanyUsingPUT",
+        "summary": "deleteCompany",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codeCompanyRequestArray",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CodeCompanyRequestArray"
+            },
+            "description": "codeCompanyRequestList"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«DeleteResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/filter": {
+      "get": {
+        "description": "filterCompany",
+        "operationId": "filterCompanyUsingGET",
+        "summary": "filterCompany",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "groupId",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "salesGroupId",
+            "in": "query",
+            "description": "salesGroupId",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean"
+          },
+          {
+            "name": "subTypeClient",
+            "in": "query",
+            "description": "subTypeClient",
+            "type": "string"
+          },
+          {
+            "name": "typeClient",
+            "in": "query",
+            "description": "typeClient",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Company»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/filter-count": {
+      "get": {
+        "description": "filterCompanyCount",
+        "operationId": "filterCompanyCountUsingGET",
+        "summary": "filterCompanyCount",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "groupId",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "salesGroupId",
+            "in": "query",
+            "description": "salesGroupId",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean"
+          },
+          {
+            "name": "subTypeClient",
+            "in": "query",
+            "description": "subTypeClient",
+            "type": "string"
+          },
+          {
+            "name": "typeClient",
+            "in": "query",
+            "description": "typeClient",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«PageCountResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/find": {
+      "get": {
+        "description": "getCompanyByCodeOrLegalName",
+        "operationId": "getCompanyByCodeOrLegalNameUsingGET",
+        "summary": "getCompanyByCodeOrLegalName",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«CompanyResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/find/id/{id}": {
+      "get": {
+        "description": "getContactById",
+        "operationId": "getContactByIdUsingGET",
+        "summary": "getContactById",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ResponseEntity«Company»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/find/{code}": {
+      "get": {
+        "description": "getContactByCode",
+        "operationId": "getContactByCodeUsingGET",
+        "summary": "getContactByCode",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ResponseEntity«Company»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/getProvider": {
+      "get": {
+        "description": "Lista todas los proveedores",
+        "operationId": "findAllByProviderUsingGET",
+        "summary": "Lista todas los proveedores",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "providerStatus",
+            "in": "query",
+            "description": "providerStatus",
+            "required": true,
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ProviderResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/page": {
+      "get": {
+        "description": "findByPage",
+        "operationId": "findByPageUsingGET",
+        "summary": "findByPage",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«PageSupport«Company»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/sale/attention-sale": {
+      "get": {
+        "description": "Lista los ids de empresa por grupo de atención de ventas",
+        "operationId": "findByGroupAttentionSaleUsingGET",
+        "summary": "Lista los ids de empresa por grupo de atención de ventas",
+        "tags": [
+          "company-for-sale-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idAttention",
+            "in": "query",
+            "description": "idAttention",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "text/event-stream"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«IdResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/sale/getAllByAttentionGroupSaleId": {
+      "get": {
+        "description": "Lista todas las empresas por el id del grupo de atention de venta",
+        "operationId": "getAllByAttentionGroupSaleIdUsingGET",
+        "summary": "Lista todas las empresas por el id del grupo de atention de venta",
+        "tags": [
+          "company-for-sale-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Company"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/update": {
+      "put": {
+        "description": "update",
+        "operationId": "updateUsingPUT",
+        "summary": "update",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CompanyRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«Company»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/filter-combo": {
+      "get": {
+        "description": "getComboForFilter",
+        "operationId": "getComboForFilterUsingGET",
+        "summary": "getComboForFilter",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "typeCombo",
+            "in": "query",
+            "description": "typeCombo",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "groupId",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean"
+          },
+          {
+            "name": "subTypeClient",
+            "in": "query",
+            "description": "subTypeClient",
+            "type": "string"
+          },
+          {
+            "name": "typeClient",
+            "in": "query",
+            "description": "typeClient",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/filter-company-opportunities": {
+      "get": {
+        "description": "Filtra y devuelve las empresas",
+        "operationId": "filterCompanyOpportunitiesUsingGET",
+        "summary": "Filtra y devuelve las empresas",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "groupId",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "salesGroupId",
+            "in": "query",
+            "description": "salesGroupId",
+            "type": "string"
+          },
+          {
+            "name": "sector",
+            "in": "query",
+            "description": "sector",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean"
+          },
+          {
+            "name": "subTypeClient",
+            "in": "query",
+            "description": "subTypeClient",
+            "type": "string"
+          },
+          {
+            "name": "typeClient",
+            "in": "query",
+            "description": "typeClient",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Se obtuvo el listado de empresas de forma correcta.",
+            "schema": {
+              "$ref": "#/definitions/CompanyOpportunitiesResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Se produjo un error en la aplicación"
+          }
+        }
+      }
+    },
+    "/company/filter-company-opportunities-count": {
+      "get": {
+        "description": "Filtra las empresas y devuelve la cantidad de registros",
+        "operationId": "filterCompanyOpportunitiesCountUsingGET",
+        "summary": "Filtra las empresas y devuelve la cantidad de registros",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "groupId",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "salesGroupId",
+            "in": "query",
+            "description": "salesGroupId",
+            "type": "string"
+          },
+          {
+            "name": "sector",
+            "in": "query",
+            "description": "sector",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean"
+          },
+          {
+            "name": "subTypeClient",
+            "in": "query",
+            "description": "subTypeClient",
+            "type": "string"
+          },
+          {
+            "name": "typeClient",
+            "in": "query",
+            "description": "typeClient",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Se obtuvo la cantidad de empresas de forma correcta.",
+            "schema": {
+              "$ref": "#/definitions/PageCountResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Se produjo un error en la aplicación"
+          }
+        }
+      }
+    },
+    "/company/find/dummy/{code}": {
+      "get": {
+        "description": "getCompanyDummy",
+        "operationId": "getCompanyDummyUsingGET",
+        "summary": "getCompanyDummy",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ResponseEntity«Company»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/company/find-company/user-external/{code}": {
+      "get": {
+        "description": "findCompanyUserExternal",
+        "operationId": "findCompanyUserExternalUsingGET",
+        "summary": "findCompanyUserExternal",
+        "tags": [
+          "company-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«CompanyUserExtResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "interior": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "nombreAvenida": {
+          "type": "string"
+        },
+        "nombreUrbanizacion": {
+          "type": "string"
+        },
+        "numeroAvenida": {
+          "type": "string"
+        },
+        "numeroManzana": {
+          "type": "string"
+        },
+        "piso": {
+          "type": "string"
+        },
+        "referencia": {
+          "type": "string"
+        },
+        "tipoAvenida": {
+          "type": "string"
+        },
+        "tipoManzana": {
+          "type": "string"
+        },
+        "tipoUrbanizacion": {
+          "type": "string"
+        }
+      },
+      "title": "Address"
+    },
+    "AddressRequest": {
+      "type": "object",
+      "properties": {
+        "interior": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "nombreAvenida": {
+          "type": "string"
+        },
+        "nombreUrbanizacion": {
+          "type": "string"
+        },
+        "numeroAvenida": {
+          "type": "string"
+        },
+        "numeroManzana": {
+          "type": "string"
+        },
+        "piso": {
+          "type": "string"
+        },
+        "referencia": {
+          "type": "string"
+        },
+        "tipoAvenida": {
+          "type": "string"
+        },
+        "tipoManzana": {
+          "type": "string"
+        },
+        "tipoUrbanizacion": {
+          "type": "string"
+        }
+      },
+      "title": "AddressRequest"
+    },
+    "AttentionGroup": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionGroup"
+    },
+    "AttentionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionGroupRequest"
+    },
+    "CodeCompanyRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "CodeCompanyRequest"
+    },
+    "Company": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "attentionGroup": {
+          "$ref": "#/definitions/AttentionGroup"
+        },
+        "code": {
+          "type": "string"
+        },
+        "covid": {
+          "type": "boolean"
+        },
+        "debtFinancing": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "overdueDebt": {
+          "type": "boolean"
+        },
+        "productAvailable": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "boolean"
+        },
+        "salesGroup": {
+          "$ref": "#/definitions/AttentionGroup"
+        },
+        "sector": {
+          "$ref": "#/definitions/Sector"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusSunat": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClient"
+        },
+        "typeDocument": {
+          "$ref": "#/definitions/TypeDocument"
+        },
+        "ubigeo": {
+          "$ref": "#/definitions/Ubigeo"
+        }
+      },
+      "title": "Company"
+    },
+    "CompanyOpportunitiesResponse": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "attentionGroup": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "opportunities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OpportunityResponse"
+          }
+        },
+        "salesGroup": {
+          "type": "string"
+        },
+        "sector": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "subTypeClient": {
+          "type": "string"
+        },
+        "typeClient": {
+          "type": "string"
+        }
+      },
+      "title": "CompanyOpportunitiesResponse"
+    },
+    "CompanyRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/AddressRequest"
+        },
+        "attentionGroup": {
+          "$ref": "#/definitions/AttentionGroupRequest"
+        },
+        "code": {
+          "type": "string"
+        },
+        "covid": {
+          "type": "boolean"
+        },
+        "debtFinancing": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dummy": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "overdueDebt": {
+          "type": "boolean"
+        },
+        "productAvailable": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "boolean"
+        },
+        "salesGroup": {
+          "$ref": "#/definitions/AttentionGroupRequest"
+        },
+        "sector": {
+          "$ref": "#/definitions/SectorRequest"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusSunat": {
+          "type": "boolean"
+        },
+        "subTypeClient": {
+          "type": "string"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientRequest"
+        },
+        "typeDocument": {
+          "$ref": "#/definitions/TypeDocumentRequest"
+        },
+        "ubigeo": {
+          "$ref": "#/definitions/UbigeoRequest"
+        }
+      },
+      "title": "CompanyRequest"
+    },
+    "CompanyResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "portfolioResponse": {
+          "$ref": "#/definitions/PortfolioResponse"
+        }
+      },
+      "title": "CompanyResponse"
+    },
+    "CompanyUserExtResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        }
+      },
+      "title": "CompanyUserExtResponse"
+    },
+    "DeleteResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "DeleteResponse"
+    },
+    "Flux": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux"
+    },
+    "Flux«CompanyOpportunitiesResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«CompanyOpportunitiesResponse»"
+    },
+    "Flux«CompanyResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«CompanyResponse»"
+    },
+    "Flux«Company»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Company»"
+    },
+    "Flux«IdResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«IdResponse»"
+    },
+    "Flux«ProviderResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«ProviderResponse»"
+    },
+    "IdResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "IdResponse"
+    },
+    "Mono«CompanyUserExtResponse»": {
+      "type": "object",
+      "title": "Mono«CompanyUserExtResponse»"
+    },
+    "Mono«Company»": {
+      "type": "object",
+      "title": "Mono«Company»"
+    },
+    "Mono«DeleteResponse»": {
+      "type": "object",
+      "title": "Mono«DeleteResponse»"
+    },
+    "Mono«PageCountResponse»": {
+      "type": "object",
+      "title": "Mono«PageCountResponse»"
+    },
+    "Mono«PageSupport«Company»»": {
+      "type": "object",
+      "title": "Mono«PageSupport«Company»»"
+    },
+    "Mono«ResponseEntity«Company»»": {
+      "type": "object",
+      "title": "Mono«ResponseEntity«Company»»"
+    },
+    "OpportunityResponse": {
+      "type": "object",
+      "properties": {
+        "businessLine": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "estimatedFinishDate": {
+          "type": "string"
+        },
+        "finishDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "internalOpportunityId": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "opportunityId": {
+          "type": "string"
+        },
+        "opportunityName": {
+          "type": "string"
+        },
+        "stage": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "subSegment": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "OpportunityResponse"
+    },
+    "PageCountResponse": {
+      "type": "object",
+      "properties": {
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageCountResponse"
+    },
+    "PageSupport«Company»": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Company"
+          }
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageSupport«Company»"
+    },
+    "PortfolioResponse": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "$ref": "#/definitions/CompanyResponse"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleResponse"
+          }
+        }
+      },
+      "title": "PortfolioResponse"
+    },
+    "ProviderResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "providerId": {
+          "type": "string"
+        }
+      },
+      "title": "ProviderResponse"
+    },
+    "RoleResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRoleResponse"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "RoleResponse"
+    },
+    "Sector": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subSectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Sector"
+          }
+        }
+      },
+      "title": "Sector"
+    },
+    "SectorRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subSectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SectorRequest"
+          }
+        }
+      },
+      "title": "SectorRequest"
+    },
+    "SubRoleResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubRoleResponse"
+    },
+    "TypeClient": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeClient"
+          }
+        }
+      },
+      "title": "TypeClient"
+    },
+    "TypeClientRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeClientRequest"
+          }
+        }
+      },
+      "title": "TypeClientRequest"
+    },
+    "TypeDocument": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeDocument"
+    },
+    "TypeDocumentRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeDocumentRequest"
+    },
+    "TypeModel": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeModel"
+    },
+    "TypeRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeRequest"
+    },
+    "Ubigeo": {
+      "type": "object",
+      "properties": {
+        "department": {
+          "$ref": "#/definitions/TypeModel"
+        },
+        "district": {
+          "$ref": "#/definitions/TypeModel"
+        },
+        "province": {
+          "$ref": "#/definitions/TypeModel"
+        }
+      },
+      "title": "Ubigeo"
+    },
+    "UbigeoRequest": {
+      "type": "object",
+      "properties": {
+        "department": {
+          "$ref": "#/definitions/TypeRequest"
+        },
+        "district": {
+          "$ref": "#/definitions/TypeRequest"
+        },
+        "province": {
+          "$ref": "#/definitions/TypeRequest"
+        }
+      },
+      "title": "UbigeoRequest"
+    },
+    "CodeCompanyRequestArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CodeCompanyRequest"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "company-controller",
+      "description": "Company Controller"
+    },
+    {
+      "name": "company-for-sale-controller",
+      "description": "Company For Sale Controller"
+    }
+  ]
+}

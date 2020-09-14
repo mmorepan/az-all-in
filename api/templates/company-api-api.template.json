@@ -1,0 +1,2007 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Company Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": true,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "company",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/5f03cf24d4ce8410401932b0')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"Address\":{\"type\":\"object\",\"properties\":{\"interior\":{\"type\":\"string\"},\"lote\":{\"type\":\"string\"},\"nombreAvenida\":{\"type\":\"string\"},\"nombreUrbanizacion\":{\"type\":\"string\"},\"numeroAvenida\":{\"type\":\"string\"},\"numeroManzana\":{\"type\":\"string\"},\"piso\":{\"type\":\"string\"},\"referencia\":{\"type\":\"string\"},\"tipoAvenida\":{\"type\":\"string\"},\"tipoManzana\":{\"type\":\"string\"},\"tipoUrbanizacion\":{\"type\":\"string\"}},\"title\":\"Address\"},\"AddressRequest\":{\"type\":\"object\",\"properties\":{\"interior\":{\"type\":\"string\"},\"lote\":{\"type\":\"string\"},\"nombreAvenida\":{\"type\":\"string\"},\"nombreUrbanizacion\":{\"type\":\"string\"},\"numeroAvenida\":{\"type\":\"string\"},\"numeroManzana\":{\"type\":\"string\"},\"piso\":{\"type\":\"string\"},\"referencia\":{\"type\":\"string\"},\"tipoAvenida\":{\"type\":\"string\"},\"tipoManzana\":{\"type\":\"string\"},\"tipoUrbanizacion\":{\"type\":\"string\"}},\"title\":\"AddressRequest\"},\"AttentionGroup\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"AttentionGroup\"},\"AttentionGroupRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"AttentionGroupRequest\"},\"CodeCompanyRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"}},\"title\":\"CodeCompanyRequest\"},\"Company\":{\"type\":\"object\",\"properties\":{\"address\":{\"$ref\":\"#/definitions/Address\"},\"attentionGroup\":{\"$ref\":\"#/definitions/AttentionGroup\"},\"code\":{\"type\":\"string\"},\"covid\":{\"type\":\"boolean\"},\"debtFinancing\":{\"type\":\"boolean\"},\"description\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\",\"format\":\"date-time\"},\"id\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"numberDocument\":{\"type\":\"string\"},\"overdueDebt\":{\"type\":\"boolean\"},\"productAvailable\":{\"type\":\"string\"},\"provider\":{\"type\":\"boolean\"},\"salesGroup\":{\"$ref\":\"#/definitions/AttentionGroup\"},\"sector\":{\"$ref\":\"#/definitions/Sector\"},\"status\":{\"type\":\"boolean\"},\"statusSunat\":{\"type\":\"boolean\"},\"typeClient\":{\"$ref\":\"#/definitions/TypeClient\"},\"typeDocument\":{\"$ref\":\"#/definitions/TypeDocument\"},\"ubigeo\":{\"$ref\":\"#/definitions/Ubigeo\"}},\"title\":\"Company\"},\"CompanyOpportunitiesResponse\":{\"type\":\"object\",\"properties\":{\"address\":{\"type\":\"string\"},\"attentionGroup\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"opportunities\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/OpportunityResponse\"}},\"salesGroup\":{\"type\":\"string\"},\"sector\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"subTypeClient\":{\"type\":\"string\"},\"typeClient\":{\"type\":\"string\"}},\"title\":\"CompanyOpportunitiesResponse\"},\"CompanyRequest\":{\"type\":\"object\",\"properties\":{\"address\":{\"$ref\":\"#/definitions/AddressRequest\"},\"attentionGroup\":{\"$ref\":\"#/definitions/AttentionGroupRequest\"},\"code\":{\"type\":\"string\"},\"covid\":{\"type\":\"boolean\"},\"debtFinancing\":{\"type\":\"boolean\"},\"description\":{\"type\":\"string\"},\"dummy\":{\"type\":\"boolean\"},\"id\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"numberDocument\":{\"type\":\"string\"},\"overdueDebt\":{\"type\":\"boolean\"},\"productAvailable\":{\"type\":\"string\"},\"provider\":{\"type\":\"boolean\"},\"salesGroup\":{\"$ref\":\"#/definitions/AttentionGroupRequest\"},\"sector\":{\"$ref\":\"#/definitions/SectorRequest\"},\"status\":{\"type\":\"boolean\"},\"statusSunat\":{\"type\":\"boolean\"},\"subTypeClient\":{\"type\":\"string\"},\"typeClient\":{\"$ref\":\"#/definitions/TypeClientRequest\"},\"typeDocument\":{\"$ref\":\"#/definitions/TypeDocumentRequest\"},\"ubigeo\":{\"$ref\":\"#/definitions/UbigeoRequest\"}},\"title\":\"CompanyRequest\"},\"CompanyResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"numberDocument\":{\"type\":\"string\"},\"portfolioResponse\":{\"$ref\":\"#/definitions/PortfolioResponse\"}},\"title\":\"CompanyResponse\"},\"CompanyUserExtResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"}},\"title\":\"CompanyUserExtResponse\"},\"DeleteResponse\":{\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"integer\",\"format\":\"int32\"},\"message\":{\"type\":\"string\"}},\"title\":\"DeleteResponse\"},\"Flux\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux\"},\"Flux«CompanyOpportunitiesResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«CompanyOpportunitiesResponse»\"},\"Flux«CompanyResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«CompanyResponse»\"},\"Flux«Company»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«Company»\"},\"Flux«IdResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«IdResponse»\"},\"Flux«ProviderResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«ProviderResponse»\"},\"IdResponse\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"title\":\"IdResponse\"},\"Mono«CompanyUserExtResponse»\":{\"type\":\"object\",\"title\":\"Mono«CompanyUserExtResponse»\"},\"Mono«Company»\":{\"type\":\"object\",\"title\":\"Mono«Company»\"},\"Mono«DeleteResponse»\":{\"type\":\"object\",\"title\":\"Mono«DeleteResponse»\"},\"Mono«PageCountResponse»\":{\"type\":\"object\",\"title\":\"Mono«PageCountResponse»\"},\"Mono«PageSupport«Company»»\":{\"type\":\"object\",\"title\":\"Mono«PageSupport«Company»»\"},\"Mono«ResponseEntity«Company»»\":{\"type\":\"object\",\"title\":\"Mono«ResponseEntity«Company»»\"},\"OpportunityResponse\":{\"type\":\"object\",\"properties\":{\"businessLine\":{\"type\":\"string\"},\"createDate\":{\"type\":\"string\"},\"currency\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"estimatedFinishDate\":{\"type\":\"string\"},\"finishDate\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"internalOpportunityId\":{\"type\":\"string\"},\"numberDocument\":{\"type\":\"string\"},\"opportunityId\":{\"type\":\"string\"},\"opportunityName\":{\"type\":\"string\"},\"stage\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"subSegment\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"title\":\"OpportunityResponse\"},\"PageCountResponse\":{\"type\":\"object\",\"properties\":{\"totalElements\":{\"type\":\"integer\",\"format\":\"int64\"},\"totalPages\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"PageCountResponse\"},\"PageSupport«Company»\":{\"type\":\"object\",\"properties\":{\"content\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/Company\"}},\"first\":{\"type\":\"boolean\"},\"last\":{\"type\":\"boolean\"},\"pageNumber\":{\"type\":\"integer\",\"format\":\"int32\"},\"pageSize\":{\"type\":\"integer\",\"format\":\"int32\"},\"totalElements\":{\"type\":\"integer\",\"format\":\"int64\"},\"totalPages\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"PageSupport«Company»\"},\"PortfolioResponse\":{\"type\":\"object\",\"properties\":{\"company\":{\"$ref\":\"#/definitions/CompanyResponse\"},\"role\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/RoleResponse\"}}},\"title\":\"PortfolioResponse\"},\"ProviderResponse\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"providerId\":{\"type\":\"string\"}},\"title\":\"ProviderResponse\"},\"RoleResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"subRoles\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/SubRoleResponse\"}},\"type\":{\"type\":\"string\"}},\"title\":\"RoleResponse\"},\"Sector\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"subSectors\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/Sector\"}}},\"title\":\"Sector\"},\"SectorRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"subSectors\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/SectorRequest\"}}},\"title\":\"SectorRequest\"},\"SubRoleResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"SubRoleResponse\"},\"TypeClient\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"subTypes\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/TypeClient\"}}},\"title\":\"TypeClient\"},\"TypeClientRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"subTypes\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/TypeClientRequest\"}}},\"title\":\"TypeClientRequest\"},\"TypeDocument\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"TypeDocument\"},\"TypeDocumentRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"TypeDocumentRequest\"},\"TypeModel\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"TypeModel\"},\"TypeRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"TypeRequest\"},\"Ubigeo\":{\"type\":\"object\",\"properties\":{\"department\":{\"$ref\":\"#/definitions/TypeModel\"},\"district\":{\"$ref\":\"#/definitions/TypeModel\"},\"province\":{\"$ref\":\"#/definitions/TypeModel\"}},\"title\":\"Ubigeo\"},\"UbigeoRequest\":{\"type\":\"object\",\"properties\":{\"department\":{\"$ref\":\"#/definitions/TypeRequest\"},\"district\":{\"$ref\":\"#/definitions/TypeRequest\"},\"province\":{\"$ref\":\"#/definitions/TypeRequest\"}},\"title\":\"UbigeoRequest\"},\"CodeCompanyRequestArray\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/CodeCompanyRequest\"}}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/deleteCompanyUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "deleteCompany",
+        "method": "PUT",
+        "urlTemplate": "/company/delete",
+        "templateParameters": [],
+        "description": "deleteCompany",
+        "request": {
+          "description": "codeCompanyRequestList",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f03cf24d4ce8410401932b0",
+              "typeName": "CodeCompanyRequestArray"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«DeleteResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/deleteCompanyUsingPUT/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'deleteCompanyUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/filterCompanyUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "filterCompany",
+        "method": "GET",
+        "urlTemplate": "/company/filter",
+        "templateParameters": [],
+        "description": "filterCompany",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "groupId",
+              "description": "groupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "salesGroupId",
+              "description": "salesGroupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "subTypeClient",
+              "description": "subTypeClient",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeClient",
+              "description": "typeClient",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Flux«Company»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/filterCompanyUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'filterCompanyUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/filterCompanyCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "filterCompanyCount",
+        "method": "GET",
+        "urlTemplate": "/company/filter-count",
+        "templateParameters": [],
+        "description": "filterCompanyCount",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "groupId",
+              "description": "groupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "salesGroupId",
+              "description": "salesGroupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "subTypeClient",
+              "description": "subTypeClient",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeClient",
+              "description": "typeClient",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«PageCountResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/filterCompanyCountUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'filterCompanyCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/filterCompanyOpportunitiesCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "Filtra las empresas y devuelve la cantidad de registros",
+        "method": "GET",
+        "urlTemplate": "/company/filter-company-opportunities-count",
+        "templateParameters": [],
+        "description": "Filtra las empresas y devuelve la cantidad de registros",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "groupId",
+              "description": "groupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "salesGroupId",
+              "description": "salesGroupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "sector",
+              "description": "sector",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "subTypeClient",
+              "description": "subTypeClient",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeClient",
+              "description": "typeClient",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Se obtuvo la cantidad de empresas de forma correcta.",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "PageCountResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/filterCompanyOpportunitiesCountUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'filterCompanyOpportunitiesCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/filterCompanyOpportunitiesUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "Filtra y devuelve las empresas",
+        "method": "GET",
+        "urlTemplate": "/company/filter-company-opportunities",
+        "templateParameters": [],
+        "description": "Filtra y devuelve las empresas",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "groupId",
+              "description": "groupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "salesGroupId",
+              "description": "salesGroupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "sector",
+              "description": "sector",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "subTypeClient",
+              "description": "subTypeClient",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeClient",
+              "description": "typeClient",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Se obtuvo el listado de empresas de forma correcta.",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "CompanyOpportunitiesResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/filterCompanyOpportunitiesUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'filterCompanyOpportunitiesUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findByGroupAttentionUserUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "findByGroupAttentionUser",
+        "method": "GET",
+        "urlTemplate": "/company/attention?idAttention={idAttention}",
+        "templateParameters": [
+          {
+            "name": "idAttention",
+            "description": "idAttention",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "findByGroupAttentionUser",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«PageSupport«Company»»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findByGroupAttentionUserUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'findByGroupAttentionUserUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findByPageUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "findByPage",
+        "method": "GET",
+        "urlTemplate": "/company/page",
+        "templateParameters": [],
+        "description": "findByPage",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«PageSupport«Company»»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findByPageUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'findByPageUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findCompanyUserExternalUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "findCompanyUserExternal",
+        "method": "GET",
+        "urlTemplate": "/company/find-company/user-external/{code}",
+        "templateParameters": [
+          {
+            "name": "code",
+            "description": "code",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "findCompanyUserExternal",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«CompanyUserExtResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findCompanyUserExternalUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'findCompanyUserExternalUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getComboForFilterUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "getComboForFilter",
+        "method": "GET",
+        "urlTemplate": "/company/filter-combo?typeCombo={typeCombo}",
+        "templateParameters": [
+          {
+            "name": "typeCombo",
+            "description": "typeCombo",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getComboForFilter",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "groupId",
+              "description": "groupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "subTypeClient",
+              "description": "subTypeClient",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeClient",
+              "description": "typeClient",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Flux"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getComboForFilterUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'getComboForFilterUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getCompanyByCodeOrLegalNameUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "getCompanyByCodeOrLegalName",
+        "method": "GET",
+        "urlTemplate": "/company/find?request={request}",
+        "templateParameters": [
+          {
+            "name": "request",
+            "description": "request",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getCompanyByCodeOrLegalName",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Flux«CompanyResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getCompanyByCodeOrLegalNameUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'getCompanyByCodeOrLegalNameUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getCompanyDummyUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "getCompanyDummy",
+        "method": "GET",
+        "urlTemplate": "/company/find/dummy/{code}",
+        "templateParameters": [
+          {
+            "name": "code",
+            "description": "code",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getCompanyDummy",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«ResponseEntity«Company»»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getCompanyDummyUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'getCompanyDummyUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getContactByCodeUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "getContactByCode",
+        "method": "GET",
+        "urlTemplate": "/company/find/{code}",
+        "templateParameters": [
+          {
+            "name": "code",
+            "description": "code",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getContactByCode",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«ResponseEntity«Company»»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getContactByCodeUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'getContactByCodeUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getContactByIdUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "getContactById",
+        "method": "GET",
+        "urlTemplate": "/company/find/id/{id}",
+        "templateParameters": [
+          {
+            "name": "id",
+            "description": "id",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getContactById",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«ResponseEntity«Company»»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getContactByIdUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'getContactByIdUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findByGroupAttentionSaleUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "Lista los ids de empresa por grupo de atención de ventas",
+        "method": "GET",
+        "urlTemplate": "/company/sale/attention-sale?idAttention={idAttention}",
+        "templateParameters": [
+          {
+            "name": "idAttention",
+            "description": "idAttention",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Lista los ids de empresa por grupo de atención de ventas",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Flux«IdResponse»"
+              },
+              {
+                "contentType": "text/event-stream",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Flux«IdResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "text/event-stream"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "text/event-stream"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "text/event-stream"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findByGroupAttentionSaleUsingGET/company-for-sale-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'findByGroupAttentionSaleUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-for-sale-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findAllUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "Lista todas las empresas activas",
+        "method": "GET",
+        "urlTemplate": "/company",
+        "templateParameters": [],
+        "description": "Lista todas las empresas activas",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/stream+json",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Company"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findAllUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'findAllUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getAllByAttentionGroupSaleIdUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "Lista todas las empresas por el id del grupo de atention de venta",
+        "method": "GET",
+        "urlTemplate": "/company/sale/getAllByAttentionGroupSaleId?id={id}",
+        "templateParameters": [
+          {
+            "name": "id",
+            "description": "id",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Lista todas las empresas por el id del grupo de atention de venta",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/stream+json",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Company"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/getAllByAttentionGroupSaleIdUsingGET/company-for-sale-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'getAllByAttentionGroupSaleIdUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-for-sale-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findAllByProviderUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "Lista todas los proveedores",
+        "method": "GET",
+        "urlTemplate": "/company/getProvider?providerStatus={providerStatus}",
+        "templateParameters": [
+          {
+            "name": "providerStatus",
+            "description": "providerStatus",
+            "type": "boolean",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Lista todas los proveedores",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "ProviderResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/findAllByProviderUsingGET/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'findAllByProviderUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/saveUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "save",
+        "method": "POST",
+        "urlTemplate": "/company/",
+        "templateParameters": [],
+        "description": "save",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f03cf24d4ce8410401932b0",
+              "typeName": "CompanyRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«Company»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/saveUsingPOST/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'saveUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/updateUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'company-api', '5f03cf24d4ce8410401932b0')]"
+      ],
+      "properties": {
+        "displayName": "update",
+        "method": "PUT",
+        "urlTemplate": "/company/update",
+        "templateParameters": [],
+        "description": "update",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f03cf24d4ce8410401932b0",
+              "typeName": "CompanyRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f03cf24d4ce8410401932b0",
+                "typeName": "Mono«Company»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/updateUsingPUT/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'company-api', 'updateUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/company-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'company-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'company-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}

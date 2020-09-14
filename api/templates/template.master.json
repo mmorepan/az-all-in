@@ -55,7 +55,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/contact-api-tags.template.json')]",
+          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/company-api-tags.template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -80,7 +80,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/contact-api-api.template.json')]",
+          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/company-api-api.template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
