@@ -1,0 +1,535 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Rol Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/role",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/permission-role/": {
+      "get": {
+        "description": "Lista",
+        "operationId": "listPermissionRoleUsingGET",
+        "summary": "Lista los perfiles",
+        "tags": [
+          "permission-role-controller"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PermissionRole"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/permission-role/code/{codePermission}": {
+      "get": {
+        "description": "Lista",
+        "operationId": "listPermissionRoleUsingGET_1",
+        "summary": "Busca Permisos por codigo",
+        "tags": [
+          "permission-role-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codePermission",
+            "in": "path",
+            "description": "codePermission",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PermissionRole"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/permission-role/save": {
+      "post": {
+        "description": "Guarda perfiles",
+        "operationId": "savePermissionRoleUsingPOST",
+        "summary": "Guarda los perfiles y los valida por codigo existente",
+        "tags": [
+          "permission-role-controller"
+        ],
+        "parameters": [
+          {
+            "name": "permissionRole",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/PermissionRole"
+            },
+            "description": "permissionRole"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PermissionSaveResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/role/": {
+      "get": {
+        "description": "getAllRoles",
+        "operationId": "getAllRolesUsingGET",
+        "summary": "getAllRoles",
+        "tags": [
+          "role-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Role»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/role/findByCode": {
+      "get": {
+        "description": "Obtiene rol por code",
+        "operationId": "findByCodeUsingGET",
+        "summary": "Obtiene rol por code",
+        "tags": [
+          "role-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/role/update": {
+      "put": {
+        "description": "update",
+        "operationId": "updateUsingPUT",
+        "summary": "update",
+        "tags": [
+          "role-controller"
+        ],
+        "parameters": [
+          {
+            "name": "role",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«Role»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/subrole/in": {
+      "get": {
+        "description": "getSubRole",
+        "operationId": "getSubRoleUsingGET",
+        "summary": "getSubRole",
+        "tags": [
+          "sub-role-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RoleArray"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/subrole/{roleCode}": {
+      "get": {
+        "description": "getSubRole",
+        "operationId": "getSubRoleUsingGET_1",
+        "summary": "getSubRole",
+        "tags": [
+          "sub-role-controller"
+        ],
+        "parameters": [
+          {
+            "name": "roleCode",
+            "in": "path",
+            "description": "roleCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«Role»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Action": {
+      "type": "object",
+      "properties": {
+        "can": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Action"
+    },
+    "Flux«PermissionRole»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«PermissionRole»"
+    },
+    "Flux«Role»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Role»"
+    },
+    "Mono«PermissionRole»": {
+      "type": "object",
+      "title": "Mono«PermissionRole»"
+    },
+    "Mono«PermissionSaveResponse»": {
+      "type": "object",
+      "title": "Mono«PermissionSaveResponse»"
+    },
+    "Mono«Role»": {
+      "type": "object",
+      "title": "Mono«Role»"
+    },
+    "Option": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Option"
+    },
+    "Permission": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Action"
+          }
+        },
+        "can": {
+          "type": "boolean"
+        },
+        "module": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Permission"
+    },
+    "PermissionRole": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Permission"
+          }
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "PermissionRole"
+    },
+    "PermissionSaveResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "PermissionSaveResponse"
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRole"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "Role"
+    },
+    "SubRole": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Option"
+          }
+        }
+      },
+      "title": "SubRole"
+    },
+    "RoleArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Role"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "permission-role-controller",
+      "description": "Permission Role Controller"
+    },
+    {
+      "name": "role-controller",
+      "description": "Role Controller"
+    },
+    {
+      "name": "sub-role-controller",
+      "description": "Sub Role Controller"
+    }
+  ]
+}
