@@ -1,0 +1,5558 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/user",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/authorization/findByCompanyCodeOrKeyWord": {
+      "post": {
+        "description": "getUser",
+        "operationId": "getUserUsingPOST",
+        "summary": "getUser",
+        "tags": [
+          "contact-authorized-controller"
+        ],
+        "parameters": [
+          {
+            "name": "identificationRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/IdentificationRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ContactAuthorizedResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/authorizedCommercial/getAuthorizedRepresentative": {
+      "get": {
+        "description": "Lista los contactos comerciales de la empresa c/s filtro de representantes autorizados",
+        "operationId": "getAllCommercialContactUsingGET",
+        "summary": "Lista los representantes autorizados y a la vez contacto comercial de le empresa",
+        "tags": [
+          "commercial-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommercialContactResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/authorizedCommercial/totalAuthorized/{companyId}": {
+      "get": {
+        "description": "Obtiene la cantidad de representantes autorizadoos y a la vez contacto comerciale de la empresa y cantidad de pagina",
+        "operationId": "getTotalCommercialUsingGET",
+        "summary": "Obtiene la cantidad de representantes autorizadoos y a la vez contacto comerciale de la empresa y cantidad de paginas",
+        "tags": [
+          "commercial-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int64. size",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageCountResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/file/updateStatusCertification": {
+      "put": {
+        "description": "save",
+        "operationId": "saveUsingPUT",
+        "summary": "save",
+        "tags": [
+          "file-controller"
+        ],
+        "parameters": [
+          {
+            "name": "updateStatusRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateStatusRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«User»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "description": "Lista todos los usuarios",
+        "operationId": "getAllContactsUsingGET",
+        "summary": "Lista todos los usuarios",
+        "tags": [
+          "user-controller"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/": {
+      "post": {
+        "description": "Almacena usuario",
+        "operationId": "saveUsingPOST",
+        "summary": "Almacena usuario",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "userRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/attention-group/associate": {
+      "put": {
+        "description": "Actualiza usuario",
+        "operationId": "associateUsingPUT",
+        "summary": "Asocia un grupo de atención a muchos usuarios",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "attentionGroupRequestTest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AttentionGroupRequestTest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/attention-group/attention-groups": {
+      "get": {
+        "description": "lista grupos de atencion pertenecientes al usuario",
+        "operationId": "findAttentionGroupForUserUsingGET",
+        "summary": "lista los grupos de atencion que pertenecen a un usuario",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "query",
+            "description": "idUser",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/attention-group/disassociate": {
+      "put": {
+        "description": "Actualiza usuario",
+        "operationId": "disassociateUsingPUT",
+        "summary": "DesAsocia un grupo de atención a muchos usuarios",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "attentionGroupDisassociateRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AttentionGroupDisassociateRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/changePassword": {
+      "put": {
+        "description": "Permite actualizar la clave",
+        "operationId": "changePasswordUsingPUT",
+        "summary": "Permite actualizar la clave",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "changeRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ChangeRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/KeyWord"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/confirmed-password": {
+      "post": {
+        "description": "Confirma contraseña",
+        "operationId": "confirmedPasswordUsingPOST",
+        "summary": "Confirmar contraseña para las acciones de los casos",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "confirmedRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ConfirmedRequest"
+            },
+            "description": "confirmedRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserConfirmed-passwordPost200-Response"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "put": {
+        "description": "ermite realizar una eliminación lógica por usuarios",
+        "operationId": "deleteUserUsingPUT",
+        "summary": "Permite realizar una eliminación lógica por usuarios",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codeUserRequestArray",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CodeUserRequestArray"
+            },
+            "description": "codeUserRequestList"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/delete/{companyCode}": {
+      "put": {
+        "description": "ermite realizar una eliminación lógica por usuarios y desasignar la empresa asociada",
+        "operationId": "deleteUserByCompanyUsingPUT",
+        "summary": "Permite realizar una eliminación lógica por usuarios y desasignar la empresa asociada",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "path",
+            "description": "companyCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "codeUserRequestArray",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CodeUserRequestArray"
+            },
+            "description": "codeUserRequestList"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/deleteUser": {
+      "put": {
+        "description": "Elimina (status false) usuarios internos",
+        "operationId": "updateStatusUsingPUT",
+        "summary": "Elimina (status false) usuarios internos",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/detail-contact": {
+      "get": {
+        "description": "get detail",
+        "operationId": "getDetailByCodeContactUsingGET",
+        "summary": "obtiene el detalle del cotacto con o sin portafolio",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "contactCode",
+            "in": "query",
+            "description": "contactCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DetailContactResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/external/login": {
+      "post": {
+        "description": "Login para usuarios externos",
+        "operationId": "externalLoginUsingPOST",
+        "summary": "Login para usuarios externos",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Request"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find": {
+      "get": {
+        "description": "Lista usuarios por sub rol",
+        "operationId": "getUserBySubRoleCodeUsingGET",
+        "summary": "Lista usuarios por sub rol",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "subRoleCode",
+            "in": "query",
+            "description": "subRoleCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find-ra/{codeUser}": {
+      "get": {
+        "description": "Busca el usuario por id y por el rol COMERCIAL",
+        "operationId": "findAuthorizedByCodeUsingGET",
+        "summary": "Busca el usuario por id y por el rol COMERCIAL",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codeUser",
+            "in": "path",
+            "description": "codeUser",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "codeRol",
+            "in": "query",
+            "description": "codeRol",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find/attentionGroup": {
+      "get": {
+        "description": "Lista usuarios por grupo de atención",
+        "operationId": "getByAttentionGroupUsingGET_1",
+        "summary": "Lista usuarios por grupo de atención",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idAttentionGroup",
+            "in": "query",
+            "description": "idAttentionGroup",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idUser",
+            "in": "query",
+            "description": "idUser",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find/attentionGroup/{id}": {
+      "get": {
+        "description": "Lista usuarios por grupo de atención",
+        "operationId": "getByAttentionGroupUsingGET",
+        "summary": "Lista usuarios por grupo de atención",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find/basic/{id}": {
+      "get": {
+        "description": "Busca el usuario activo por id usuario",
+        "operationId": "findBasicByUserIdUsingGET",
+        "summary": "Busca el usuario activo por id usuario",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«UserInfo»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find/company-rol": {
+      "get": {
+        "description": "Busca todos los usuarios con rol CANAL_ONLINE",
+        "operationId": "findAllByRoleCanalOnlineUsingGET",
+        "summary": "Busca todos los usuarios con rol CANAL_ONLINE",
+        "tags": [
+          "user-controller"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«User»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find/username/{username}": {
+      "get": {
+        "description": "Busca el usuario activo por username",
+        "operationId": "findByUserUsernameUsingGET",
+        "summary": "Busca el usuario activo por username",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«User»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find/{id}": {
+      "get": {
+        "description": "Busca el usuario activo por id usuario",
+        "operationId": "findByUserIdUsingGET",
+        "summary": "Busca el usuario activo por id usuario",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«User»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/findAuthorized": {
+      "get": {
+        "description": "Lista todos los autorizados por empresa",
+        "operationId": "getAuthorizedRepresentativeUsingGET",
+        "summary": "Lista todos los autorizados por empresa",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codeCompany",
+            "in": "query",
+            "description": "codeCompany",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/generatorPassword": {
+      "put": {
+        "description": "Genera el password",
+        "operationId": "passwordGeneratorUsingPUT",
+        "summary": "Genera el password",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "query",
+            "description": "deviceId",
+            "type": "string"
+          },
+          {
+            "name": "imei",
+            "in": "query",
+            "description": "imei",
+            "type": "string"
+          },
+          {
+            "name": "typeDevice",
+            "in": "query",
+            "description": "typeDevice",
+            "type": "string",
+            "default": "WEB"
+          },
+          {
+            "name": "uniquePasswordRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UniquePasswordRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getAuthorizedRepresentative": {
+      "get": {
+        "description": "Lista los representantes autorizados de una empresa",
+        "operationId": "getAuthorizedRepresentativeUsingGET_1",
+        "summary": "Lista los representantes autorizados de una empresa",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "query",
+            "description": "companyCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AuthorizedResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getDetailAuthorizedRepresentative": {
+      "get": {
+        "description": "Obtiene el detalle de un representante autorizado",
+        "operationId": "getAuthorizedDetailResponseUsingGET",
+        "summary": "Obtiene el detalle de un representante autorizado",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "query",
+            "description": "userName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AuthorizedDetailResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getPermission": {
+      "get": {
+        "description": "get permisions",
+        "operationId": "getPermissionByIdUserUsingGET",
+        "summary": "obtiene los permisos por modulo y codigo de accion",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codeAction",
+            "in": "query",
+            "description": "codeAction",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "module",
+            "in": "query",
+            "description": "module",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AuthorizedDetailResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find-filter": {
+      "get": {
+        "description": "Obtiene los usuarios paginados",
+        "operationId": "getInternalUserUsingGET",
+        "summary": "Obtiene los usuarios paginados",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "string",
+            "default": "true,false"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getUserByName": {
+      "post": {
+        "description": "Obtiene la palabra clave del usuario",
+        "operationId": "getByUsernameUsingPOST",
+        "summary": "Obtiene la palabra clave del usuario",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "userNameRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserNameRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/KeyWord"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getUserDetail/userId/{userId}/companyId/{companyId}": {
+      "get": {
+        "description": "Solo muestra el portafolio de la empresa",
+        "operationId": "getUserDetailByUserIdUsingGET",
+        "summary": "Obtiene el usuario por userId y companyId",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getUserDetail/{userName}/{companyCode}": {
+      "get": {
+        "description": "Solo muestra el portafolio de la empresa",
+        "operationId": "getUserDetailByUserNameUsingGET",
+        "summary": "Obtiene el usuario por userName y companyCode",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "path",
+            "description": "companyCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "userName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getUserDetailByIds/{contactId}/{companyId}": {
+      "get": {
+        "description": "Obtiene el usuario por contactId y companyId",
+        "operationId": "getUserDetailByIdsUsingGET",
+        "summary": "Obtiene el usuario por contactId y companyId",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "contactId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getUserDetailForValidate/{userName}/{companyCode}": {
+      "get": {
+        "description": "Solo muestra el portafolio de la empresa",
+        "operationId": "getUserDetailForValidateUsingGET",
+        "summary": "Obtiene el usuario por userName y companyCode",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "path",
+            "description": "companyCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "userName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getUserInfo": {
+      "get": {
+        "description": "Obtiene un usuario interno",
+        "operationId": "getUserByProfileUsingGET",
+        "summary": "Obtiene un usuario interno",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/info-attention-group/{attentionGroupId}": {
+      "get": {
+        "description": "Obtiene un usuario interno",
+        "operationId": "getUserInfoByAttentionGroupUsingGET",
+        "summary": "Obtiene un usuario interno",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "attentionGroupId",
+            "in": "path",
+            "description": "attentionGroupId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/page": {
+      "get": {
+        "description": "Lista todos los usuarios páginados por empresa",
+        "operationId": "findByPageUsingGET",
+        "summary": "Lista todos los usuarios páginados por empresa",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codeCompany",
+            "in": "query",
+            "description": "codeCompany",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "put": {
+        "description": "Registro de usuarios internos",
+        "operationId": "registerUserUsingPUT",
+        "summary": "Registro de usuarios internos",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "internalUserRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/InternalUserRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/resetPassword": {
+      "put": {
+        "description": "resetea el password",
+        "operationId": "resetPasswordUsingPUT",
+        "summary": "resetea el password",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "generationEmailRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/GenerationEmailRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "put": {
+        "description": "Actualiza usuario",
+        "operationId": "updateUsingPUT",
+        "summary": "Actualiza usuario",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "userRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/valid-back-office": {
+      "get": {
+        "description": "lista usuario back office por username",
+        "operationId": "findUserByUserNameAndProfileNameUsingGET",
+        "summary": "valida si existe usuario back office",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/rr-aa/filter": {
+      "get": {
+        "description": "get RRAA",
+        "operationId": "filterRepresentativeAuthorizedUsingGET",
+        "summary": "lista y filtra representantes autorizados",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "certificate",
+            "in": "query",
+            "description": "certificate",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "rolCanalOnline",
+            "in": "query",
+            "description": "rolCanalOnline",
+            "type": "string"
+          },
+          {
+            "name": "rolCommercial",
+            "in": "query",
+            "description": "rolCommercial",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DetailContactResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/rr-aa/filter-combo": {
+      "get": {
+        "description": "get RRAA",
+        "operationId": "filterRepresentativeAuthorizedComboUsingGET",
+        "summary": "lista y filtra representantes autorizados",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "typeCombo",
+            "in": "query",
+            "description": "typeCombo",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "certificate",
+            "in": "query",
+            "description": "certificate",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "rolCanalOnline",
+            "in": "query",
+            "description": "rolCanalOnline",
+            "type": "string"
+          },
+          {
+            "name": "rolCommercial",
+            "in": "query",
+            "description": "rolCommercial",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DetailContactResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/rr-aa/filter-count": {
+      "get": {
+        "description": "get RRAA",
+        "operationId": "filterRepresentativeAuthorizedCountUsingGET",
+        "summary": "lista y filtra representantes autorizados",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "certificate",
+            "in": "query",
+            "description": "certificate",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "rolCanalOnline",
+            "in": "query",
+            "description": "rolCanalOnline",
+            "type": "string"
+          },
+          {
+            "name": "rolCommercial",
+            "in": "query",
+            "description": "rolCommercial",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DetailContactResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/rr-aa/report": {
+      "get": {
+        "description": "get RRAA",
+        "operationId": "getRepresentativeAuthorizedComboUsingGET",
+        "summary": "lista todos los representantes autorizados",
+        "tags": [
+          "user-controller"
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserReportResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/find-filter-count": {
+      "get": {
+        "description": "Obtiene los usuarios paginados",
+        "operationId": "getInternalUserCountUsingGET",
+        "summary": "Obtiene los usuarios paginados",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "string",
+            "default": "true,false"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/getUserByUsernameAndCompanyCode/{userName}/{companyCode}": {
+      "get": {
+        "description": "getUserByUsernameAndCompanyCode",
+        "operationId": "getUserByUsernameAndCompanyCodeUsingGET",
+        "summary": "getUserByUsernameAndCompanyCode",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "path",
+            "description": "companyCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "userName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«User»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/valid/rr-aa": {
+      "get": {
+        "description": "valid rr-aa",
+        "operationId": "validUserRepresentativeAuthorizedUsingGET",
+        "summary": "valida representante autorizado",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "documentCompany",
+            "in": "query",
+            "description": "documentCompany",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "personDocument",
+            "in": "query",
+            "description": "personDocument",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "typeDocument",
+            "in": "query",
+            "description": "typeDocument",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ExecId",
+            "in": "header",
+            "description": "UNICA-ExecId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ValidRRAAResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/config": {
+      "put": {
+        "description": "updateConfigExpiration",
+        "operationId": "updateConfigExpirationUsingPUT",
+        "summary": "updateConfigExpiration",
+        "tags": [
+          "user-config-controller"
+        ],
+        "parameters": [
+          {
+            "name": "userConfigRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserConfigRequest"
+            },
+            "description": "userConfigRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«MessageResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "get": {
+        "description": "findAllConfigExpiration",
+        "operationId": "findAllConfigExpirationUsingGET",
+        "summary": "findAllConfigExpiration",
+        "tags": [
+          "user-config-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«UserConfigResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/config/remove-expiration/{username}": {
+      "put": {
+        "description": "removePassExpiration",
+        "operationId": "removePassExpirationUsingPUT",
+        "summary": "removePassExpiration",
+        "tags": [
+          "user-config-controller"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«MessageResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/authorization/valid-contact": {
+      "post": {
+        "description": "validContactAssociateCompany",
+        "operationId": "validContactAssociateCompanyUsingPOST",
+        "summary": "validContactAssociateCompany",
+        "tags": [
+          "contact-authorized-controller"
+        ],
+        "parameters": [
+          {
+            "name": "associatedRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AssociatedRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«PublicDataResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/internal/login": {
+      "post": {
+        "description": "Login para usuarios internos",
+        "operationId": "internalLoginUsingPOST",
+        "summary": "Login para usuarios internos",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Request"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/public-register": {
+      "post": {
+        "description": "Registra, asocia y envia corre",
+        "operationId": "publicLoginUsingPOST",
+        "summary": "registra usuario publico",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "publicUserRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/PublicUserRequest"
+            },
+            "description": "publicUser"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PublicUserResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/unblock/{username}": {
+      "put": {
+        "description": "unblock user",
+        "operationId": "getUnblockUsersUsingPUT",
+        "summary": "Desbloquea un usuario por username",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserReportResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/registry/external/step-one": {
+      "post": {
+        "description": "externalUserRegistrationStepOne",
+        "operationId": "externalUserRegistrationStepOneUsingPOST",
+        "summary": "externalUserRegistrationStepOne",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "stepOneRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/StepOneRequest"
+            },
+            "description": "stepOneRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«StepOneResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/registry/external/step-two": {
+      "post": {
+        "description": "externalUserRegistrationStepTwo",
+        "operationId": "externalUserRegistrationStepTwoUsingPOST",
+        "summary": "externalUserRegistrationStepTwo",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "stepTwoRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/StepTwoRequest"
+            },
+            "description": "stepTwoRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«MessageResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/external": {
+      "post": {
+        "description": "saveExternalUser",
+        "operationId": "saveExternaluserUsingPOST",
+        "summary": "saveExternalUser",
+        "tags": [
+          "user-controller"
+        ],
+        "parameters": [
+          {
+            "name": "externalUserRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ExternalUserRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«MessageResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Action": {
+      "type": "object",
+      "properties": {
+        "can": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Action"
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "interior": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "nombreAvenida": {
+          "type": "string"
+        },
+        "nombreUrbanizacion": {
+          "type": "string"
+        },
+        "numeroAvenida": {
+          "type": "string"
+        },
+        "numeroManzana": {
+          "type": "string"
+        },
+        "piso": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "tipoAvenida": {
+          "type": "string"
+        },
+        "tipoManzana": {
+          "type": "string"
+        },
+        "tipoUrbanizacion": {
+          "type": "string"
+        }
+      },
+      "title": "Address"
+    },
+    "AddressEntity": {
+      "type": "object",
+      "properties": {
+        "interior": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "nombreAvenida": {
+          "type": "string"
+        },
+        "nombreUrbanizacion": {
+          "type": "string"
+        },
+        "numeroAvenida": {
+          "type": "string"
+        },
+        "numeroManzana": {
+          "type": "string"
+        },
+        "piso": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "tipoAvenida": {
+          "type": "string"
+        },
+        "tipoManzana": {
+          "type": "string"
+        },
+        "tipoUrbanizacion": {
+          "type": "string"
+        }
+      },
+      "title": "AddressEntity"
+    },
+    "AddressRequest": {
+      "type": "object",
+      "properties": {
+        "interior": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "nombreAvenida": {
+          "type": "string"
+        },
+        "nombreUrbanizacion": {
+          "type": "string"
+        },
+        "numeroAvenida": {
+          "type": "string"
+        },
+        "numeroManzana": {
+          "type": "string"
+        },
+        "piso": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "tipoAvenida": {
+          "type": "string"
+        },
+        "tipoManzana": {
+          "type": "string"
+        },
+        "tipoUrbanizacion": {
+          "type": "string"
+        }
+      },
+      "title": "AddressRequest"
+    },
+    "AssociateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "AssociateResponse"
+    },
+    "AssociatedRequest": {
+      "type": "object",
+      "properties": {
+        "companyCode": {
+          "type": "string"
+        },
+        "userCode": {
+          "type": "string"
+        }
+      },
+      "title": "AssociatedRequest"
+    },
+    "Attention": {
+      "type": "object",
+      "properties": {
+        "attentionGroup": {
+          "$ref": "#/definitions/AttentionGroup"
+        },
+        "role": {
+          "$ref": "#/definitions/Role"
+        }
+      },
+      "title": "Attention"
+    },
+    "AttentionGroup": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionGroup"
+    },
+    "AttentionGroupDisassociateRequest": {
+      "type": "object",
+      "properties": {
+        "idAttentionGroup": {
+          "type": "string"
+        },
+        "idUsers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "AttentionGroupDisassociateRequest"
+    },
+    "AttentionGroupEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionGroupEntity"
+    },
+    "AttentionGroupRequestTest": {
+      "type": "object",
+      "properties": {
+        "idAttentionGroup": {
+          "type": "string"
+        },
+        "userRol": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserRolRequest"
+          }
+        }
+      },
+      "title": "AttentionGroupRequestTest"
+    },
+    "AttentionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleResponse"
+        }
+      },
+      "title": "AttentionGroupResponse"
+    },
+    "AuthorizedDetailResponse": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "birthDateToApp": {
+          "type": "string"
+        },
+        "companyList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contactId": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "expiredDate": {
+          "type": "string"
+        },
+        "extraPhoneNumber": {
+          "type": "string"
+        },
+        "extraTelePhoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "geographicLocation": {
+          "type": "string"
+        },
+        "issueOfDate": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "reniec": {
+          "type": "boolean"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleDetailResponse"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "telephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        }
+      },
+      "title": "AuthorizedDetailResponse"
+    },
+    "AuthorizedRepresentativeResponseList": {
+      "type": "object",
+      "properties": {
+        "detailPassword": {
+          "type": "string"
+        },
+        "highDateFormatted": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "person": {
+          "$ref": "#/definitions/Contact"
+        },
+        "portfolio": {
+          "$ref": "#/definitions/PortfolioResponse"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusLogin": {
+          "type": "boolean"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "AuthorizedRepresentativeResponseList"
+    },
+    "AuthorizedResponse": {
+      "type": "object",
+      "properties": {
+        "commercialRole": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "onlineChannelRole": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      },
+      "title": "AuthorizedResponse"
+    },
+    "ChangeRequest": {
+      "type": "object",
+      "properties": {
+        "confirmationPassword": {
+          "type": "string"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "imei": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "keyWord": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "transactionId": {
+          "type": "string"
+        },
+        "typeDevice": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "ChangeRequest"
+    },
+    "CodeUserRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "CodeUserRequest"
+    },
+    "CommercialCompany": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "type": "string"
+        },
+        "companyCode": {
+          "type": "string"
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "CommercialCompany"
+    },
+    "CommercialContactResponse": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "type": "string"
+        },
+        "contactCode": {
+          "type": "string"
+        },
+        "contactId": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleDetailResponse"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "CommercialContactResponse"
+    },
+    "Company": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "attentionGroup": {
+          "$ref": "#/definitions/AttentionGroup"
+        },
+        "attentionGroupSale": {
+          "$ref": "#/definitions/AttentionGroup"
+        },
+        "code": {
+          "type": "string"
+        },
+        "covid": {
+          "type": "boolean"
+        },
+        "debtFinancing": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "overdueDebt": {
+          "type": "boolean"
+        },
+        "productAvailable": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClient"
+        },
+        "typeDocument": {
+          "$ref": "#/definitions/TypeDocument"
+        },
+        "ubigeo": {
+          "$ref": "#/definitions/Ubigeo"
+        }
+      },
+      "title": "Company"
+    },
+    "CompanyEntity": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/AddressEntity"
+        },
+        "attentionGroupSale": {
+          "$ref": "#/definitions/AttentionGroupEntity"
+        },
+        "code": {
+          "type": "string"
+        },
+        "covid": {
+          "type": "boolean"
+        },
+        "debtFinancing": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "overdueDebt": {
+          "type": "boolean"
+        },
+        "productAvailable": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientEntity"
+        },
+        "typeDocument": {
+          "$ref": "#/definitions/TypeDocumentEntity"
+        },
+        "ubigeo": {
+          "$ref": "#/definitions/UbigeoEntity"
+        }
+      },
+      "title": "CompanyEntity"
+    },
+    "CompanyRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/AddressRequest"
+        },
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "typeDocument": {
+          "$ref": "#/definitions/TypeDocumentRequest"
+        }
+      },
+      "title": "CompanyRequest"
+    },
+    "CompanyResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        }
+      },
+      "title": "CompanyResponse"
+    },
+    "ConfirmedRequest": {
+      "type": "object",
+      "properties": {
+        "idUser": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "ConfirmedRequest"
+    },
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "backOffice": {
+          "type": "boolean"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "commercialCompany": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommercialCompany"
+          }
+        },
+        "companyPartner": {
+          "type": "boolean"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentType"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "reniecValidationDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusReniec": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "telephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "workMail": {
+          "type": "string"
+        },
+        "workPhone": {
+          "type": "string"
+        }
+      },
+      "title": "Contact"
+    },
+    "ContactAuthorizedResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "companyResponse": {
+          "$ref": "#/definitions/CompanyResponse"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "portfolio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PortfolioEntity"
+          }
+        }
+      },
+      "title": "ContactAuthorizedResponse"
+    },
+    "ContactRequest": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "companyPartner": {
+          "type": "boolean"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentType"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "telephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        }
+      },
+      "title": "ContactRequest"
+    },
+    "DataAccessLogin": {
+      "type": "object",
+      "properties": {
+        "countLogin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "dateLogin": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "DataAccessLogin"
+    },
+    "DateTimeRequest": {
+      "type": "object",
+      "properties": {
+        "day": {
+          "type": "string"
+        },
+        "hour": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeLoginRequest"
+          }
+        }
+      },
+      "title": "DateTimeRequest"
+    },
+    "DateTimeResponse": {
+      "type": "object",
+      "properties": {
+        "day": {
+          "type": "string"
+        },
+        "hour": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeLogin"
+          }
+        }
+      },
+      "title": "DateTimeResponse"
+    },
+    "DetailContactResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "company": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Portfolio"
+          }
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentType"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "idContact": {
+          "type": "string"
+        },
+        "idUser": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "DetailContactResponse"
+    },
+    "DocumentType": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "DocumentType"
+    },
+    "DocumentTypeRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "DocumentTypeRequest"
+    },
+    "ExternalCompanyRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "ExternalCompanyRequest"
+    },
+    "ExternalContactRequest": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentTypeRequest"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumberRequest"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "statusReniec": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "telephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumberRequest"
+        }
+      },
+      "title": "ExternalContactRequest"
+    },
+    "ExternalUserRequest": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "$ref": "#/definitions/ExternalCompanyRequest"
+        },
+        "contact": {
+          "$ref": "#/definitions/ExternalContactRequest"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "ExternalUserRequest"
+    },
+    "Flux": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux"
+    },
+    "Flux«AssociateResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«AssociateResponse»"
+    },
+    "Flux«AttentionGroupResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«AttentionGroupResponse»"
+    },
+    "Flux«AuthorizedRepresentativeResponseList»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«AuthorizedRepresentativeResponseList»"
+    },
+    "Flux«CommercialContactResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«CommercialContactResponse»"
+    },
+    "Flux«UserAssociateResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«UserAssociateResponse»"
+    },
+    "Flux«UserConfigResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«UserConfigResponse»"
+    },
+    "Flux«UserReportResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«UserReportResponse»"
+    },
+    "Flux«UserResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«UserResponse»"
+    },
+    "Flux«User»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«User»"
+    },
+    "GenerationEmailRequest": {
+      "type": "object",
+      "properties": {
+        "companyCode": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "usernameUpdate": {
+          "type": "string"
+        }
+      },
+      "title": "GenerationEmailRequest"
+    },
+    "GroupRequest": {
+      "type": "object",
+      "properties": {
+        "attentionGroup": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleRequest"
+        }
+      },
+      "title": "GroupRequest"
+    },
+    "IdentificationRequest": {
+      "type": "object",
+      "properties": {
+        "companyCode": {
+          "type": "string"
+        },
+        "keyWord": {
+          "type": "string"
+        },
+        "userCode": {
+          "type": "string"
+        }
+      },
+      "title": "IdentificationRequest"
+    },
+    "InfoUserAttentionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "leader": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "members": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InfoUserAttentionGroupResponse"
+    },
+    "InternalContactRequest": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentTypeRequest"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumberRequest"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "statusReniec": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "workMail": {
+          "type": "string"
+        },
+        "workPhone": {
+          "type": "string"
+        }
+      },
+      "title": "InternalContactRequest"
+    },
+    "InternalUserRequest": {
+      "type": "object",
+      "properties": {
+        "attention": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GroupRequest"
+          }
+        },
+        "contact": {
+          "$ref": "#/definitions/InternalContactRequest"
+        },
+        "profile": {
+          "$ref": "#/definitions/ProfileRequest"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "InternalUserRequest"
+    },
+    "KeyWord": {
+      "type": "object",
+      "properties": {
+        "keyWord": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "KeyWord"
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Location"
+    },
+    "LocationEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "LocationEntity"
+    },
+    "MessageResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "MessageResponse"
+    },
+    "Mono": {
+      "type": "object",
+      "title": "Mono"
+    },
+    "Mono«AuthorizedDetailResponse»": {
+      "type": "object",
+      "title": "Mono«AuthorizedDetailResponse»"
+    },
+    "Mono«ContactAuthorizedResponse»": {
+      "type": "object",
+      "title": "Mono«ContactAuthorizedResponse»"
+    },
+    "Mono«DetailContactResponse»": {
+      "type": "object",
+      "title": "Mono«DetailContactResponse»"
+    },
+    "Mono«InfoUserAttentionGroupResponse»": {
+      "type": "object",
+      "title": "Mono«InfoUserAttentionGroupResponse»"
+    },
+    "Mono«KeyWord»": {
+      "type": "object",
+      "title": "Mono«KeyWord»"
+    },
+    "Mono«MessageResponse»": {
+      "type": "object",
+      "title": "Mono«MessageResponse»"
+    },
+    "Mono«PageCountResponse»": {
+      "type": "object",
+      "title": "Mono«PageCountResponse»"
+    },
+    "Mono«PageSupport«User»»": {
+      "type": "object",
+      "title": "Mono«PageSupport«User»»"
+    },
+    "Mono«PublicDataResponse»": {
+      "type": "object",
+      "title": "Mono«PublicDataResponse»"
+    },
+    "Mono«PublicUserResponse»": {
+      "type": "object",
+      "title": "Mono«PublicUserResponse»"
+    },
+    "Mono«Response»": {
+      "type": "object",
+      "title": "Mono«Response»"
+    },
+    "Mono«StepOneResponse»": {
+      "type": "object",
+      "title": "Mono«StepOneResponse»"
+    },
+    "Mono«UserInfo»": {
+      "type": "object",
+      "title": "Mono«UserInfo»"
+    },
+    "Mono«User»": {
+      "type": "object",
+      "title": "Mono«User»"
+    },
+    "Mono«ValidRRAAResponse»": {
+      "type": "object",
+      "title": "Mono«ValidRRAAResponse»"
+    },
+    "Mono«boolean»": {
+      "type": "object",
+      "title": "Mono«boolean»"
+    },
+    "PageCountResponse": {
+      "type": "object",
+      "properties": {
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageCountResponse"
+    },
+    "PageSupport«User»": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageSupport«User»"
+    },
+    "Permission": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Action"
+          }
+        },
+        "can": {
+          "type": "boolean"
+        },
+        "module": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Permission"
+    },
+    "PermissionRole": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Permission"
+          }
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "PermissionRole"
+    },
+    "Portfolio": {
+      "type": "object",
+      "properties": {
+        "certificationStatus": {
+          "type": "string"
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Role"
+          }
+        },
+        "statusRRAA": {
+          "type": "boolean"
+        }
+      },
+      "title": "Portfolio"
+    },
+    "PortfolioEntity": {
+      "type": "object",
+      "properties": {
+        "certificationStatus": {
+          "type": "string"
+        },
+        "company": {
+          "$ref": "#/definitions/CompanyEntity"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "disableDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rol": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleEntity"
+          }
+        },
+        "statusRRAA": {
+          "type": "boolean"
+        }
+      },
+      "title": "PortfolioEntity"
+    },
+    "PortfolioReportResponse": {
+      "type": "object",
+      "properties": {
+        "certificationStatus": {
+          "type": "string"
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        },
+        "rol": {
+          "$ref": "#/definitions/RoleReportResponse"
+        }
+      },
+      "title": "PortfolioReportResponse"
+    },
+    "PortfolioResponse": {
+      "type": "object",
+      "properties": {
+        "certificationStatus": {
+          "type": "string"
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        },
+        "createDate": {
+          "type": "string"
+        },
+        "rol": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Role"
+          }
+        },
+        "statusRRAA": {
+          "type": "boolean"
+        }
+      },
+      "title": "PortfolioResponse"
+    },
+    "Profile": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "string"
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        },
+        "createDate": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "profileCode": {
+          "type": "string"
+        },
+        "profileId": {
+          "type": "string"
+        },
+        "subRole": {
+          "$ref": "#/definitions/SubRole"
+        },
+        "timeLogin": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DateTimeResponse"
+          }
+        }
+      },
+      "title": "Profile"
+    },
+    "ProfileRequest": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "profileCode": {
+          "type": "string"
+        },
+        "profileId": {
+          "type": "string"
+        },
+        "providerId": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRoleRequest"
+          }
+        },
+        "timeLogin": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DateTimeRequest"
+          }
+        }
+      },
+      "title": "ProfileRequest"
+    },
+    "PublicCompanyResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        }
+      },
+      "title": "PublicCompanyResponse"
+    },
+    "PublicContactRequest": {
+      "type": "object",
+      "properties": {
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentType"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "PublicContactRequest"
+    },
+    "PublicContactResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "PublicContactResponse"
+    },
+    "PublicDataResponse": {
+      "type": "object",
+      "properties": {
+        "associated": {
+          "type": "boolean"
+        },
+        "certificationStatus": {
+          "type": "string"
+        },
+        "company": {
+          "$ref": "#/definitions/PublicCompanyResponse"
+        },
+        "contact": {
+          "$ref": "#/definitions/PublicContactResponse"
+        },
+        "statusPass": {
+          "type": "boolean"
+        }
+      },
+      "title": "PublicDataResponse"
+    },
+    "PublicUserRequest": {
+      "type": "object",
+      "properties": {
+        "contactRequest": {
+          "$ref": "#/definitions/PublicContactRequest"
+        },
+        "numberDocumentCompany": {
+          "type": "string"
+        },
+        "typeDocumentCompany": {
+          "type": "string"
+        }
+      },
+      "title": "PublicUserRequest"
+    },
+    "PublicUserResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "idUser": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "PublicUserResponse"
+    },
+    "Request": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string"
+        },
+        "imei": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "transactionId": {
+          "type": "string"
+        },
+        "typeDevice": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "Request"
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "Response"
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRole"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "Role"
+    },
+    "RoleDetailResponse": {
+      "type": "object",
+      "properties": {
+        "commercialRole": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "onlineChannelRole": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "RoleDetailResponse"
+    },
+    "RoleEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRoleEntity"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "RoleEntity"
+    },
+    "RoleReportResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subRoles": {
+          "$ref": "#/definitions/SubRoleResponse"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "RoleReportResponse"
+    },
+    "RoleRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "roleId": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRoleRequest"
+          }
+        }
+      },
+      "title": "RoleRequest"
+    },
+    "RoleResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRoleResponse"
+          }
+        }
+      },
+      "title": "RoleResponse"
+    },
+    "StepOneCompanyResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        }
+      },
+      "title": "StepOneCompanyResp"
+    },
+    "StepOneContactResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "StepOneContactResp"
+    },
+    "StepOneRequest": {
+      "type": "object",
+      "properties": {
+        "companyCode": {
+          "type": "string"
+        },
+        "userCode": {
+          "type": "string"
+        }
+      },
+      "title": "StepOneRequest"
+    },
+    "StepOneResponse": {
+      "type": "object",
+      "properties": {
+        "associated": {
+          "type": "boolean"
+        },
+        "certificate": {
+          "type": "boolean"
+        },
+        "company": {
+          "$ref": "#/definitions/StepOneCompanyResp"
+        },
+        "contact": {
+          "$ref": "#/definitions/StepOneContactResp"
+        },
+        "pass": {
+          "type": "boolean"
+        },
+        "rolCommercial": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rolOnline": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "StepOneResponse"
+    },
+    "StepTwoContactReq": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "StepTwoContactReq"
+    },
+    "StepTwoRequest": {
+      "type": "object",
+      "properties": {
+        "associated": {
+          "type": "boolean"
+        },
+        "certificate": {
+          "type": "boolean"
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "contact": {
+          "$ref": "#/definitions/StepTwoContactReq"
+        },
+        "rolCommercial": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rolOnline": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "StepTwoRequest"
+    },
+    "SubRole": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubRole"
+    },
+    "SubRoleEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubRoleEntity"
+    },
+    "SubRoleRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubRoleRequest"
+    },
+    "SubRoleResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubRoleResponse"
+    },
+    "TelephoneNumber": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string"
+        }
+      },
+      "title": "TelephoneNumber"
+    },
+    "TelephoneNumberRequest": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string"
+        }
+      },
+      "title": "TelephoneNumberRequest"
+    },
+    "TimeLogin": {
+      "type": "object",
+      "properties": {
+        "endTimeLogin": {
+          "type": "string"
+        },
+        "startTimeLogin": {
+          "type": "string"
+        },
+        "turn": {
+          "type": "string"
+        }
+      },
+      "title": "TimeLogin"
+    },
+    "TimeLoginRequest": {
+      "type": "object",
+      "properties": {
+        "endTimeLogin": {
+          "type": "string"
+        },
+        "startTimeLogin": {
+          "type": "string"
+        },
+        "turn": {
+          "type": "string"
+        }
+      },
+      "title": "TimeLoginRequest"
+    },
+    "TypeClient": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeClient"
+    },
+    "TypeClientEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeClientEntity"
+    },
+    "TypeDocument": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeDocument"
+    },
+    "TypeDocumentEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeDocumentEntity"
+    },
+    "TypeDocumentRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeDocumentRequest"
+    },
+    "Ubigeo": {
+      "type": "object",
+      "properties": {
+        "department": {
+          "$ref": "#/definitions/Location"
+        },
+        "district": {
+          "$ref": "#/definitions/Location"
+        },
+        "province": {
+          "$ref": "#/definitions/Location"
+        }
+      },
+      "title": "Ubigeo"
+    },
+    "UbigeoEntity": {
+      "type": "object",
+      "properties": {
+        "department": {
+          "$ref": "#/definitions/LocationEntity"
+        },
+        "district": {
+          "$ref": "#/definitions/LocationEntity"
+        },
+        "province": {
+          "$ref": "#/definitions/LocationEntity"
+        }
+      },
+      "title": "UbigeoEntity"
+    },
+    "UniquePasswordRequest": {
+      "type": "object",
+      "properties": {
+        "companyCode": {
+          "type": "string"
+        },
+        "contactCode": {
+          "type": "string"
+        },
+        "keyWord": {
+          "type": "string"
+        },
+        "otherPassword": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "UniquePasswordRequest"
+    },
+    "UpdateStatusRequest": {
+      "type": "object",
+      "properties": {
+        "companyCode": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "userCode": {
+          "type": "string"
+        },
+        "userCodeUpdate": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateStatusRequest"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "attention": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attention"
+          }
+        },
+        "contact": {
+          "$ref": "#/definitions/Contact"
+        },
+        "detailLoginApp": {
+          "$ref": "#/definitions/DataAccessLogin"
+        },
+        "detailLoginWeb": {
+          "$ref": "#/definitions/DataAccessLogin"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "keyWord": {
+          "type": "string"
+        },
+        "permission": {
+          "$ref": "#/definitions/PermissionRole"
+        },
+        "portfolio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Portfolio"
+          }
+        },
+        "profile": {
+          "$ref": "#/definitions/Profile"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusInternal": {
+          "type": "boolean"
+        },
+        "statusValidation": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "User"
+    },
+    "UserAssociateResponse": {
+      "type": "object",
+      "properties": {
+        "attention": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attention"
+          }
+        },
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "UserAssociateResponse"
+    },
+    "UserConfigRequest": {
+      "type": "object",
+      "properties": {
+        "optionHard": {
+          "type": "boolean"
+        },
+        "typeUser": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "UserConfigRequest"
+    },
+    "UserConfigResponse": {
+      "type": "object",
+      "properties": {
+        "typeUser": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "UserConfigResponse"
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "attention": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attention"
+          }
+        },
+        "contact": {
+          "$ref": "#/definitions/Contact"
+        },
+        "id": {
+          "type": "string"
+        },
+        "portfolio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Portfolio"
+          }
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "UserInfo"
+    },
+    "UserNameRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "UserNameRequest"
+    },
+    "UserReportResponse": {
+      "type": "object",
+      "properties": {
+        "attention": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attention"
+          }
+        },
+        "contact": {
+          "$ref": "#/definitions/Contact"
+        },
+        "detailLoginApp": {
+          "$ref": "#/definitions/DataAccessLogin"
+        },
+        "detailLoginWeb": {
+          "$ref": "#/definitions/DataAccessLogin"
+        },
+        "highDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string"
+        },
+        "keyWord": {
+          "type": "string"
+        },
+        "permission": {
+          "$ref": "#/definitions/PermissionRole"
+        },
+        "portfolio": {
+          "$ref": "#/definitions/PortfolioReportResponse"
+        },
+        "profile": {
+          "$ref": "#/definitions/Profile"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusValidation": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "UserReportResponse"
+    },
+    "UserRequest": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "$ref": "#/definitions/CompanyRequest"
+        },
+        "contact": {
+          "$ref": "#/definitions/ContactRequest"
+        },
+        "id": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "UserRequest"
+    },
+    "UserResponse": {
+      "type": "object",
+      "properties": {
+        "attentionGroup": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string"
+        },
+        "detailPassword": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "mailTo": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusInternal": {
+          "type": "boolean"
+        },
+        "statusLogin": {
+          "type": "boolean"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "UserResponse"
+    },
+    "UserRolRequest": {
+      "type": "object",
+      "properties": {
+        "idUser": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "title": "UserRolRequest"
+    },
+    "ValidRRAAResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "ValidRRAAResponse"
+    },
+    "UserConfirmed-passwordPost200-Response": {
+      "type": "boolean"
+    },
+    "CodeUserRequestArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CodeUserRequest"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "attention-group-controller",
+      "description": "Attention Group Controller"
+    },
+    {
+      "name": "commercial-controller",
+      "description": "Commercial Controller"
+    },
+    {
+      "name": "contact-authorized-controller",
+      "description": "Contact Authorized Controller"
+    },
+    {
+      "name": "file-controller",
+      "description": "File Controller"
+    },
+    {
+      "name": "user-controller",
+      "description": "User Controller"
+    },
+    {
+      "name": "user-config-controller",
+      "description": "User Config Controller"
+    }
+  ]
+}
