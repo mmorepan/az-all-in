@@ -1,0 +1,2704 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Contact Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": true,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "contact",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/5f24af9fd4ce8413d493b4b0')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"Address\":{\"type\":\"object\",\"properties\":{\"interior\":{\"type\":\"string\"},\"lote\":{\"type\":\"string\"},\"nombreAvenida\":{\"type\":\"string\"},\"nombreUrbanizacion\":{\"type\":\"string\"},\"numeroAvenida\":{\"type\":\"string\"},\"numeroManzana\":{\"type\":\"string\"},\"piso\":{\"type\":\"string\"},\"reference\":{\"type\":\"string\"},\"tipoAvenida\":{\"type\":\"string\"},\"tipoManzana\":{\"type\":\"string\"},\"tipoUrbanizacion\":{\"type\":\"string\"}},\"title\":\"Address\"},\"CodeContactRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"}},\"title\":\"CodeContactRequest\"},\"CommercialCompany\":{\"type\":\"object\",\"properties\":{\"area\":{\"type\":\"string\"},\"companyCode\":{\"type\":\"string\"},\"companyId\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"position\":{\"type\":\"string\"},\"status\":{\"type\":\"boolean\"}},\"title\":\"CommercialCompany\"},\"CommercialCompanyRequest\":{\"type\":\"object\",\"properties\":{\"area\":{\"type\":\"string\"},\"companyCode\":{\"type\":\"string\"},\"companyId\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"position\":{\"type\":\"string\"},\"status\":{\"type\":\"boolean\"}},\"title\":\"CommercialCompanyRequest\"},\"CommercialContactResponse\":{\"type\":\"object\",\"properties\":{\"area\":{\"type\":\"string\"},\"contactCode\":{\"type\":\"string\"},\"contactId\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"fullName\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\"},\"phoneNumber\":{\"type\":\"string\"},\"position\":{\"type\":\"string\"},\"role\":{\"$ref\":\"#/definitions/RoleDetailResponse\"},\"userId\":{\"type\":\"string\"}},\"title\":\"CommercialContactResponse\"},\"Company\":{\"type\":\"object\",\"properties\":{\"address\":{\"$ref\":\"#/definitions/Address\"},\"code\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\",\"format\":\"date\"},\"id\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"numberDocument\":{\"type\":\"string\"},\"status\":{\"type\":\"boolean\"},\"typeDocument\":{\"$ref\":\"#/definitions/TypeDocument\"}},\"title\":\"Company\"},\"CompanyRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"}},\"title\":\"CompanyRequest\"},\"Contact\":{\"type\":\"object\",\"properties\":{\"age\":{\"type\":\"integer\",\"format\":\"int32\"},\"backOffice\":{\"type\":\"boolean\"},\"birthDate\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"},\"codeOfGeo\":{\"type\":\"string\"},\"commercialCompany\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/CommercialCompany\"}},\"companyPartner\":{\"type\":\"boolean\"},\"corporateMail\":{\"type\":\"string\"},\"dateOfIssueDni\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"$ref\":\"#/definitions/DocumentType\"},\"expirationDocumentType\":{\"type\":\"string\"},\"extraMobileNumber\":{\"type\":\"string\"},\"extraTelephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumber\"},\"firstName\":{\"type\":\"string\"},\"forReniec\":{\"type\":\"boolean\"},\"fullName\":{\"type\":\"string\"},\"gender\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"mobileNumber\":{\"type\":\"string\"},\"personalMail\":{\"type\":\"string\"},\"reniecValidationDate\":{\"type\":\"string\",\"format\":\"date\"},\"role\":{\"$ref\":\"#/definitions/RoleDetailResponse\"},\"status\":{\"type\":\"boolean\"},\"statusReniec\":{\"type\":\"boolean\"},\"surName\":{\"type\":\"string\"},\"telephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumber\"},\"workMail\":{\"type\":\"string\"},\"workPhone\":{\"type\":\"string\"}},\"title\":\"Contact\"},\"ContactInfoResponse\":{\"type\":\"object\",\"properties\":{\"authorizedRepresentative\":{\"type\":\"boolean\"},\"contactId\":{\"type\":\"string\"},\"fullName\":{\"type\":\"string\"},\"role\":{\"$ref\":\"#/definitions/RoleDetailResponse\"},\"surNames\":{\"type\":\"string\"},\"userId\":{\"type\":\"string\"}},\"title\":\"ContactInfoResponse\"},\"ContactNumberResponse\":{\"type\":\"object\",\"properties\":{\"firstName\":{\"type\":\"string\"},\"fullName\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"}},\"title\":\"ContactNumberResponse\"},\"ContactRequest\":{\"type\":\"object\",\"properties\":{\"age\":{\"type\":\"integer\",\"format\":\"int32\"},\"backOffice\":{\"type\":\"boolean\"},\"birthDate\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"},\"codeOfGeo\":{\"type\":\"string\"},\"companyCommercial\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/CommercialCompanyRequest\"}},\"companyPartner\":{\"type\":\"boolean\"},\"corporateMail\":{\"type\":\"string\"},\"dateOfIssueDni\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"$ref\":\"#/definitions/DocumentType\"},\"dummy\":{\"type\":\"boolean\"},\"expirationDocumentType\":{\"type\":\"string\"},\"extraMobileNumber\":{\"type\":\"string\"},\"extraTelephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumber\"},\"firstName\":{\"type\":\"string\"},\"fullName\":{\"type\":\"string\"},\"gender\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"mobileNumber\":{\"type\":\"string\"},\"personalMail\":{\"type\":\"string\"},\"status\":{\"type\":\"boolean\"},\"statusReniec\":{\"type\":\"boolean\"},\"surName\":{\"type\":\"string\"},\"telephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumber\"},\"workMail\":{\"type\":\"string\"},\"workPhone\":{\"type\":\"string\"}},\"title\":\"ContactRequest\"},\"ContactUpdateRequest\":{\"type\":\"object\",\"properties\":{\"age\":{\"type\":\"integer\",\"format\":\"int32\"},\"backOffice\":{\"type\":\"boolean\"},\"birthDate\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"},\"codeOfGeo\":{\"type\":\"string\"},\"companyCommercial\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/CommercialCompanyRequest\"}},\"companyPartner\":{\"type\":\"boolean\"},\"contactId\":{\"type\":\"string\"},\"corporateMail\":{\"type\":\"string\"},\"dateOfIssueDni\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"$ref\":\"#/definitions/DocumentType\"},\"expirationDocumentType\":{\"type\":\"string\"},\"extraMobileNumber\":{\"type\":\"string\"},\"extraTelephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumber\"},\"firstName\":{\"type\":\"string\"},\"fullName\":{\"type\":\"string\"},\"gender\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"mobileNumber\":{\"type\":\"string\"},\"personalMail\":{\"type\":\"string\"},\"status\":{\"type\":\"boolean\"},\"statusReniec\":{\"type\":\"boolean\"},\"surName\":{\"type\":\"string\"},\"telephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumber\"},\"workMail\":{\"type\":\"string\"},\"workPhone\":{\"type\":\"string\"}},\"title\":\"ContactUpdateRequest\"},\"ContactUserResponse\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"title\":\"ContactUserResponse\"},\"DeleteResponse\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"DeleteResponse\"},\"DocumentType\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"DocumentType\"},\"DocumentTypeRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"}},\"title\":\"DocumentTypeRequest\"},\"ExternalContactRequest\":{\"type\":\"object\",\"properties\":{\"age\":{\"type\":\"integer\",\"format\":\"int32\"},\"birthDate\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"},\"codeOfGeo\":{\"type\":\"string\"},\"corporateMail\":{\"type\":\"string\"},\"dateOfIssueDni\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"$ref\":\"#/definitions/DocumentTypeRequest\"},\"expirationDocumentType\":{\"type\":\"string\"},\"extraMobileNumber\":{\"type\":\"string\"},\"extraTelephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumberRequest\"},\"firstName\":{\"type\":\"string\"},\"gender\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"mobileNumber\":{\"type\":\"string\"},\"personalMail\":{\"type\":\"string\"},\"statusReniec\":{\"type\":\"boolean\"},\"surName\":{\"type\":\"string\"},\"telephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumberRequest\"}},\"title\":\"ExternalContactRequest\"},\"Flux\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux\"},\"Flux«CommercialContactResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«CommercialContactResponse»\"},\"Flux«ContactInfoResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«ContactInfoResponse»\"},\"Flux«Contact»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«Contact»\"},\"Flux«DeleteResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«DeleteResponse»\"},\"InternalContactRequest\":{\"type\":\"object\",\"properties\":{\"age\":{\"type\":\"integer\",\"format\":\"int32\"},\"birthDate\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"},\"codeOfGeo\":{\"type\":\"string\"},\"dateOfIssueDni\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"$ref\":\"#/definitions/DocumentTypeRequest\"},\"expirationDocumentType\":{\"type\":\"string\"},\"extraMobileNumber\":{\"type\":\"string\"},\"extraTelephoneNumber\":{\"$ref\":\"#/definitions/TelephoneNumberRequest\"},\"firstName\":{\"type\":\"string\"},\"gender\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"personalMail\":{\"type\":\"string\"},\"statusReniec\":{\"type\":\"boolean\"},\"surName\":{\"type\":\"string\"},\"workMail\":{\"type\":\"string\"},\"workPhone\":{\"type\":\"string\"}},\"title\":\"InternalContactRequest\"},\"MessageResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"title\":\"MessageResponse\"},\"Mono«Array«string»»\":{\"type\":\"object\",\"title\":\"Mono«Array«string»»\"},\"Mono«ContactNumberResponse»\":{\"type\":\"object\",\"title\":\"Mono«ContactNumberResponse»\"},\"Mono«ContactUserResponse»\":{\"type\":\"object\",\"title\":\"Mono«ContactUserResponse»\"},\"Mono«Contact»\":{\"type\":\"object\",\"title\":\"Mono«Contact»\"},\"Mono«MessageResponse»\":{\"type\":\"object\",\"title\":\"Mono«MessageResponse»\"},\"Mono«PageCountResponse»\":{\"type\":\"object\",\"title\":\"Mono«PageCountResponse»\"},\"Mono«PageSupport«Contact»»\":{\"type\":\"object\",\"title\":\"Mono«PageSupport«Contact»»\"},\"Mono«RevalidatedContact»\":{\"type\":\"object\",\"title\":\"Mono«RevalidatedContact»\"},\"Mono«User»\":{\"type\":\"object\",\"title\":\"Mono«User»\"},\"Option\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"Option\"},\"PageCountResponse\":{\"type\":\"object\",\"properties\":{\"totalElements\":{\"type\":\"integer\",\"format\":\"int64\"},\"totalPages\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"PageCountResponse\"},\"PageSupport«Contact»\":{\"type\":\"object\",\"properties\":{\"content\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/Contact\"}},\"first\":{\"type\":\"boolean\"},\"last\":{\"type\":\"boolean\"},\"pageNumber\":{\"type\":\"integer\",\"format\":\"int32\"},\"pageSize\":{\"type\":\"integer\",\"format\":\"int32\"},\"totalElements\":{\"type\":\"integer\",\"format\":\"int64\"},\"totalPages\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"PageSupport«Contact»\"},\"Portfolio\":{\"type\":\"object\",\"properties\":{\"certificationStatus\":{\"type\":\"string\"},\"company\":{\"$ref\":\"#/definitions/Company\"},\"createDate\":{\"type\":\"string\",\"format\":\"date-time\"},\"role\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/Role\"}},\"statusRRAA\":{\"type\":\"boolean\"}},\"title\":\"Portfolio\"},\"RevalidatedContact\":{\"type\":\"object\",\"properties\":{\"birthDate\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"},\"codeOfGeo\":{\"type\":\"string\"},\"dateOfIssueDni\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"gender\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"surName\":{\"type\":\"string\"}},\"title\":\"RevalidatedContact\"},\"Role\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"subRoles\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/SubRole\"}},\"type\":{\"type\":\"string\"}},\"title\":\"Role\"},\"RoleDetailResponse\":{\"type\":\"object\",\"properties\":{\"commercialRole\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"onlineChannelRole\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"title\":\"RoleDetailResponse\"},\"StepTwoContactReq\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"corporateMail\":{\"type\":\"string\"},\"extraMobileNumber\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"mobileNumber\":{\"type\":\"string\"},\"personalMail\":{\"type\":\"string\"},\"surName\":{\"type\":\"string\"}},\"title\":\"StepTwoContactReq\"},\"SubRole\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"options\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/Option\"}}},\"title\":\"SubRole\"},\"TelephoneNumber\":{\"type\":\"object\",\"properties\":{\"number\":{\"type\":\"string\"},\"prefix\":{\"type\":\"string\"}},\"title\":\"TelephoneNumber\"},\"TelephoneNumberRequest\":{\"type\":\"object\",\"properties\":{\"number\":{\"type\":\"string\"},\"prefix\":{\"type\":\"string\"}},\"title\":\"TelephoneNumberRequest\"},\"TypeDocument\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"TypeDocument\"},\"User\":{\"type\":\"object\",\"properties\":{\"contact\":{\"$ref\":\"#/definitions/Contact\"},\"highDate\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"keyWord\":{\"type\":\"string\"},\"portfolio\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/Portfolio\"}},\"status\":{\"type\":\"boolean\"},\"statusValidation\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"}},\"title\":\"User\"},\"UserRequest\":{\"type\":\"object\",\"properties\":{\"company\":{\"$ref\":\"#/definitions/CompanyRequest\"},\"contact\":{\"$ref\":\"#/definitions/ContactRequest\"},\"id\":{\"type\":\"string\"},\"role\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"status\":{\"type\":\"boolean\"},\"username\":{\"type\":\"string\"}},\"title\":\"UserRequest\"},\"ContactId\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"CommercialGetByCommercialCompanyIdCompanyIdGet200ApplicationJsonResponse\":{\"type\":\"string\"},\"CodeContactRequestArray\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/CodeContactRequest\"}}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByCodeAndCompanyUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Busca un contacto comercial filtrando por empresa ",
+        "method": "GET",
+        "urlTemplate": "/contact/findCommercialContact/{code}?companyId={companyId}",
+        "templateParameters": [
+          {
+            "name": "code",
+            "description": "code",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "companyId",
+            "description": "companyId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Busca un contacto comercial filtrando por empresa ",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "app",
+              "description": "app",
+              "type": "string",
+              "defaultValue": "WAPPE",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              },
+              {
+                "contentType": "application/stream+json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByCodeAndCompanyUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactByCodeAndCompanyUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByIdUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Busca un contacto por codigo y estado activo ",
+        "method": "GET",
+        "urlTemplate": "/contact/code/{code}",
+        "templateParameters": [
+          {
+            "name": "code",
+            "description": "code",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Busca un contacto por codigo y estado activo ",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              },
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByIdUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactByIdUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByCodeUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Busca un contacto por número de documento, hace la validación en reniec ",
+        "method": "GET",
+        "urlTemplate": "/contact/find/{code}",
+        "templateParameters": [
+          {
+            "name": "code",
+            "description": "code",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Busca un contacto por número de documento, hace la validación en reniec ",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "app",
+              "description": "app",
+              "type": "string",
+              "defaultValue": "WAPPE",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              },
+              {
+                "contentType": "application/stream+json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByCodeUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactByCodeUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/insertContactUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Crea o Actualiza un contacto",
+        "method": "PUT",
+        "urlTemplate": "/contact/createContact",
+        "templateParameters": [],
+        "description": "Crea o Actualiza un contacto",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f24af9fd4ce8413d493b4b0",
+              "typeName": "ContactUpdateRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/insertContactUsingPUT/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'insertContactUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/externalContactUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "externalContact",
+        "method": "PUT",
+        "urlTemplate": "/contact/external",
+        "templateParameters": [],
+        "description": "externalContact",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f24af9fd4ce8413d493b4b0",
+              "typeName": "ExternalContactRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«ContactUserResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/externalContactUsingPUT/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'externalContactUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/externalContactStepTwoUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "externalContactStepTwo",
+        "method": "POST",
+        "urlTemplate": "/contact/registry/external/step-two",
+        "templateParameters": [],
+        "description": "externalContactStepTwo",
+        "request": {
+          "description": "stepTwoContactReq",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f24af9fd4ce8413d493b4b0",
+              "typeName": "StepTwoContactReq"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«MessageResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/externalContactStepTwoUsingPOST/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'externalContactStepTwoUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/findByPageUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "findByPage",
+        "method": "GET",
+        "urlTemplate": "/contact/page",
+        "templateParameters": [],
+        "description": "findByPage",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«PageSupport«Contact»»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/findByPageUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'findByPageUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/findContactByIdUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "findContactById",
+        "method": "GET",
+        "urlTemplate": "/contact/findById/{idContact}",
+        "templateParameters": [
+          {
+            "name": "idContact",
+            "description": "idContact",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "findContactById",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«Contact»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/findContactByIdUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'findContactByIdUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/findFirstContactByNumberUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "findFirstContactByNumber",
+        "method": "GET",
+        "urlTemplate": "/contact/number/{number}",
+        "templateParameters": [
+          {
+            "name": "number",
+            "description": "number",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "findFirstContactByNumber",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«ContactNumberResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/findFirstContactByNumberUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'findFirstContactByNumberUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getAllContactsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "getAllContacts",
+        "method": "GET",
+        "urlTemplate": "/contact",
+        "templateParameters": [],
+        "description": "getAllContacts",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Flux«Contact»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getAllContactsUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getAllContactsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByNumberUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "getContactByNumber",
+        "method": "GET",
+        "urlTemplate": "/contact/find/number-mail?query={query}",
+        "templateParameters": [
+          {
+            "name": "query",
+            "description": "query",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getContactByNumber",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyCode",
+              "description": "companyCode",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Flux"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByNumberUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactByNumberUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactDetailUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "getContactDetail",
+        "method": "GET",
+        "urlTemplate": "/contact/getContactDetail/{userName}/{companyCode}",
+        "templateParameters": [
+          {
+            "name": "companyCode",
+            "description": "companyCode",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "userName",
+            "description": "userName",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getContactDetail",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«User»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactDetailUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactDetailUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactDetailByIdsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "getContactDetailByIds",
+        "method": "GET",
+        "urlTemplate": "/contact/getContactDetailByIds/{contactId}/{companyId}",
+        "templateParameters": [
+          {
+            "name": "companyId",
+            "description": "companyId",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "contactId",
+            "description": "contactId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getContactDetailByIds",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«User»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactDetailByIdsUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactDetailByIdsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactDetailForValidateUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "getContactDetailForValidate",
+        "method": "GET",
+        "urlTemplate": "/contact/getContactDetailForValidate/{userName}/{companyCode}",
+        "templateParameters": [
+          {
+            "name": "companyCode",
+            "description": "companyCode",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "userName",
+            "description": "userName",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getContactDetailForValidate",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«User»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactDetailForValidateUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactDetailForValidateUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/deleteUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Inhabilita contactos comerciales de la empresa",
+        "method": "PUT",
+        "urlTemplate": "/commercial/delete/{companyId}",
+        "templateParameters": [
+          {
+            "name": "companyId",
+            "description": "companyId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Inhabilita contactos comerciales de la empresa",
+        "request": {
+          "description": "contactId",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f24af9fd4ce8413d493b4b0",
+              "typeName": "ContactId"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "DeleteResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/deleteUsingPUT/commercial-contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'deleteUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "commercial-contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/internalContactUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "internalContact",
+        "method": "PUT",
+        "urlTemplate": "/contact/internal",
+        "templateParameters": [],
+        "description": "internalContact",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f24af9fd4ce8413d493b4b0",
+              "typeName": "InternalContactRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«ContactUserResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/internalContactUsingPUT/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'internalContactUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getAllCommercialContactUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Lista los contactos comerciales de la empresa",
+        "method": "GET",
+        "urlTemplate": "/commercial?companyId={companyId}",
+        "templateParameters": [
+          {
+            "name": "companyId",
+            "description": "companyId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Lista los contactos comerciales de la empresa",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "CommercialContactResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getAllCommercialContactUsingGET/commercial-contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getAllCommercialContactUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "commercial-contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/filterAllContactCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "lista y filtra todos los contactos",
+        "method": "GET",
+        "urlTemplate": "/contact/filter-count",
+        "templateParameters": [],
+        "description": "lista y filtra todos los contactos",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyPartner",
+              "description": "companyPartner",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "internal",
+              "description": "internal",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "boolean",
+              "defaultValue": "True",
+              "values": []
+            },
+            {
+              "name": "typeDocument",
+              "description": "typeDocument",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              },
+              {
+                "contentType": "application/stream+json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/filterAllContactCountUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'filterAllContactCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/filterAllContactUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "lista y filtra todos los contactos",
+        "method": "GET",
+        "urlTemplate": "/contact/filter",
+        "templateParameters": [],
+        "description": "lista y filtra todos los contactos",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyPartner",
+              "description": "companyPartner",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "internal",
+              "description": "internal",
+              "type": "boolean",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "boolean",
+              "defaultValue": "True",
+              "values": []
+            },
+            {
+              "name": "typeDocument",
+              "description": "typeDocument",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              },
+              {
+                "contentType": "application/stream+json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              },
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/filterAllContactUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'filterAllContactUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getTotalCommercialUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Obtiene la cantidad de contactos comerciales de la empresa y cantidad de paginas",
+        "method": "GET",
+        "urlTemplate": "/commercial/total/{companyId}?size={size}",
+        "templateParameters": [
+          {
+            "name": "companyId",
+            "description": "companyId",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "size",
+            "description": "Format - int64. size",
+            "type": "integer",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Obtiene la cantidad de contactos comerciales de la empresa y cantidad de paginas",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "PageCountResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getTotalCommercialUsingGET/commercial-contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getTotalCommercialUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "commercial-contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByDocOrNameOrLastNameUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Obtiene la información por documento o nombre y apellido",
+        "method": "GET",
+        "urlTemplate": "/contact/getContact?parameter={parameter}",
+        "templateParameters": [
+          {
+            "name": "parameter",
+            "description": "parameter",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Obtiene la información por documento o nombre y apellido",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/stream+json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Contact"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactByDocOrNameOrLastNameUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactByDocOrNameOrLastNameUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactInfoUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Obtiene todos los contactos y/o representantes autorizados de la empresa por el parametro, correo corporativo, celular corporativo, celular personal y telefono fijo",
+        "method": "GET",
+        "urlTemplate": "/contact/validateAuthorized?companyId={companyId}&query={query}",
+        "templateParameters": [
+          {
+            "name": "companyId",
+            "description": "companyId",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "query",
+            "description": "query",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Obtiene todos los contactos y/o representantes autorizados de la empresa por el parametro, correo corporativo, celular corporativo, celular personal y telefono fijo",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Obtiene todos los contactos relacionados al parametro",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "ContactInfoResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "No se encontraró ningún contacto relacionado a los parametros",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getContactInfoUsingGET/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getContactInfoUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getAllIdsOfCommercialUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "Obtiene todos los ids contactos comerciales de la empresa",
+        "method": "GET",
+        "urlTemplate": "/commercial/getByCommercialCompanyId/{companyId}",
+        "templateParameters": [
+          {
+            "name": "companyId",
+            "description": "companyId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Obtiene todos los ids contactos comerciales de la empresa",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "CommercialGetByCommercialCompanyIdCompanyIdGet200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/getAllIdsOfCommercialUsingGET/commercial-contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'getAllIdsOfCommercialUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "commercial-contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/revalidateReniecUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "revalidateReniec",
+        "method": "GET",
+        "urlTemplate": "/reniec/revalidate/{code}",
+        "templateParameters": [
+          {
+            "name": "code",
+            "description": "code",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "revalidateReniec",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "app",
+              "description": "app",
+              "type": "string",
+              "defaultValue": "WAPPE",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«RevalidatedContact»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/revalidateReniecUsingGET/reniec-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'revalidateReniecUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "reniec-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/saveUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "save",
+        "method": "POST",
+        "urlTemplate": "/contact/",
+        "templateParameters": [],
+        "description": "save",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f24af9fd4ce8413d493b4b0",
+              "typeName": "UserRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«Contact»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/saveUsingPOST/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'saveUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/updateUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "update",
+        "method": "PUT",
+        "urlTemplate": "/contact/update",
+        "templateParameters": [],
+        "description": "update",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f24af9fd4ce8413d493b4b0",
+              "typeName": "UserRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f24af9fd4ce8413d493b4b0",
+                "typeName": "Mono«Contact»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/updateUsingPUT/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'updateUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/updateDeleteLogicUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'contact-api', '5f24af9fd4ce8413d493b4b0')]"
+      ],
+      "properties": {
+        "displayName": "updateDeleteLogic",
+        "method": "PUT",
+        "urlTemplate": "/contact/",
+        "templateParameters": [],
+        "description": "updateDeleteLogic",
+        "request": {
+          "description": "codeContactRequests",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f24af9fd4ce8413d493b4b0",
+              "typeName": "CodeContactRequestArray"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/updateDeleteLogicUsingPUT/contact-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'contact-api', 'updateDeleteLogicUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "contact-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contact-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/contact-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'contact-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'contact-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}

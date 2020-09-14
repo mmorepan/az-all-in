@@ -1,0 +1,2450 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Contact Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/contact",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/commercial": {
+      "get": {
+        "description": "Lista los contactos comerciales de la empresa",
+        "operationId": "getAllCommercialContactUsingGET",
+        "summary": "Lista los contactos comerciales de la empresa",
+        "tags": [
+          "commercial-contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommercialContactResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/commercial/delete/{companyId}": {
+      "put": {
+        "description": "Inhabilita contactos comerciales de la empresa",
+        "operationId": "deleteUsingPUT",
+        "summary": "Inhabilita contactos comerciales de la empresa",
+        "tags": [
+          "commercial-contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "contactId",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ContactId"
+            },
+            "description": "contactId"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DeleteResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/commercial/getByCommercialCompanyId/{companyId}": {
+      "get": {
+        "description": "Obtiene todos los ids contactos comerciales de la empresa",
+        "operationId": "getAllIdsOfCommercialUsingGET",
+        "summary": "Obtiene todos los ids contactos comerciales de la empresa",
+        "tags": [
+          "commercial-contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommercialGetByCommercialCompanyIdCompanyIdGet200ApplicationJsonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/commercial/total/{companyId}": {
+      "get": {
+        "description": "Obtiene la cantidad de contactos comerciales de la empresa y cantidad de paginas",
+        "operationId": "getTotalCommercialUsingGET",
+        "summary": "Obtiene la cantidad de contactos comerciales de la empresa y cantidad de paginas",
+        "tags": [
+          "commercial-contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int64. size",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageCountResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact": {
+      "get": {
+        "description": "getAllContacts",
+        "operationId": "getAllContactsUsingGET",
+        "summary": "getAllContacts",
+        "tags": [
+          "contact-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Contact»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/": {
+      "post": {
+        "description": "save",
+        "operationId": "saveUsingPOST",
+        "summary": "save",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "userRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«Contact»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "description": "updateDeleteLogic",
+        "operationId": "updateDeleteLogicUsingPUT",
+        "summary": "updateDeleteLogic",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codeContactRequestArray",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CodeContactRequestArray"
+            },
+            "description": "codeContactRequests"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/createContact": {
+      "put": {
+        "description": "Crea o Actualiza un contacto",
+        "operationId": "insertContactUsingPUT",
+        "summary": "Crea o Actualiza un contacto",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "contactUpdateRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ContactUpdateRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/find/number-mail": {
+      "get": {
+        "description": "getContactByNumber",
+        "operationId": "getContactByNumberUsingGET",
+        "summary": "getContactByNumber",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "companyCode",
+            "in": "query",
+            "description": "companyCode",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/find/{code}": {
+      "get": {
+        "description": "Busca un contacto por número de documento, hace la validación en reniec ",
+        "operationId": "getContactByCodeUsingGET",
+        "summary": "Busca un contacto por número de documento, hace la validación en reniec ",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "app",
+            "in": "query",
+            "description": "app",
+            "type": "string",
+            "default": "WAPPE"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/findById/{idContact}": {
+      "get": {
+        "description": "findContactById",
+        "operationId": "findContactByIdUsingGET",
+        "summary": "findContactById",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idContact",
+            "in": "path",
+            "description": "idContact",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«Contact»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/findCommercialContact/{code}": {
+      "get": {
+        "description": "Busca un contacto comercial filtrando por empresa ",
+        "operationId": "getContactByCodeAndCompanyUsingGET",
+        "summary": "Busca un contacto comercial filtrando por empresa ",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "app",
+            "in": "query",
+            "description": "app",
+            "type": "string",
+            "default": "WAPPE"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/getContact": {
+      "get": {
+        "description": "Obtiene la información por documento o nombre y apellido",
+        "operationId": "getContactByDocOrNameOrLastNameUsingGET",
+        "summary": "Obtiene la información por documento o nombre y apellido",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "parameter",
+            "in": "query",
+            "description": "parameter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/getContactDetail/{userName}/{companyCode}": {
+      "get": {
+        "description": "getContactDetail",
+        "operationId": "getContactDetailUsingGET",
+        "summary": "getContactDetail",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "path",
+            "description": "companyCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "userName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«User»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/getContactDetailByIds/{contactId}/{companyId}": {
+      "get": {
+        "description": "getContactDetailByIds",
+        "operationId": "getContactDetailByIdsUsingGET",
+        "summary": "getContactDetailByIds",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "contactId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«User»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/getContactDetailForValidate/{userName}/{companyCode}": {
+      "get": {
+        "description": "getContactDetailForValidate",
+        "operationId": "getContactDetailForValidateUsingGET",
+        "summary": "getContactDetailForValidate",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "path",
+            "description": "companyCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "userName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«User»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/page": {
+      "get": {
+        "description": "findByPage",
+        "operationId": "findByPageUsingGET",
+        "summary": "findByPage",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«PageSupport«Contact»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/update": {
+      "put": {
+        "description": "update",
+        "operationId": "updateUsingPUT",
+        "summary": "update",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "userRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«Contact»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/validateAuthorized": {
+      "get": {
+        "description": "Obtiene todos los contactos y/o representantes autorizados de la empresa por el parametro, correo corporativo, celular corporativo, celular personal y telefono fijo",
+        "operationId": "getContactInfoUsingGET",
+        "summary": "Obtiene todos los contactos y/o representantes autorizados de la empresa por el parametro, correo corporativo, celular corporativo, celular personal y telefono fijo",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Obtiene todos los contactos relacionados al parametro",
+            "schema": {
+              "$ref": "#/definitions/ContactInfoResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraró ningún contacto relacionado a los parametros"
+          },
+          "500": {
+            "description": "Se produjo un error en la aplicación"
+          }
+        }
+      }
+    },
+    "/contact/filter": {
+      "get": {
+        "description": "lista y filtra todos los contactos",
+        "operationId": "filterAllContactUsingGET",
+        "summary": "lista y filtra todos los contactos",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyPartner",
+            "in": "query",
+            "description": "companyPartner",
+            "type": "boolean"
+          },
+          {
+            "name": "internal",
+            "in": "query",
+            "description": "internal",
+            "type": "boolean"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean",
+            "default": "True"
+          },
+          {
+            "name": "typeDocument",
+            "in": "query",
+            "description": "typeDocument",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/filter-count": {
+      "get": {
+        "description": "lista y filtra todos los contactos",
+        "operationId": "filterAllContactCountUsingGET",
+        "summary": "lista y filtra todos los contactos",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyPartner",
+            "in": "query",
+            "description": "companyPartner",
+            "type": "boolean"
+          },
+          {
+            "name": "internal",
+            "in": "query",
+            "description": "internal",
+            "type": "boolean"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "type": "boolean",
+            "default": "True"
+          },
+          {
+            "name": "typeDocument",
+            "in": "query",
+            "description": "typeDocument",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/code/{code}": {
+      "get": {
+        "description": "Busca un contacto por codigo y estado activo ",
+        "operationId": "getContactByIdUsingGET",
+        "summary": "Busca un contacto por codigo y estado activo ",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/number/{number}": {
+      "get": {
+        "description": "findFirstContactByNumber",
+        "operationId": "findFirstContactByNumberUsingGET",
+        "summary": "findFirstContactByNumber",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "description": "number",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ContactNumberResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/reniec/revalidate/{code}": {
+      "get": {
+        "description": "revalidateReniec",
+        "operationId": "revalidateReniecUsingGET",
+        "summary": "revalidateReniec",
+        "tags": [
+          "reniec-controller"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "app",
+            "in": "query",
+            "description": "app",
+            "type": "string",
+            "default": "WAPPE"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«RevalidatedContact»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/registry/external/step-two": {
+      "post": {
+        "description": "externalContactStepTwo",
+        "operationId": "externalContactStepTwoUsingPOST",
+        "summary": "externalContactStepTwo",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "stepTwoContactReq",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/StepTwoContactReq"
+            },
+            "description": "stepTwoContactReq"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«MessageResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/external": {
+      "put": {
+        "description": "externalContact",
+        "operationId": "externalContactUsingPUT",
+        "summary": "externalContact",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "externalContactRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ExternalContactRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ContactUserResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/contact/internal": {
+      "put": {
+        "description": "internalContact",
+        "operationId": "internalContactUsingPUT",
+        "summary": "internalContact",
+        "tags": [
+          "contact-controller"
+        ],
+        "parameters": [
+          {
+            "name": "internalContactRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/InternalContactRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ContactUserResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "interior": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "nombreAvenida": {
+          "type": "string"
+        },
+        "nombreUrbanizacion": {
+          "type": "string"
+        },
+        "numeroAvenida": {
+          "type": "string"
+        },
+        "numeroManzana": {
+          "type": "string"
+        },
+        "piso": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "tipoAvenida": {
+          "type": "string"
+        },
+        "tipoManzana": {
+          "type": "string"
+        },
+        "tipoUrbanizacion": {
+          "type": "string"
+        }
+      },
+      "title": "Address"
+    },
+    "CodeContactRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "CodeContactRequest"
+    },
+    "CommercialCompany": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "type": "string"
+        },
+        "companyCode": {
+          "type": "string"
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "CommercialCompany"
+    },
+    "CommercialCompanyRequest": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "type": "string"
+        },
+        "companyCode": {
+          "type": "string"
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "CommercialCompanyRequest"
+    },
+    "CommercialContactResponse": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "type": "string"
+        },
+        "contactCode": {
+          "type": "string"
+        },
+        "contactId": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleDetailResponse"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "CommercialContactResponse"
+    },
+    "Company": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeDocument": {
+          "$ref": "#/definitions/TypeDocument"
+        }
+      },
+      "title": "Company"
+    },
+    "CompanyRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "CompanyRequest"
+    },
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "backOffice": {
+          "type": "boolean"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "commercialCompany": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommercialCompany"
+          }
+        },
+        "companyPartner": {
+          "type": "boolean"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentType"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "forReniec": {
+          "type": "boolean"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "reniecValidationDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleDetailResponse"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusReniec": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "telephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "workMail": {
+          "type": "string"
+        },
+        "workPhone": {
+          "type": "string"
+        }
+      },
+      "title": "Contact"
+    },
+    "ContactInfoResponse": {
+      "type": "object",
+      "properties": {
+        "authorizedRepresentative": {
+          "type": "boolean"
+        },
+        "contactId": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleDetailResponse"
+        },
+        "surNames": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "ContactInfoResponse"
+    },
+    "ContactNumberResponse": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "title": "ContactNumberResponse"
+    },
+    "ContactRequest": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "backOffice": {
+          "type": "boolean"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "companyCommercial": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommercialCompanyRequest"
+          }
+        },
+        "companyPartner": {
+          "type": "boolean"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentType"
+        },
+        "dummy": {
+          "type": "boolean"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusReniec": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "telephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "workMail": {
+          "type": "string"
+        },
+        "workPhone": {
+          "type": "string"
+        }
+      },
+      "title": "ContactRequest"
+    },
+    "ContactUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "backOffice": {
+          "type": "boolean"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "companyCommercial": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommercialCompanyRequest"
+          }
+        },
+        "companyPartner": {
+          "type": "boolean"
+        },
+        "contactId": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentType"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusReniec": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "telephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        "workMail": {
+          "type": "string"
+        },
+        "workPhone": {
+          "type": "string"
+        }
+      },
+      "title": "ContactUpdateRequest"
+    },
+    "ContactUserResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "ContactUserResponse"
+    },
+    "DeleteResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "DeleteResponse"
+    },
+    "DocumentType": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "DocumentType"
+    },
+    "DocumentTypeRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "DocumentTypeRequest"
+    },
+    "ExternalContactRequest": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentTypeRequest"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumberRequest"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "statusReniec": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "telephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumberRequest"
+        }
+      },
+      "title": "ExternalContactRequest"
+    },
+    "Flux": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux"
+    },
+    "Flux«CommercialContactResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«CommercialContactResponse»"
+    },
+    "Flux«ContactInfoResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«ContactInfoResponse»"
+    },
+    "Flux«Contact»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Contact»"
+    },
+    "Flux«DeleteResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«DeleteResponse»"
+    },
+    "InternalContactRequest": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentTypeRequest"
+        },
+        "expirationDocumentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "extraTelephoneNumber": {
+          "$ref": "#/definitions/TelephoneNumberRequest"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "statusReniec": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        },
+        "workMail": {
+          "type": "string"
+        },
+        "workPhone": {
+          "type": "string"
+        }
+      },
+      "title": "InternalContactRequest"
+    },
+    "MessageResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "MessageResponse"
+    },
+    "Mono«Array«string»»": {
+      "type": "object",
+      "title": "Mono«Array«string»»"
+    },
+    "Mono«ContactNumberResponse»": {
+      "type": "object",
+      "title": "Mono«ContactNumberResponse»"
+    },
+    "Mono«ContactUserResponse»": {
+      "type": "object",
+      "title": "Mono«ContactUserResponse»"
+    },
+    "Mono«Contact»": {
+      "type": "object",
+      "title": "Mono«Contact»"
+    },
+    "Mono«MessageResponse»": {
+      "type": "object",
+      "title": "Mono«MessageResponse»"
+    },
+    "Mono«PageCountResponse»": {
+      "type": "object",
+      "title": "Mono«PageCountResponse»"
+    },
+    "Mono«PageSupport«Contact»»": {
+      "type": "object",
+      "title": "Mono«PageSupport«Contact»»"
+    },
+    "Mono«RevalidatedContact»": {
+      "type": "object",
+      "title": "Mono«RevalidatedContact»"
+    },
+    "Mono«User»": {
+      "type": "object",
+      "title": "Mono«User»"
+    },
+    "Option": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Option"
+    },
+    "PageCountResponse": {
+      "type": "object",
+      "properties": {
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageCountResponse"
+    },
+    "PageSupport«Contact»": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Contact"
+          }
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageSupport«Contact»"
+    },
+    "Portfolio": {
+      "type": "object",
+      "properties": {
+        "certificationStatus": {
+          "type": "string"
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Role"
+          }
+        },
+        "statusRRAA": {
+          "type": "boolean"
+        }
+      },
+      "title": "Portfolio"
+    },
+    "RevalidatedContact": {
+      "type": "object",
+      "properties": {
+        "birthDate": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "codeOfGeo": {
+          "type": "string"
+        },
+        "dateOfIssueDni": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "RevalidatedContact"
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRole"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "Role"
+    },
+    "RoleDetailResponse": {
+      "type": "object",
+      "properties": {
+        "commercialRole": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "onlineChannelRole": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "RoleDetailResponse"
+    },
+    "StepTwoContactReq": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "StepTwoContactReq"
+    },
+    "SubRole": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Option"
+          }
+        }
+      },
+      "title": "SubRole"
+    },
+    "TelephoneNumber": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string"
+        }
+      },
+      "title": "TelephoneNumber"
+    },
+    "TelephoneNumberRequest": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string"
+        }
+      },
+      "title": "TelephoneNumberRequest"
+    },
+    "TypeDocument": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeDocument"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "contact": {
+          "$ref": "#/definitions/Contact"
+        },
+        "highDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "keyWord": {
+          "type": "string"
+        },
+        "portfolio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Portfolio"
+          }
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "statusValidation": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "User"
+    },
+    "UserRequest": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "$ref": "#/definitions/CompanyRequest"
+        },
+        "contact": {
+          "$ref": "#/definitions/ContactRequest"
+        },
+        "id": {
+          "type": "string"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "UserRequest"
+    },
+    "ContactId": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "CommercialGetByCommercialCompanyIdCompanyIdGet200ApplicationJsonResponse": {
+      "type": "string"
+    },
+    "CodeContactRequestArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CodeContactRequest"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "reniec-controller",
+      "description": "Reniec Controller"
+    },
+    {
+      "name": "commercial-contact-controller",
+      "description": "Commercial Contact Controller"
+    },
+    {
+      "name": "contact-controller",
+      "description": "Contact Controller"
+    }
+  ]
+}
