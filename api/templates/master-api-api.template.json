@@ -1,0 +1,2334 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Master Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": false,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "master",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/5e78decad4ce8412441363bd')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"AttentionGroup\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"level\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"typeClient\":{\"$ref\":\"#/definitions/TypeClient\"}},\"title\":\"AttentionGroup\"},\"BasicOperations\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"status\":{\"type\":\"boolean\"}},\"title\":\"BasicOperations\"},\"ConfigSystemRequest\":{\"type\":\"object\",\"properties\":{\"groupConfig\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"title\":\"ConfigSystemRequest\"},\"ConfigSystemResponse\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"title\":\"ConfigSystemResponse\"},\"Department\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"Department\"},\"District\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"provinceCode\":{\"type\":\"string\"}},\"title\":\"District\"},\"Financing\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"integer\",\"format\":\"int32\"},\"value\":{\"type\":\"string\"}},\"title\":\"Financing\"},\"Flux«AttentionGroup»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«AttentionGroup»\"},\"Flux«BasicOperations»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«BasicOperations»\"},\"Flux«Department»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«Department»\"},\"Flux«District»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«District»\"},\"Flux«Financing»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«Financing»\"},\"Flux«NotificationResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«NotificationResponse»\"},\"Flux«Province»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«Province»\"},\"Flux«Sector»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«Sector»\"},\"Flux«TypeClient»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«TypeClient»\"},\"Flux«TypeService»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«TypeService»\"},\"MessageResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"title\":\"MessageResponse\"},\"Mono«AttentionGroup»\":{\"type\":\"object\",\"title\":\"Mono«AttentionGroup»\"},\"Mono«ConfigSystemResponse»\":{\"type\":\"object\",\"title\":\"Mono«ConfigSystemResponse»\"},\"Mono«MessageResponse»\":{\"type\":\"object\",\"title\":\"Mono«MessageResponse»\"},\"Mono«Void»\":{\"type\":\"object\",\"title\":\"Mono«Void»\"},\"NotificationRequest\":{\"type\":\"object\",\"properties\":{\"companyCode\":{\"type\":\"string\"},\"icon\":{\"type\":\"string\"},\"text\":{\"type\":\"string\"},\"tittle\":{\"type\":\"string\"},\"userCode\":{\"type\":\"string\"}},\"title\":\"NotificationRequest\"},\"NotificationResponse\":{\"type\":\"object\",\"properties\":{\"companyCode\":{\"type\":\"string\"},\"createAt\":{\"type\":\"string\"},\"icon\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"status\":{\"type\":\"integer\",\"format\":\"int32\"},\"text\":{\"type\":\"string\"},\"tittle\":{\"type\":\"string\"},\"userCode\":{\"type\":\"string\"}},\"title\":\"NotificationResponse\"},\"ProductEntity\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"status\":{\"type\":\"boolean\"}},\"title\":\"ProductEntity\"},\"Province\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"regionCode\":{\"type\":\"string\"}},\"title\":\"Province\"},\"Sector\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"subSectors\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/Sector\"}}},\"title\":\"Sector\"},\"TermsConditionsRequest\":{\"type\":\"object\",\"properties\":{\"terms\":{\"type\":\"string\"}},\"title\":\"TermsConditionsRequest\"},\"TypeClient\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"subTypes\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/TypeClient\"}}},\"title\":\"TypeClient\"},\"TypeService\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"product\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ProductEntity\"}}},\"title\":\"TypeService\"},\"TypeClientArray\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/TypeClient\"}},\"NotificationIds\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/deleteNotificationUsingDELETE')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "deleteNotification",
+        "method": "DELETE",
+        "urlTemplate": "/notification/{id}",
+        "templateParameters": [
+          {
+            "name": "id",
+            "description": "id",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "deleteNotification",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 204,
+            "description": "No Content",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«Void»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/deleteNotificationUsingDELETE/notification-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'deleteNotificationUsingDELETE')]"
+      ],
+      "properties": {
+        "displayName": "notification-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/findConfigUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "findConfig",
+        "method": "GET",
+        "urlTemplate": "/config-system/{name}",
+        "templateParameters": [
+          {
+            "name": "name",
+            "description": "name",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "findConfig",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«ConfigSystemResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/findConfigUsingGET/config-system-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'findConfigUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "config-system-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllDepartmentsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllDepartments",
+        "method": "GET",
+        "urlTemplate": "/departments",
+        "templateParameters": [],
+        "description": "getAllDepartments",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«Department»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllDepartmentsUsingGET/department-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllDepartmentsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "department-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllDistrictsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllDistricts",
+        "method": "GET",
+        "urlTemplate": "/districts",
+        "templateParameters": [],
+        "description": "getAllDistricts",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«District»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllDistrictsUsingGET/district-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllDistrictsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "district-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllProductByTypeUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllProductByType",
+        "method": "GET",
+        "urlTemplate": "/product/type?type={type}",
+        "templateParameters": [
+          {
+            "name": "type",
+            "description": "type",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getAllProductByType",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«TypeService»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllProductByTypeUsingGET/product-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllProductByTypeUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "product-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllProvincesUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllProvinces",
+        "method": "GET",
+        "urlTemplate": "/provinces",
+        "templateParameters": [],
+        "description": "getAllProvinces",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«Province»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllProvincesUsingGET/province-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllProvincesUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "province-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsUsingGET_3')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllSectors",
+        "method": "GET",
+        "urlTemplate": "/sectors",
+        "templateParameters": [],
+        "description": "getAllSectors",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«Sector»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsUsingGET_3/sector-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllSectorsUsingGET_3')]"
+      ],
+      "properties": {
+        "displayName": "sector-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsUsingGET_2')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllSectors",
+        "method": "GET",
+        "urlTemplate": "/financing/",
+        "templateParameters": [],
+        "description": "getAllSectors",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«Financing»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsUsingGET_2/financing-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllSectorsUsingGET_2')]"
+      ],
+      "properties": {
+        "displayName": "financing-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllSectors",
+        "method": "GET",
+        "urlTemplate": "/master/attention-group/",
+        "templateParameters": [],
+        "description": "getAllSectors",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«AttentionGroup»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsUsingGET/attention-group-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllSectorsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "attention-group-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsUsingGET_1')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllSectors",
+        "method": "GET",
+        "urlTemplate": "/basic-operations/",
+        "templateParameters": [],
+        "description": "getAllSectors",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«BasicOperations»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsUsingGET_1/basic-operations-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllSectorsUsingGET_1')]"
+      ],
+      "properties": {
+        "displayName": "basic-operations-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsByTypeClientUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllSectorsByTypeClient",
+        "method": "GET",
+        "urlTemplate": "/master/attention-group/type-client?typeClient={typeClient}",
+        "templateParameters": [
+          {
+            "name": "typeClient",
+            "description": "typeClient",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getAllSectorsByTypeClient",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«AttentionGroup»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSectorsByTypeClientUsingGET/attention-group-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllSectorsByTypeClientUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "attention-group-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllServiceUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllService",
+        "method": "GET",
+        "urlTemplate": "/product",
+        "templateParameters": [],
+        "description": "getAllService",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«TypeService»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllServiceUsingGET/product-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllServiceUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "product-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSubSectorsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllSubSectors",
+        "method": "GET",
+        "urlTemplate": "/subsectors?subSector={subSector}",
+        "templateParameters": [
+          {
+            "name": "subSector",
+            "description": "subSector",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getAllSubSectors",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«Sector»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllSubSectorsUsingGET/sector-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllSubSectorsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "sector-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllTypeClientsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllTypeClients",
+        "method": "GET",
+        "urlTemplate": "/master/typeclients",
+        "templateParameters": [],
+        "description": "getAllTypeClients",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«TypeClient»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllTypeClientsUsingGET/type-client-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllTypeClientsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "type-client-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllTypeServiceUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getAllTypeService",
+        "method": "GET",
+        "urlTemplate": "/typeService",
+        "templateParameters": [],
+        "description": "getAllTypeService",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«TypeService»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getAllTypeServiceUsingGET/product-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getAllTypeServiceUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "product-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getDistrictByProvinceUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getDistrictByProvince",
+        "method": "GET",
+        "urlTemplate": "/districts/{provinceCode}",
+        "templateParameters": [
+          {
+            "name": "provinceCode",
+            "description": "provinceCode",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getDistrictByProvince",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«District»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getDistrictByProvinceUsingGET/district-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getDistrictByProvinceUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "district-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getOneTermsConditionsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getOneTermsConditions",
+        "method": "GET",
+        "urlTemplate": "/terms-conditions",
+        "templateParameters": [],
+        "description": "getOneTermsConditions",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«ConfigSystemResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getOneTermsConditionsUsingGET/terms-conditions-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getOneTermsConditionsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "terms-conditions-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getProvinceByDepartmentUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getProvinceByDepartment",
+        "method": "GET",
+        "urlTemplate": "/provinces/{regionCode}",
+        "templateParameters": [
+          {
+            "name": "regionCode",
+            "description": "regionCode",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getProvinceByDepartment",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«Province»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getProvinceByDepartmentUsingGET/province-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getProvinceByDepartmentUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "province-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getSubTypeClientsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getSubTypeClients",
+        "method": "GET",
+        "urlTemplate": "/master/subtypeclients?typeClient={typeClient}",
+        "templateParameters": [
+          {
+            "name": "typeClient",
+            "description": "typeClient",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getSubTypeClients",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«TypeClient»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getSubTypeClientsUsingGET/type-client-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getSubTypeClientsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "type-client-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getSubTypeClientsInUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "getSubTypeClientsIn",
+        "method": "GET",
+        "urlTemplate": "/master/subtypeclients/in?subtypeClient={subtypeClient}",
+        "templateParameters": [
+          {
+            "name": "subtypeClient",
+            "description": "subtypeClient",
+            "type": "array",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getSubTypeClientsIn",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "TypeClientArray"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/getSubTypeClientsInUsingGET/type-client-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'getSubTypeClientsInUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "type-client-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/listAllNotificationUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "listAllNotification",
+        "method": "GET",
+        "urlTemplate": "/notification",
+        "templateParameters": [],
+        "description": "listAllNotification",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyCode",
+              "description": "companyCode",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "userCode",
+              "description": "userCode",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Flux«NotificationResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/listAllNotificationUsingGET/notification-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'listAllNotificationUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "notification-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/saveConfigUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "saveConfig",
+        "method": "POST",
+        "urlTemplate": "/config-system",
+        "templateParameters": [],
+        "description": "saveConfig",
+        "request": {
+          "description": "configSystemRequest",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5e78decad4ce8412441363bd",
+              "typeName": "ConfigSystemRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«MessageResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/saveConfigUsingPOST/config-system-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'saveConfigUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "config-system-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/saveNotificationUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "saveNotification",
+        "method": "POST",
+        "urlTemplate": "/notification",
+        "templateParameters": [],
+        "description": "saveNotification",
+        "request": {
+          "description": "notificationRequest",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5e78decad4ce8412441363bd",
+              "typeName": "NotificationRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«Void»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/saveNotificationUsingPOST/notification-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'saveNotificationUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "notification-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/saveUpdateUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "saveUpdate",
+        "method": "POST",
+        "urlTemplate": "/terms-conditions",
+        "templateParameters": [],
+        "description": "saveUpdate",
+        "request": {
+          "description": "termsConditionsRequest",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5e78decad4ce8412441363bd",
+              "typeName": "TermsConditionsRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«MessageResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/saveUpdateUsingPOST/terms-conditions-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'saveUpdateUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "terms-conditions-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/updateUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "update",
+        "method": "PUT",
+        "urlTemplate": "/master/attention-group/update",
+        "templateParameters": [],
+        "description": "update",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5e78decad4ce8412441363bd",
+              "typeName": "AttentionGroup"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«AttentionGroup»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/updateUsingPUT/attention-group-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'updateUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "attention-group-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/updateConfigUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "updateConfig",
+        "method": "PUT",
+        "urlTemplate": "/config-system",
+        "templateParameters": [],
+        "description": "updateConfig",
+        "request": {
+          "description": "configSystemRequest",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5e78decad4ce8412441363bd",
+              "typeName": "ConfigSystemRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«MessageResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/updateConfigUsingPUT/config-system-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'updateConfigUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "config-system-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/updateStatusNotificationUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'master-api', '5e78decad4ce8412441363bd')]"
+      ],
+      "properties": {
+        "displayName": "updateStatusNotification",
+        "method": "PUT",
+        "urlTemplate": "/notification",
+        "templateParameters": [],
+        "description": "updateStatusNotification",
+        "request": {
+          "description": "notificationIds",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5e78decad4ce8412441363bd",
+              "typeName": "NotificationIds"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e78decad4ce8412441363bd",
+                "typeName": "Mono«Void»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/updateStatusNotificationUsingPUT/notification-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'master-api', 'updateStatusNotificationUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "notification-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/master-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/master-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'master-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'master-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}

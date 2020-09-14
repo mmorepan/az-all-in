@@ -1,0 +1,1486 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Master Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/master",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/basic-operations/": {
+      "get": {
+        "description": "getAllSectors",
+        "operationId": "getAllSectorsUsingGET_1",
+        "summary": "getAllSectors",
+        "tags": [
+          "basic-operations-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«BasicOperations»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/departments": {
+      "get": {
+        "description": "getAllDepartments",
+        "operationId": "getAllDepartmentsUsingGET",
+        "summary": "getAllDepartments",
+        "tags": [
+          "department-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Department»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/districts": {
+      "get": {
+        "description": "getAllDistricts",
+        "operationId": "getAllDistrictsUsingGET",
+        "summary": "getAllDistricts",
+        "tags": [
+          "district-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«District»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/districts/{provinceCode}": {
+      "get": {
+        "description": "getDistrictByProvince",
+        "operationId": "getDistrictByProvinceUsingGET",
+        "summary": "getDistrictByProvince",
+        "tags": [
+          "district-controller"
+        ],
+        "parameters": [
+          {
+            "name": "provinceCode",
+            "in": "path",
+            "description": "provinceCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«District»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/master/attention-group/": {
+      "get": {
+        "description": "getAllSectors",
+        "operationId": "getAllSectorsUsingGET",
+        "summary": "getAllSectors",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«AttentionGroup»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/master/attention-group/type-client": {
+      "get": {
+        "description": "getAllSectorsByTypeClient",
+        "operationId": "getAllSectorsByTypeClientUsingGET",
+        "summary": "getAllSectorsByTypeClient",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "typeClient",
+            "in": "query",
+            "description": "typeClient",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«AttentionGroup»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/master/attention-group/update": {
+      "put": {
+        "description": "update",
+        "operationId": "updateUsingPUT",
+        "summary": "update",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "attentionGroup",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AttentionGroup"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«AttentionGroup»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/master/subtypeclients": {
+      "get": {
+        "description": "getSubTypeClients",
+        "operationId": "getSubTypeClientsUsingGET",
+        "summary": "getSubTypeClients",
+        "tags": [
+          "type-client-controller"
+        ],
+        "parameters": [
+          {
+            "name": "typeClient",
+            "in": "query",
+            "description": "typeClient",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«TypeClient»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/master/subtypeclients/in": {
+      "get": {
+        "description": "getSubTypeClientsIn",
+        "operationId": "getSubTypeClientsInUsingGET",
+        "summary": "getSubTypeClientsIn",
+        "tags": [
+          "type-client-controller"
+        ],
+        "parameters": [
+          {
+            "name": "subtypeClient",
+            "in": "query",
+            "description": "subtypeClient",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TypeClientArray"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/master/typeclients": {
+      "get": {
+        "description": "getAllTypeClients",
+        "operationId": "getAllTypeClientsUsingGET",
+        "summary": "getAllTypeClients",
+        "tags": [
+          "type-client-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«TypeClient»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/product": {
+      "get": {
+        "description": "getAllService",
+        "operationId": "getAllServiceUsingGET",
+        "summary": "getAllService",
+        "tags": [
+          "product-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«TypeService»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/product/type": {
+      "get": {
+        "description": "getAllProductByType",
+        "operationId": "getAllProductByTypeUsingGET",
+        "summary": "getAllProductByType",
+        "tags": [
+          "product-controller"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«TypeService»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/provinces": {
+      "get": {
+        "description": "getAllProvinces",
+        "operationId": "getAllProvincesUsingGET",
+        "summary": "getAllProvinces",
+        "tags": [
+          "province-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Province»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/provinces/{regionCode}": {
+      "get": {
+        "description": "getProvinceByDepartment",
+        "operationId": "getProvinceByDepartmentUsingGET",
+        "summary": "getProvinceByDepartment",
+        "tags": [
+          "province-controller"
+        ],
+        "parameters": [
+          {
+            "name": "regionCode",
+            "in": "path",
+            "description": "regionCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Province»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/financing/": {
+      "get": {
+        "description": "getAllSectors",
+        "operationId": "getAllSectorsUsingGET_2",
+        "summary": "getAllSectors",
+        "tags": [
+          "financing-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Financing»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/subsectors": {
+      "get": {
+        "description": "getAllSubSectors",
+        "operationId": "getAllSubSectorsUsingGET",
+        "summary": "getAllSubSectors",
+        "tags": [
+          "sector-controller"
+        ],
+        "parameters": [
+          {
+            "name": "subSector",
+            "in": "query",
+            "description": "subSector",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Sector»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/typeService": {
+      "get": {
+        "description": "getAllTypeService",
+        "operationId": "getAllTypeServiceUsingGET",
+        "summary": "getAllTypeService",
+        "tags": [
+          "product-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«TypeService»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/sectors": {
+      "get": {
+        "description": "getAllSectors",
+        "operationId": "getAllSectorsUsingGET_3",
+        "summary": "getAllSectors",
+        "tags": [
+          "sector-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«Sector»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/terms-conditions": {
+      "get": {
+        "description": "getOneTermsConditions",
+        "operationId": "getOneTermsConditionsUsingGET",
+        "summary": "getOneTermsConditions",
+        "tags": [
+          "terms-conditions-controller"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ConfigSystemResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "description": "saveUpdate",
+        "operationId": "saveUpdateUsingPOST",
+        "summary": "saveUpdate",
+        "tags": [
+          "terms-conditions-controller"
+        ],
+        "parameters": [
+          {
+            "name": "termsConditionsRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TermsConditionsRequest"
+            },
+            "description": "termsConditionsRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«MessageResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/config-system": {
+      "post": {
+        "description": "saveConfig",
+        "operationId": "saveConfigUsingPOST",
+        "summary": "saveConfig",
+        "tags": [
+          "config-system-controller"
+        ],
+        "parameters": [
+          {
+            "name": "configSystemRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ConfigSystemRequest"
+            },
+            "description": "configSystemRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«MessageResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "description": "updateConfig",
+        "operationId": "updateConfigUsingPUT",
+        "summary": "updateConfig",
+        "tags": [
+          "config-system-controller"
+        ],
+        "parameters": [
+          {
+            "name": "configSystemRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ConfigSystemRequest"
+            },
+            "description": "configSystemRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«MessageResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/config-system/{name}": {
+      "get": {
+        "description": "findConfig",
+        "operationId": "findConfigUsingGET",
+        "summary": "findConfig",
+        "tags": [
+          "config-system-controller"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ConfigSystemResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/notification": {
+      "get": {
+        "description": "listAllNotification",
+        "operationId": "listAllNotificationUsingGET",
+        "summary": "listAllNotification",
+        "tags": [
+          "notification-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyCode",
+            "in": "query",
+            "description": "companyCode",
+            "type": "string"
+          },
+          {
+            "name": "userCode",
+            "in": "query",
+            "description": "userCode",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«NotificationResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "description": "saveNotification",
+        "operationId": "saveNotificationUsingPOST",
+        "summary": "saveNotification",
+        "tags": [
+          "notification-controller"
+        ],
+        "parameters": [
+          {
+            "name": "notificationRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/NotificationRequest"
+            },
+            "description": "notificationRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Mono«Void»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "description": "updateStatusNotification",
+        "operationId": "updateStatusNotificationUsingPUT",
+        "summary": "updateStatusNotification",
+        "tags": [
+          "notification-controller"
+        ],
+        "parameters": [
+          {
+            "name": "notificationIds",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/NotificationIds"
+            },
+            "description": "notificationIds"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«Void»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/notification/{id}": {
+      "delete": {
+        "description": "deleteNotification",
+        "operationId": "deleteNotificationUsingDELETE",
+        "summary": "deleteNotification",
+        "tags": [
+          "notification-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "schema": {
+              "$ref": "#/definitions/Mono«Void»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AttentionGroup": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClient"
+        }
+      },
+      "title": "AttentionGroup"
+    },
+    "BasicOperations": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "BasicOperations"
+    },
+    "ConfigSystemRequest": {
+      "type": "object",
+      "properties": {
+        "groupConfig": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "ConfigSystemRequest"
+    },
+    "ConfigSystemResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "ConfigSystemResponse"
+    },
+    "Department": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Department"
+    },
+    "District": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "provinceCode": {
+          "type": "string"
+        }
+      },
+      "title": "District"
+    },
+    "Financing": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "Financing"
+    },
+    "Flux«AttentionGroup»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«AttentionGroup»"
+    },
+    "Flux«BasicOperations»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«BasicOperations»"
+    },
+    "Flux«Department»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Department»"
+    },
+    "Flux«District»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«District»"
+    },
+    "Flux«Financing»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Financing»"
+    },
+    "Flux«NotificationResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«NotificationResponse»"
+    },
+    "Flux«Province»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Province»"
+    },
+    "Flux«Sector»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Sector»"
+    },
+    "Flux«TypeClient»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«TypeClient»"
+    },
+    "Flux«TypeService»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«TypeService»"
+    },
+    "MessageResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "MessageResponse"
+    },
+    "Mono«AttentionGroup»": {
+      "type": "object",
+      "title": "Mono«AttentionGroup»"
+    },
+    "Mono«ConfigSystemResponse»": {
+      "type": "object",
+      "title": "Mono«ConfigSystemResponse»"
+    },
+    "Mono«MessageResponse»": {
+      "type": "object",
+      "title": "Mono«MessageResponse»"
+    },
+    "Mono«Void»": {
+      "type": "object",
+      "title": "Mono«Void»"
+    },
+    "NotificationRequest": {
+      "type": "object",
+      "properties": {
+        "companyCode": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "tittle": {
+          "type": "string"
+        },
+        "userCode": {
+          "type": "string"
+        }
+      },
+      "title": "NotificationRequest"
+    },
+    "NotificationResponse": {
+      "type": "object",
+      "properties": {
+        "companyCode": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "text": {
+          "type": "string"
+        },
+        "tittle": {
+          "type": "string"
+        },
+        "userCode": {
+          "type": "string"
+        }
+      },
+      "title": "NotificationResponse"
+    },
+    "ProductEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "ProductEntity"
+    },
+    "Province": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "regionCode": {
+          "type": "string"
+        }
+      },
+      "title": "Province"
+    },
+    "Sector": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subSectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Sector"
+          }
+        }
+      },
+      "title": "Sector"
+    },
+    "TermsConditionsRequest": {
+      "type": "object",
+      "properties": {
+        "terms": {
+          "type": "string"
+        }
+      },
+      "title": "TermsConditionsRequest"
+    },
+    "TypeClient": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeClient"
+          }
+        }
+      },
+      "title": "TypeClient"
+    },
+    "TypeService": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "product": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductEntity"
+          }
+        }
+      },
+      "title": "TypeService"
+    },
+    "TypeClientArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TypeClient"
+      }
+    },
+    "NotificationIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "attention-group-controller",
+      "description": "Attention Group Controller"
+    },
+    {
+      "name": "basic-operations-controller",
+      "description": "Basic Operations Controller"
+    },
+    {
+      "name": "department-controller",
+      "description": "Department Controller"
+    },
+    {
+      "name": "district-controller",
+      "description": "District Controller"
+    },
+    {
+      "name": "product-controller",
+      "description": "Product Controller"
+    },
+    {
+      "name": "province-controller",
+      "description": "Province Controller"
+    },
+    {
+      "name": "sector-controller",
+      "description": "Sector Controller"
+    },
+    {
+      "name": "type-client-controller",
+      "description": "Type Client Controller"
+    },
+    {
+      "name": "financing-controller",
+      "description": "Financing Controller"
+    },
+    {
+      "name": "terms-conditions-controller",
+      "description": "Terms Conditions Controller"
+    },
+    {
+      "name": "config-system-controller",
+      "description": "Config System Controller"
+    },
+    {
+      "name": "notification-controller",
+      "description": "Notification Controller"
+    }
+  ]
+}
