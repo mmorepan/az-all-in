@@ -1572,7 +1572,6 @@
               "name": "datos del archivo de certificacion",
               "description": "datos del archivo de certificacion",
               "type": "string",
-              "defaultValue": "[{\"companyCode\": \"5d0853c0c2c83f382515b8ce\",\"userCode\": \"DNI-33333333\", \"certificationName\": \"VIGENCIA_PODER\"}]",
               "values": []
             }
           ],
