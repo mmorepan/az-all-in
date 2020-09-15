@@ -1,0 +1,1916 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Migration Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": true,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "migration",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/5ea33672d4ce840f24628c94')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"FactoryResponse\":{\"type\":\"object\",\"properties\":{\"filename\":{\"type\":\"string\"},\"messageResponse\":{\"type\":\"string\"}},\"title\":\"FactoryResponse\"},\"File\":{\"type\":\"object\",\"properties\":{\"absolute\":{\"type\":\"boolean\"},\"absoluteFile\":{\"$ref\":\"#/definitions/File\"},\"absolutePath\":{\"type\":\"string\"},\"canonicalFile\":{\"$ref\":\"#/definitions/File\"},\"canonicalPath\":{\"type\":\"string\"},\"directory\":{\"type\":\"boolean\"},\"executable\":{\"type\":\"boolean\"},\"file\":{\"type\":\"boolean\"},\"freeSpace\":{\"type\":\"integer\",\"format\":\"int64\"},\"hidden\":{\"type\":\"boolean\"},\"lastModified\":{\"type\":\"integer\",\"format\":\"int64\"},\"name\":{\"type\":\"string\"},\"parent\":{\"type\":\"string\"},\"parentFile\":{\"$ref\":\"#/definitions/File\"},\"path\":{\"type\":\"string\"},\"readable\":{\"type\":\"boolean\"},\"totalSpace\":{\"type\":\"integer\",\"format\":\"int64\"},\"usableSpace\":{\"type\":\"integer\",\"format\":\"int64\"},\"writable\":{\"type\":\"boolean\"}},\"title\":\"File\"},\"GenericResponse\":{\"type\":\"object\",\"properties\":{\"messageResponse\":{\"type\":\"string\"},\"object\":{\"type\":\"object\"}},\"title\":\"GenericResponse\"},\"InputStream\":{\"type\":\"object\",\"title\":\"InputStream\"},\"JobError\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"error\":{\"type\":\"string\"},\"errorMap\":{\"type\":\"object\"}},\"title\":\"JobError\"},\"MessageResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"}},\"title\":\"MessageResponse\"},\"MigrateErrorResponse\":{\"type\":\"object\",\"properties\":{\"filename\":{\"type\":\"string\"},\"jobError\":{\"$ref\":\"#/definitions/JobError\"},\"messageResponse\":{\"type\":\"string\"},\"statusCode\":{\"type\":\"integer\",\"format\":\"int32\"},\"statusName\":{\"type\":\"string\"}},\"title\":\"MigrateErrorResponse\"},\"Resource\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"file\":{\"$ref\":\"#/definitions/File\"},\"filename\":{\"type\":\"string\"},\"inputStream\":{\"$ref\":\"#/definitions/InputStream\"},\"open\":{\"type\":\"boolean\"},\"readable\":{\"type\":\"boolean\"},\"uri\":{\"$ref\":\"#/definitions/URI\"},\"url\":{\"$ref\":\"#/definitions/URL\"}},\"title\":\"Resource\"},\"URI\":{\"type\":\"object\",\"properties\":{\"absolute\":{\"type\":\"boolean\"},\"authority\":{\"type\":\"string\"},\"fragment\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"opaque\":{\"type\":\"boolean\"},\"path\":{\"type\":\"string\"},\"port\":{\"type\":\"integer\",\"format\":\"int32\"},\"query\":{\"type\":\"string\"},\"rawAuthority\":{\"type\":\"string\"},\"rawFragment\":{\"type\":\"string\"},\"rawPath\":{\"type\":\"string\"},\"rawQuery\":{\"type\":\"string\"},\"rawSchemeSpecificPart\":{\"type\":\"string\"},\"rawUserInfo\":{\"type\":\"string\"},\"scheme\":{\"type\":\"string\"},\"schemeSpecificPart\":{\"type\":\"string\"},\"userInfo\":{\"type\":\"string\"}},\"title\":\"URI\"},\"URL\":{\"type\":\"object\",\"properties\":{\"authority\":{\"type\":\"string\"},\"content\":{\"type\":\"object\"},\"defaultPort\":{\"type\":\"integer\",\"format\":\"int32\"},\"deserializedFields\":{\"$ref\":\"#/definitions/URLStreamHandler\"},\"file\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"path\":{\"type\":\"string\"},\"port\":{\"type\":\"integer\",\"format\":\"int32\"},\"protocol\":{\"type\":\"string\"},\"query\":{\"type\":\"string\"},\"ref\":{\"type\":\"string\"},\"serializedHashCode\":{\"type\":\"integer\",\"format\":\"int32\"},\"userInfo\":{\"type\":\"string\"}},\"title\":\"URL\"},\"URLStreamHandler\":{\"type\":\"object\",\"title\":\"URLStreamHandler\"},\"Bash-migrateCompanyRun-batch-jobPost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateContactRun-batch-jobPost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateFactoryRun-batch-jobGet200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateFactoryUploadFilePost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateFactoryValidate-logGet200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateOpportunityUploadFilePost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateThematicRun-batch-jobPost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateUploadCatalogFixed-lineAdvancedSegmentPost200ApplicationJsonResp\":{\"type\":\"object\"},\"Bash-migrateUploadCatalogFixed-lineTraditionalSegmentPost200ApplicationJsonR\":{\"type\":\"object\"},\"Bash-migrateUploadCatalogMobileSegmentPost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateUploadDigital-servicesPost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateUploadOfferPost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateUploadPlanFixed-lineAdvancedSegmentPost200ApplicationJsonRespons\":{\"type\":\"object\"},\"Bash-migrateUploadPlanFixed-lineTraditionalSegmentPost200ApplicationJsonResp\":{\"type\":\"object\"},\"Bash-migrateUploadPlanMobileSegmentPost200ApplicationJsonResponse\":{\"type\":\"object\"},\"Bash-migrateUploadProductSegmentPost200ApplicationJsonResponse\":{\"type\":\"object\"}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadCatalogFixedLineAdvancedUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de catalogos fija avanzada",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/catalog/fixed-line/advanced/{segment}",
+        "templateParameters": [
+          {
+            "name": "segment",
+            "description": "segment",
+            "type": "string",
+            "required": true,
+            "values": [
+              "PREMIUM",
+              "ALTOVALOR",
+              "EMPRESAS"
+            ]
+          }
+        ],
+        "description": "Carga y procesa los archivos de carga masiva de catalogos fija avanzada",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadCatalogFixed-lineAdvancedSegmentPost200ApplicationJsonResp"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadCatalogFixedLineAdvancedUsingPOST/catalog-advanced-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadCatalogFixedLineAdvancedUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "catalog-advanced-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadCatalogFixedLineTraditionalUsingPOST_1')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de catalogos fija Movil",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/offer",
+        "templateParameters": [],
+        "description": "Carga y procesa los archivos de carga masiva de catalogos fija Movil",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadOfferPost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadCatalogFixedLineTraditionalUsingPOST_1/offer-mte-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadCatalogFixedLineTraditionalUsingPOST_1')]"
+      ],
+      "properties": {
+        "displayName": "offer-mte-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadCatalogFixedLineTraditionalUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de catalogos fija Movil",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/catalog/fixed-line/traditional/{segment}",
+        "templateParameters": [
+          {
+            "name": "segment",
+            "description": "segment",
+            "type": "string",
+            "required": true,
+            "values": [
+              "PREMIUM",
+              "ALTOVALOR",
+              "EMPRESAS"
+            ]
+          }
+        ],
+        "description": "Carga y procesa los archivos de carga masiva de catalogos fija Movil",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadCatalogFixed-lineTraditionalSegmentPost200ApplicationJsonR"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadCatalogFixedLineTraditionalUsingPOST/catalog-traditional-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadCatalogFixedLineTraditionalUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "catalog-traditional-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadCatalogMobileUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de catalogos movil",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/catalog/mobile/{segment}",
+        "templateParameters": [
+          {
+            "name": "segment",
+            "description": "segment",
+            "type": "string",
+            "required": true,
+            "values": [
+              "PREMIUM",
+              "ALTOVALOR",
+              "EMPRESAS"
+            ]
+          }
+        ],
+        "description": "Carga y procesa los archivos de carga masiva de catalogos movil",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadCatalogMobileSegmentPost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadCatalogMobileUsingPOST/catalog-mobile-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadCatalogMobileUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "catalog-mobile-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadFileOpportunityUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de oportunidades",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/opportunity/uploadFile",
+        "templateParameters": [],
+        "description": "Carga y procesa los archivos de carga masiva de oportunidades",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateOpportunityUploadFilePost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadFileOpportunityUsingPOST/opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadFileOpportunityUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadPlanFixedLineAdvancedUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de Planes Fija Avanzada",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/plan/fixed-line/advanced/{segment}",
+        "templateParameters": [
+          {
+            "name": "segment",
+            "description": "segment",
+            "type": "string",
+            "required": true,
+            "values": [
+              "PREMIUM",
+              "ALTOVALOR",
+              "EMPRESAS"
+            ]
+          }
+        ],
+        "description": "Carga y procesa los archivos de carga masiva de Planes Fija Avanzada",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadPlanFixed-lineAdvancedSegmentPost200ApplicationJsonRespons"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadPlanFixedLineAdvancedUsingPOST/plan-advanced-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadPlanFixedLineAdvancedUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "plan-advanced-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadPlanFixedLineTraditionalUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de Planes Fija Tradicional",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/plan/fixed-line/traditional/{segment}",
+        "templateParameters": [
+          {
+            "name": "segment",
+            "description": "segment",
+            "type": "string",
+            "required": true,
+            "values": [
+              "PREMIUM",
+              "ALTOVALOR",
+              "EMPRESAS"
+            ]
+          }
+        ],
+        "description": "Carga y procesa los archivos de carga masiva de Planes Fija Tradicional",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadPlanFixed-lineTraditionalSegmentPost200ApplicationJsonResp"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadPlanFixedLineTraditionalUsingPOST/plan-traditional-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadPlanFixedLineTraditionalUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "plan-traditional-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadPlanMobileUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de Planes movil",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/plan/mobile/{segment}",
+        "templateParameters": [
+          {
+            "name": "segment",
+            "description": "segment",
+            "type": "string",
+            "required": true,
+            "values": [
+              "PREMIUM",
+              "ALTOVALOR",
+              "EMPRESAS"
+            ]
+          }
+        ],
+        "description": "Carga y procesa los archivos de carga masiva de Planes movil",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadPlanMobileSegmentPost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadPlanMobileUsingPOST/plan-mobile-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadPlanMobileUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "plan-mobile-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadThematicUsingPOST_2')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de Productos",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/thematic/run-batch-job",
+        "templateParameters": [],
+        "description": "Carga y procesa los archivos de carga masiva de Productos",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateThematicRun-batch-jobPost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadThematicUsingPOST_2/thematic-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadThematicUsingPOST_2')]"
+      ],
+      "properties": {
+        "displayName": "thematic-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadThematicUsingPOST_1')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de Productos",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/contact/run-batch-job",
+        "templateParameters": [],
+        "description": "Carga y procesa los archivos de carga masiva de Productos",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateContactRun-batch-jobPost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadThematicUsingPOST_1/contacto-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadThematicUsingPOST_1')]"
+      ],
+      "properties": {
+        "displayName": "contacto-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadThematicUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de Productos",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/company/run-batch-job",
+        "templateParameters": [],
+        "description": "Carga y procesa los archivos de carga masiva de Productos",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateCompanyRun-batch-jobPost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadThematicUsingPOST/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadThematicUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadProductUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de Productos",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/product/{segment}",
+        "templateParameters": [
+          {
+            "name": "segment",
+            "description": "segment",
+            "type": "string",
+            "required": true,
+            "values": [
+              "PREMIUM",
+              "ALTOVALOR",
+              "EMPRESAS"
+            ]
+          }
+        ],
+        "description": "Carga y procesa los archivos de carga masiva de Productos",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadProductSegmentPost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadProductUsingPOST/product-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadProductUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "product-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/addMassiveDigitalCatalogUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos de carga masiva de productos digitalers",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/upload/digital-services",
+        "templateParameters": [],
+        "description": "Carga y procesa los archivos de carga masiva de productos digitales",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateUploadDigital-servicesPost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/addMassiveDigitalCatalogUsingPOST/digital-catalog-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'addMassiveDigitalCatalogUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "digital-catalog-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadFileFactoryUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos del servicio de getReport de forma manual",
+        "method": "POST",
+        "urlTemplate": "/bash-migrate/factory/uploadFile",
+        "templateParameters": [],
+        "description": "Carga y procesa los archivos del servicio de getReport de forma manual",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateFactoryUploadFilePost200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/uploadFileFactoryUsingPOST/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'uploadFileFactoryUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/loadFileByRucToPlantUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Carga y procesa los archivos del servicio de getReport por RUC",
+        "method": "GET",
+        "urlTemplate": "/bash-migrate/factory/run-batch-job?ruc={ruc}",
+        "templateParameters": [
+          {
+            "name": "ruc",
+            "description": "ruc",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Carga y procesa los archivos del servicio de getReport por RUC",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateFactoryRun-batch-jobGet200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/loadFileByRucToPlantUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'loadFileByRucToPlantUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/companyBrandsUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "companyBrands",
+        "method": "POST",
+        "urlTemplate": "/batch-company/brands",
+        "templateParameters": [],
+        "description": "companyBrands",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "multipart/form-data",
+              "formParameters": [
+                {
+                  "name": "file",
+                  "description": "file",
+                  "type": "file",
+                  "required": true,
+                  "values": []
+                }
+              ]
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "MessageResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/companyBrandsUsingPOST/company-brands-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'companyBrandsUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "company-brands-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/getIfExistsLogUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'migration-api', '5ea33672d4ce840f24628c94')]"
+      ],
+      "properties": {
+        "displayName": "Insertar el log correspondientes a una carga por RUC",
+        "method": "GET",
+        "urlTemplate": "/bash-migrate/factory/validate-log?ruc={ruc}",
+        "templateParameters": [
+          {
+            "name": "ruc",
+            "description": "ruc",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Insertar el log correspondientes a una carga por RUC",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5ea33672d4ce840f24628c94",
+                "typeName": "Bash-migrateFactoryValidate-logGet200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/getIfExistsLogUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'getIfExistsLogUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/loadUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]"
+      ],
+      "properties": {
+        "displayName": "load",
+        "method": "GET",
+        "urlTemplate": "/financing/load",
+        "templateParameters": [],
+        "description": "load",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/loadUsingGET/financing-report-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'migration-api', 'loadUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "financing-report-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/migration-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/migration-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'migration-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'migration-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}

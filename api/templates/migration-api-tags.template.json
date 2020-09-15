@@ -1,0 +1,160 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/catalog-advanced-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "catalog-advanced-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/catalog-mobile-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "catalog-mobile-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/catalog-traditional-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "catalog-traditional-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-brands-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "company-brands-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/company-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "company-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/contacto-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "contacto-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-catalog-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "digital-catalog-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/financing-report-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "financing-report-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/offer-mte-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "offer-mte-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/plan-advanced-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "plan-advanced-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/plan-mobile-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "plan-mobile-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/plan-traditional-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "plan-traditional-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/product-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "product-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/thematic-controller')]",
+      "type": "Microsoft.ApiManagement/service/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "thematic-controller"
+      }
+    }
+  ],
+  "outputs": {}
+}
