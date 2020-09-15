@@ -1,0 +1,114 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Dashboard Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/dashboard",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/dashboard/case/{groupSaleId}": {
+      "get": {
+        "description": "visualizar el dashboard con los casos de la cartera del ejecutivo comercial",
+        "operationId": "getCaseDashboardUsingGET",
+        "summary": "visualizar el dashboard con los casos de la cartera del ejecutivo comercial",
+        "tags": [
+          "case-dashboard-controller"
+        ],
+        "parameters": [
+          {
+            "name": "groupSaleId",
+            "in": "path",
+            "description": "groupSaleId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseDashboardResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CaseDashboardResponse": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "CaseDashboardResponse"
+    },
+    "Flux«CaseDashboardResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«CaseDashboardResponse»"
+    }
+  },
+  "tags": [
+    {
+      "name": "case-dashboard-controller",
+      "description": "Case Dashboard Controller"
+    }
+  ]
+}
