@@ -1,0 +1,6319 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Case Management Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/case",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/case/app/save": {
+      "post": {
+        "description": "Registra un caso desde la web",
+        "operationId": "saveCaseToUserFromAppUsingPOST",
+        "summary": "Registra un caso desde la web",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "caseRequestApp",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CaseRequestApp"
+            },
+            "description": "caseRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AssignedResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/assigned": {
+      "post": {
+        "description": "Asigna usuario a los casos",
+        "operationId": "assignedCaseToUserUsingPOST",
+        "summary": "Asigna usuarios a uno o muchos Casos",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "assignedUserRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AssignedUserRequest"
+            },
+            "description": "assignedUserRequest"
+          }
+        ],
+        "consumes": [
+          "application/stream+json",
+          "application/json"
+        ],
+        "produces": [
+          "application/stream+json",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AssignedResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/cancel-action": {
+      "put": {
+        "description": "Cancela una accion",
+        "operationId": "cancelActionByCaseIdUsingPUT",
+        "summary": "Cancela una accion y lo guarda en el historial",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "cancelActionRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CancelActionRequest"
+            },
+            "description": "cancelActionRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/cancel-appointment": {
+      "put": {
+        "description": "Cancela una cita",
+        "operationId": "cancelAppointmentByCaseIdUsingPUT",
+        "summary": "Cancela una cita y lo guarda en el historial",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "cancelAppointmentRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CancelAppointmentRequest"
+            },
+            "description": "cancelAppointmentRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/close": {
+      "put": {
+        "description": "Cierra una caso",
+        "operationId": "closeCaseUsingPUT",
+        "summary": "Cierra una Case y lo guarda en el historial",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "closeCaseRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CloseCaseRequest"
+            },
+            "description": "closeCaseRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/comment": {
+      "post": {
+        "description": "guarda comentarios",
+        "operationId": "saveHistoryCaseUsingPOST",
+        "summary": "Guarda comentarios ",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "historyCaseRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/HistoryCaseRequest"
+            },
+            "description": "historyCaseRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HistoryCase"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/confirmation-action": {
+      "put": {
+        "description": "Cierra una caso",
+        "operationId": "confirmationActionUsingPUT",
+        "summary": "Cierra una Case y lo guarda en el historial",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "confirmedActionRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ConfirmedActionRequest"
+            },
+            "description": "confirmedActionRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseSaveResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/csv/user/{idUser}": {
+      "post": {
+        "description": "carga masiva de casos por csv",
+        "operationId": "uploadCaseCsvUsingPOST",
+        "summary": "carga masiva casos",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "path",
+            "description": "idUser",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseSaveResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/derived": {
+      "post": {
+        "description": "Derivar caso",
+        "operationId": "assignedCaseToUserUsingPOST_1",
+        "summary": "Derivar caso",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "derivedCaseRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/DerivedCaseRequest"
+            },
+            "description": "derived"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AssignedResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/filter-case": {
+      "get": {
+        "description": "filtra todas los solicitudes",
+        "operationId": "filterAllSolicitudeUsingGET",
+        "summary": "filtrea todas los casos",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "actionStatus",
+            "in": "query",
+            "description": "actionStatus",
+            "type": "string"
+          },
+          {
+            "name": "caseStatus",
+            "in": "query",
+            "description": "caseStatus",
+            "type": "string"
+          },
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "type": "string"
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "groupId",
+            "type": "string"
+          },
+          {
+            "name": "groupSale",
+            "in": "query",
+            "description": "groupSale",
+            "type": "string"
+          },
+          {
+            "name": "idUserAssigned",
+            "in": "query",
+            "description": "idUserAssigned",
+            "type": "string"
+          },
+          {
+            "name": "idUserCreate",
+            "in": "query",
+            "description": "idUserCreate",
+            "type": "string"
+          },
+          {
+            "name": "internal",
+            "in": "query",
+            "description": "internal",
+            "type": "boolean"
+          },
+          {
+            "name": "levelOne",
+            "in": "query",
+            "description": "levelOne",
+            "type": "string"
+          },
+          {
+            "name": "levelThree",
+            "in": "query",
+            "description": "levelThree",
+            "type": "string"
+          },
+          {
+            "name": "levelTwo",
+            "in": "query",
+            "description": "levelTwo",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "product",
+            "in": "query",
+            "description": "product",
+            "type": "string"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "salesGroupStatus",
+            "in": "query",
+            "description": "salesGroupStatus",
+            "type": "boolean"
+          },
+          {
+            "name": "searchCompany",
+            "in": "query",
+            "description": "searchCompany",
+            "type": "boolean"
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "since",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "typeOrigin",
+            "in": "query",
+            "description": "typeOrigin",
+            "type": "string"
+          },
+          {
+            "name": "typeService",
+            "in": "query",
+            "description": "typeService",
+            "type": "string"
+          },
+          {
+            "name": "until",
+            "in": "query",
+            "description": "until",
+            "type": "string"
+          },
+          {
+            "name": "userAssigned",
+            "in": "query",
+            "description": "userAssigned",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SolicitudeResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/filter-case-count": {
+      "get": {
+        "description": "filtra todas los solicitudes",
+        "operationId": "filterAllSolicitudeCountUsingGET",
+        "summary": "filtra todos los casos",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "actionStatus",
+            "in": "query",
+            "description": "actionStatus",
+            "type": "string"
+          },
+          {
+            "name": "caseStatus",
+            "in": "query",
+            "description": "caseStatus",
+            "type": "string"
+          },
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "type": "string"
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "groupId",
+            "type": "string"
+          },
+          {
+            "name": "groupSale",
+            "in": "query",
+            "description": "groupSale",
+            "type": "string"
+          },
+          {
+            "name": "idUserAssigned",
+            "in": "query",
+            "description": "idUserAssigned",
+            "type": "string"
+          },
+          {
+            "name": "idUserCreate",
+            "in": "query",
+            "description": "idUserCreate",
+            "type": "string"
+          },
+          {
+            "name": "internal",
+            "in": "query",
+            "description": "internal",
+            "type": "boolean"
+          },
+          {
+            "name": "levelOne",
+            "in": "query",
+            "description": "levelOne",
+            "type": "string"
+          },
+          {
+            "name": "levelThree",
+            "in": "query",
+            "description": "levelThree",
+            "type": "string"
+          },
+          {
+            "name": "levelTwo",
+            "in": "query",
+            "description": "levelTwo",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "product",
+            "in": "query",
+            "description": "product",
+            "type": "string"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "salesGroupStatus",
+            "in": "query",
+            "description": "salesGroupStatus",
+            "type": "boolean"
+          },
+          {
+            "name": "searchCompany",
+            "in": "query",
+            "description": "searchCompany",
+            "type": "boolean"
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "since",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "typeOrigin",
+            "in": "query",
+            "description": "typeOrigin",
+            "type": "string"
+          },
+          {
+            "name": "typeService",
+            "in": "query",
+            "description": "typeService",
+            "type": "string"
+          },
+          {
+            "name": "until",
+            "in": "query",
+            "description": "until",
+            "type": "string"
+          },
+          {
+            "name": "userAssigned",
+            "in": "query",
+            "description": "userAssigned",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SolicitudeResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/getCase": {
+      "get": {
+        "description": "Obtiene datos del caso por código",
+        "operationId": "getCaseUsingGET",
+        "summary": "Obtiene datos del caso",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "caseCode",
+            "in": "query",
+            "description": "Format - int32. caseCode",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseDetailResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/getCaseDetail": {
+      "get": {
+        "description": "Obtiene el detalle de un caso",
+        "operationId": "getDetailCaseUsingGET",
+        "summary": "Obtiene el detalle de un caso",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "query",
+            "description": "caseId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseDetailResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/getGroupAttention": {
+      "get": {
+        "description": "Obtiene grupo de atención para la derivación",
+        "operationId": "getGroupForDerivationUsingGET",
+        "summary": "Obtiene grupo de atención para la derivación",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "thematicId",
+            "in": "query",
+            "description": "thematicId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseDetailResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/getReason": {
+      "get": {
+        "description": "Obtiene razones derivación",
+        "operationId": "getReasonUsingGET",
+        "summary": "Obtiene razones de derivación",
+        "tags": [
+          "case-controller"
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseDetailResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/list-motive-close": {
+      "get": {
+        "description": "lista motivos",
+        "operationId": "listMotiveCaseByFirstLevelThematicUsingGET",
+        "summary": "lista los motivos de cierre ",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "nameFirstLevel",
+            "in": "query",
+            "description": "nameFirstLevel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MotiveCloseResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/save-action": {
+      "post": {
+        "description": "Registra una accion",
+        "operationId": "saveActionByCaseIdUsingPOST",
+        "summary": "registra una Accion y lo guarda en el historial",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "actionCaseRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ActionCaseRequest"
+            },
+            "description": "actionCaseRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/save-appointment": {
+      "post": {
+        "description": "Registra una cita",
+        "operationId": "saveAppointmentByCaseIdUsingPOST",
+        "summary": "Registra una cita y lo guarda en el historial",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "appointmentRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AppointmentRequest"
+            },
+            "description": "appointmentRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/set-motive-close": {
+      "post": {
+        "description": "añade motivos de cierre",
+        "operationId": "setMotiveCaseByFirstLevelThematicUsingPOST",
+        "summary": "valida nombre nivel 1 tematico y añade los motivos por nivelu no de tematico ",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "motiveCloseRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/MotiveCloseRequest"
+            },
+            "description": "motiveCloseRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SaveMotiveCloseResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/updateSalesGroup": {
+      "put": {
+        "description": "Dar de baja los casos de un grupo de ventas",
+        "operationId": "unSubscriberSalesGroupUsingPUT",
+        "summary": "Dar de baja los casos de un grupo de ventas",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "groupSaleRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/GroupSaleRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Se dio de baja correctamente todos los casos de un grupo de ventas",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraron datos."
+          },
+          "500": {
+            "description": "Se produjo un error en la aplicación"
+          }
+        }
+      }
+    },
+    "/case/valid-user-assigned/{idUser}/{status}/{idAttentionGroup}": {
+      "get": {
+        "description": "validateUserAssignedCase",
+        "operationId": "validateUserAssignedCaseUsingGET",
+        "summary": "validateUserAssignedCase",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idAttentionGroup",
+            "in": "path",
+            "description": "idAttentionGroup",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idUser",
+            "in": "path",
+            "description": "idUser",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "status",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«boolean»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/web/save": {
+      "post": {
+        "description": "Registra un caso desde la web",
+        "operationId": "saveCaseToUserFromWebUsingPOST",
+        "summary": "Registra un caso desde la web",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "caseRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CaseRequest"
+            },
+            "description": "caseRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/caseApp/getCaseAppDetail": {
+      "get": {
+        "description": "lista todos los casos",
+        "operationId": "getCaseAppDetailUsingGET",
+        "summary": "Lista todos casos de App",
+        "tags": [
+          "case-app-controller"
+        ],
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "query",
+            "description": "caseId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseAppResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/caseApp/getCaseAppDetailToExecutive": {
+      "get": {
+        "description": "detalle del caso en app para los ejecutivos comerciles",
+        "operationId": "getCaseAppDetailToExecutiveUsingGET",
+        "summary": "detalle del caso en app para los ejecutivos comerciles",
+        "tags": [
+          "case-app-controller"
+        ],
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "query",
+            "description": "caseId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Se obtuvo el detalle del caso",
+            "schema": {
+              "$ref": "#/definitions/CaseDetailToExecutiveResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraron datos del caso"
+          },
+          "500": {
+            "description": "Se produjo un error en la aplicación"
+          }
+        }
+      }
+    },
+    "/caseApp/search-case": {
+      "get": {
+        "description": "lista todos los casos",
+        "operationId": "findAllCaseSearchAppUsingGET",
+        "summary": "Lista todos casos de App",
+        "tags": [
+          "case-app-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseAppResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/dashboard/getSolicitude": {
+      "get": {
+        "description": "Obtiene las solicitudes pendiente de respuesta y cantidad total",
+        "operationId": "getDetailCaseUsingGET_1",
+        "summary": "Obtiene las solicitudes pendiente de respuesta y cantidad total",
+        "tags": [
+          "dashboard-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SolicitudeHomeResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/dashboard/getSolicitudeStatus": {
+      "get": {
+        "description": "Obtiene los estados de solicitudes",
+        "operationId": "getSolicitudeStatusUsingGET",
+        "summary": "Obtiene los estados de solicitudes",
+        "tags": [
+          "dashboard-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SolicitudeStatusResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/dashboard/getSolicitudeStatusGroup": {
+      "get": {
+        "description": "Obtiene los estados de solicitudes",
+        "operationId": "groupByDashBoardUsingGET",
+        "summary": "Obtiene los estados de solicitudes",
+        "tags": [
+          "dashboard-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SolicitudeStatusResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/history/": {
+      "get": {
+        "description": "lista historial",
+        "operationId": "findAllHistoryUsingGET",
+        "summary": "lista todas las acciones, comentarios, assignaciones por id de caso",
+        "tags": [
+          "history-case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idCase",
+            "in": "query",
+            "description": "idCase",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HistoryCase"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/history/save": {
+      "post": {
+        "description": "Guarda historial",
+        "operationId": "saveHistoryCaseUsingPOST_1",
+        "summary": "Guarda historial ",
+        "tags": [
+          "history-case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newCase",
+            "in": "query",
+            "description": "newCase",
+            "type": "string"
+          },
+          {
+            "name": "historyCaseRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/HistoryCaseRequest"
+            },
+            "description": "historyCaseRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/HistoryCase"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic-combo/": {
+      "get": {
+        "description": "lista tematicos",
+        "operationId": "findAllThematicComboUsingGET",
+        "summary": "Lista todos los combo temáticos(internos y externos) para la lista de combo",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicCombo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "description": "Almacena tematicos",
+        "operationId": "saveThematicComboUsingPOST",
+        "summary": "Almacena tematicos para llenar los combos",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "parameters": [
+          {
+            "name": "thematicComboRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ThematicComboRequest"
+            },
+            "description": "thematicComboRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicCombo"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic-combo/find-level": {
+      "get": {
+        "description": "findByTwoName",
+        "operationId": "findByTwoNameUsingGET",
+        "summary": "findByTwoName",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "parameters": [
+          {
+            "name": "level1",
+            "in": "query",
+            "description": "level1",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "level2",
+            "in": "query",
+            "description": "level2",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ThematicCombo»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic-combo/name-three/": {
+      "get": {
+        "description": "lista tematicos",
+        "operationId": "findThematicComboByThematicNameUsingGET",
+        "summary": "valida combo nivel 3 por ID nivel 1",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "nameThree",
+            "in": "query",
+            "description": "nameThree",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicCombo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic-combo/name/": {
+      "get": {
+        "description": "lista tematicos",
+        "operationId": "findByThematicNameValidatedUsingGET",
+        "summary": "busca  los tematicos de nivel 1 por nombre",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "parameters": [
+          {
+            "name": "nameThematic",
+            "in": "query",
+            "description": "nameThematic",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicCombo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic-combo/name/level2": {
+      "get": {
+        "description": "lista tematicos",
+        "operationId": "findByThematicNameLv2UsingGET",
+        "summary": "valida combo nivel 2 por ID nivel 1",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lvl2Name",
+            "in": "query",
+            "description": "lvl2Name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicCombo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic-combo/type/{typeThematic}": {
+      "get": {
+        "description": "lista tematicos",
+        "operationId": "findAllByTypeThematicUsingGET",
+        "summary": "Busca tematico por el tipo (interno o externo)",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "parameters": [
+          {
+            "name": "typeThematic",
+            "in": "path",
+            "description": "typeThematic",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicCombo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic-combo/type/{typeThematic}/codeTypeClient/{codeTypeClient}/typeService/{typeService}": {
+      "get": {
+        "description": "lista tematicos",
+        "operationId": "findAllByTypeComboUsingGET",
+        "summary": "Busca tematico por el tipo (interno o externo) y por el typo de cliente",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "parameters": [
+          {
+            "name": "codeTypeClient",
+            "in": "path",
+            "description": "codeTypeClient",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "typeService",
+            "in": "path",
+            "description": "typeService",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "typeThematic",
+            "in": "path",
+            "description": "typeThematic",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicCombo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic-combo/{idThematic}": {
+      "get": {
+        "description": "lista tematicos",
+        "operationId": "findThematicComboByIdThematicUsingGET",
+        "summary": "busca  los tematicos por id",
+        "tags": [
+          "thematic-combo-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idThematic",
+            "in": "path",
+            "description": "idThematic",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicCombo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/": {
+      "get": {
+        "description": "lista temáticos",
+        "operationId": "findAllThematicUsingGET",
+        "summary": "Lista todos los temáticos ",
+        "tags": [
+          "thematic-controller"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "description": "Almacena temáticos",
+        "operationId": "saveThematicUsingPOST",
+        "summary": "Guarda los temáticos con su respectivo combo",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "thematicRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ThematicRequest"
+            },
+            "description": "thematicRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/delete": {
+      "put": {
+        "description": "Elimina temáticos",
+        "operationId": "deleteThematicUsingPUT",
+        "summary": "Elimina los temáticos cambiando de estado por respectivo id",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Ids"
+            },
+            "description": "ids"
+          }
+        ],
+        "consumes": [
+          "application/stream+json",
+          "application/json"
+        ],
+        "produces": [
+          "application/stream+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DeleteResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/find": {
+      "get": {
+        "description": "lista temáticos",
+        "operationId": "findAllPageableThematicNameUsingGET",
+        "summary": "Busca todos los temáticos por su nombre",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/find-page-internal": {
+      "get": {
+        "description": "lista temáticos",
+        "operationId": "findByNameThematicInternalUsingGET",
+        "summary": "Busca temáticos internos por su nombre",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/find-page-internal-external": {
+      "get": {
+        "description": "lista temáticos",
+        "operationId": "findByNameThematicUsingGET",
+        "summary": "Busca temáticos internos y externos por su nombre",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/find-with-guide": {
+      "get": {
+        "description": "lista tematicos que contiene guía dinámica",
+        "operationId": "findAllWithDynamicGuideUsingGET",
+        "summary": "Lista todos los temáticos que contienen guía dinámica",
+        "tags": [
+          "thematic-controller"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/find/affiliation": {
+      "get": {
+        "description": "Obtiene thematico de afiliacion digitao/ afiliacion MMG/Duplicado",
+        "operationId": "findByIdThematicByNameUsingGET",
+        "summary": "Tematicos por niveles",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "levelOne",
+            "in": "query",
+            "description": "levelOne",
+            "type": "string"
+          },
+          {
+            "name": "levelThree",
+            "in": "query",
+            "description": "levelThree",
+            "type": "string"
+          },
+          {
+            "name": "levelTwo",
+            "in": "query",
+            "description": "levelTwo",
+            "type": "string"
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "description": "request",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ThematicAffiliationResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/id/type": {
+      "get": {
+        "description": "busca tematicos",
+        "operationId": "findByIdThematicAndTypeUsingGET",
+        "summary": "Busca  tematico por id y tipo interno o externo",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "idThematic",
+            "in": "query",
+            "description": "idThematic",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/internal": {
+      "get": {
+        "description": "lista temáticos",
+        "operationId": "findAllThematicInternalUsingGET",
+        "summary": "Lista todos los temáticos Internos ",
+        "tags": [
+          "thematic-controller"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/internal-page": {
+      "get": {
+        "description": "findByThematicInternalPage",
+        "operationId": "findByThematicInternalPageUsingGET",
+        "summary": "findByThematicInternalPage",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«PageSupport«Thematic»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/name/": {
+      "get": {
+        "description": "lista tematicos",
+        "operationId": "findByThematicNameUsingGET",
+        "summary": "busca  los tematicos de nivel 1 por nombre",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "nameThematic",
+            "in": "query",
+            "description": "nameThematic",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/name/type": {
+      "get": {
+        "description": "busca tematicos",
+        "operationId": "findByThematicNameAndTypeUsingGET",
+        "summary": "busca  tematico por nombre interno o externo",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "nameThematic",
+            "in": "query",
+            "description": "nameThematic",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/page": {
+      "get": {
+        "description": "findThematicByPage",
+        "operationId": "findThematicByPageUsingGET",
+        "summary": "findThematicByPage",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«PageSupport«Thematic»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/thematic/update": {
+      "put": {
+        "description": "Actualiza temáticos",
+        "operationId": "updateThematicUsingPUT",
+        "summary": "Actualiza los temáticos con su respectivo combo por id",
+        "tags": [
+          "thematic-controller"
+        ],
+        "parameters": [
+          {
+            "name": "thematicRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ThematicRequest"
+            },
+            "description": "thematicRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Thematic"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/case/migration-srm": {
+      "post": {
+        "description": "carga masiva de casos por csv",
+        "operationId": "uploadCaseCsvSrmUsingPOST",
+        "summary": "carga masiva casos srm",
+        "tags": [
+          "case-controller"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseSaveResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ActionCaseEntity": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/BasicOperationsEntity"
+        },
+        "actionCaseCode": {
+          "type": "string"
+        },
+        "confirmedBy": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "confirmedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "intentFailPassword": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IntentFailPasswordEntity"
+          }
+        },
+        "note": {
+          "type": "string"
+        },
+        "requestedBy": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "requestedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "ActionCaseEntity"
+    },
+    "ActionCaseRequest": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/BasicOperationsRequest"
+        },
+        "confirmedBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "requestedBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        }
+      },
+      "title": "ActionCaseRequest"
+    },
+    "ActionCaseResponse": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/BasicOperationsEntity"
+        },
+        "actionCaseCode": {
+          "type": "string"
+        },
+        "confirmedBy": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "confirmedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "note": {
+          "type": "string"
+        },
+        "requestedBy": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "requestedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "ActionCaseResponse"
+    },
+    "ActionResponse": {
+      "type": "object",
+      "properties": {
+        "actionCode": {
+          "type": "string"
+        },
+        "actionStatus": {
+          "type": "string"
+        },
+        "operationCode": {
+          "type": "string"
+        },
+        "operationName": {
+          "type": "string"
+        }
+      },
+      "title": "ActionResponse"
+    },
+    "AddressEntity": {
+      "type": "object",
+      "properties": {
+        "interior": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "nombreAvenida": {
+          "type": "string"
+        },
+        "nombreUrbanizacion": {
+          "type": "string"
+        },
+        "numeroAvenida": {
+          "type": "string"
+        },
+        "numeroManzana": {
+          "type": "string"
+        },
+        "piso": {
+          "type": "string"
+        },
+        "referencia": {
+          "type": "string"
+        },
+        "tipoAvenida": {
+          "type": "string"
+        },
+        "tipoManzana": {
+          "type": "string"
+        },
+        "tipoUrbanizacion": {
+          "type": "string"
+        }
+      },
+      "title": "AddressEntity"
+    },
+    "AddressResponse": {
+      "type": "object",
+      "properties": {
+        "interior": {
+          "type": "string"
+        },
+        "lote": {
+          "type": "string"
+        },
+        "nombreAvenida": {
+          "type": "string"
+        },
+        "nombreUrbanizacion": {
+          "type": "string"
+        },
+        "numeroAvenida": {
+          "type": "string"
+        },
+        "numeroManzana": {
+          "type": "string"
+        },
+        "piso": {
+          "type": "string"
+        },
+        "referencia": {
+          "type": "string"
+        },
+        "tipoAvenida": {
+          "type": "string"
+        },
+        "tipoManzana": {
+          "type": "string"
+        },
+        "tipoUrbanizacion": {
+          "type": "string"
+        }
+      },
+      "title": "AddressResponse"
+    },
+    "AditionalInfoResponse": {
+      "type": "object",
+      "properties": {
+        "assignedGroup": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "creatorName": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "fatherCase": {
+          "type": "string"
+        },
+        "lastModification": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "serviceType": {
+          "type": "string"
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "userModification": {
+          "type": "string"
+        }
+      },
+      "title": "AditionalInfoResponse"
+    },
+    "AppointmentEntity": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "appointmentCode": {
+          "type": "string"
+        },
+        "appointmentMatter": {
+          "type": "string"
+        },
+        "assignedBy": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "cancelBy": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "contact": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "dateAppointment": {
+          "$ref": "#/definitions/DateAppointmentEntity"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "AppointmentEntity"
+    },
+    "AppointmentRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "appointmentMatter": {
+          "type": "string"
+        },
+        "assignedBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "cancelBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "contact": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "dateAppointment": {
+          "$ref": "#/definitions/DateAppointmentRequest"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        }
+      },
+      "title": "AppointmentRequest"
+    },
+    "AppointmentResponse": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "appointmentTo": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "schedule": {
+          "type": "string"
+        },
+        "scheduleBy": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "subject": {
+          "type": "string"
+        }
+      },
+      "title": "AppointmentResponse"
+    },
+    "AssignedResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "AssignedResponse"
+    },
+    "AssignedUserRequest": {
+      "type": "object",
+      "properties": {
+        "codeUser": {
+          "type": "string"
+        },
+        "idCase": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "idUser": {
+          "type": "string"
+        },
+        "oldCodeUserAssigned": {
+          "type": "string"
+        },
+        "typeAssigned": {
+          "type": "string"
+        },
+        "userAttentionGroup": {
+          "type": "string"
+        },
+        "userIdToAssign": {
+          "type": "string"
+        }
+      },
+      "title": "AssignedUserRequest"
+    },
+    "AttachmentCaseRequest": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "internal": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        }
+      },
+      "title": "AttachmentCaseRequest"
+    },
+    "AttachmetCaseEntity": {
+      "type": "object",
+      "properties": {
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createUser": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "description": {
+          "type": "string"
+        },
+        "internal": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        }
+      },
+      "title": "AttachmetCaseEntity"
+    },
+    "AttachmetResponse": {
+      "type": "object",
+      "properties": {
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "internal": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "personData": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "size": {
+          "type": "string"
+        }
+      },
+      "title": "AttachmetResponse"
+    },
+    "AttentionGroup": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClient"
+        }
+      },
+      "title": "AttentionGroup"
+    },
+    "AttentionGroupEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientEntity"
+        }
+      },
+      "title": "AttentionGroupEntity"
+    },
+    "AttentionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientRequest"
+        }
+      },
+      "title": "AttentionGroupRequest"
+    },
+    "AttentionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionGroupResponse"
+    },
+    "AttentionThresholdEntity": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionThresholdEntity"
+    },
+    "AttentionThresholdRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionThresholdRequest"
+    },
+    "AttentionTime": {
+      "type": "object",
+      "properties": {
+        "finish": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionTime"
+    },
+    "AttentionTimeEntity": {
+      "type": "object",
+      "properties": {
+        "finish": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionTimeEntity"
+    },
+    "AttentionTimeRequest": {
+      "type": "object",
+      "properties": {
+        "finish": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionTimeRequest"
+    },
+    "BasicData": {
+      "type": "object",
+      "properties": {
+        "externalThematic": {
+          "$ref": "#/definitions/BasicDataLevel"
+        },
+        "internalThematic": {
+          "$ref": "#/definitions/BasicDataLevel"
+        }
+      },
+      "title": "BasicData"
+    },
+    "BasicDataEntity": {
+      "type": "object",
+      "properties": {
+        "externalThematic": {
+          "$ref": "#/definitions/BasicDataLevelEntity"
+        },
+        "internalThematic": {
+          "$ref": "#/definitions/BasicDataLevelEntity"
+        }
+      },
+      "title": "BasicDataEntity"
+    },
+    "BasicDataLevel": {
+      "type": "object",
+      "properties": {
+        "level1": {
+          "type": "string"
+        },
+        "level2": {
+          "type": "string"
+        },
+        "level3": {
+          "type": "string"
+        }
+      },
+      "title": "BasicDataLevel"
+    },
+    "BasicDataLevelEntity": {
+      "type": "object",
+      "properties": {
+        "level1": {
+          "type": "string"
+        },
+        "level2": {
+          "type": "string"
+        },
+        "level3": {
+          "type": "string"
+        }
+      },
+      "title": "BasicDataLevelEntity"
+    },
+    "BasicDataLevelRequest": {
+      "type": "object",
+      "properties": {
+        "level1": {
+          "type": "string"
+        },
+        "level2": {
+          "type": "string"
+        },
+        "level3": {
+          "type": "string"
+        }
+      },
+      "title": "BasicDataLevelRequest"
+    },
+    "BasicDataRequest": {
+      "type": "object",
+      "properties": {
+        "externalThematic": {
+          "$ref": "#/definitions/BasicDataLevelRequest"
+        },
+        "internalThematic": {
+          "$ref": "#/definitions/BasicDataLevelRequest"
+        }
+      },
+      "title": "BasicDataRequest"
+    },
+    "BasicOperationResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "BasicOperationResponse"
+    },
+    "BasicOperations": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "BasicOperations"
+    },
+    "BasicOperationsEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "BasicOperationsEntity"
+    },
+    "BasicOperationsRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      },
+      "title": "BasicOperationsRequest"
+    },
+    "CancelActionRequest": {
+      "type": "object",
+      "properties": {
+        "cancelBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "codeAction": {
+          "type": "string"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "idCompany": {
+          "type": "string"
+        },
+        "typeUser": {
+          "type": "string"
+        }
+      },
+      "title": "CancelActionRequest"
+    },
+    "CancelAppointmentRequest": {
+      "type": "object",
+      "properties": {
+        "cancelBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "codeAppointment": {
+          "type": "string"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "idCompany": {
+          "type": "string"
+        },
+        "typeUser": {
+          "type": "string"
+        }
+      },
+      "title": "CancelAppointmentRequest"
+    },
+    "CaseAppDetailResponse": {
+      "type": "object",
+      "properties": {
+        "actionCase": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActionResponse"
+          }
+        },
+        "appointment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppointmentResponse"
+          }
+        },
+        "authorizedRole": {
+          "type": "string"
+        },
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "caseId": {
+          "type": "string"
+        },
+        "contactInfo": {
+          "$ref": "#/definitions/ContactInfoResponse"
+        },
+        "information": {
+          "$ref": "#/definitions/InfoCaseAppResponse"
+        },
+        "status": {
+          "type": "string"
+        },
+        "thematicInternalName": {
+          "type": "string"
+        },
+        "thematicName": {
+          "type": "string"
+        }
+      },
+      "title": "CaseAppDetailResponse"
+    },
+    "CaseAppResponse": {
+      "type": "object",
+      "properties": {
+        "actionCode": {
+          "type": "string"
+        },
+        "authorizedRole": {
+          "type": "string"
+        },
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "thematicName": {
+          "type": "string"
+        }
+      },
+      "title": "CaseAppResponse"
+    },
+    "CaseDetailResponse": {
+      "type": "object",
+      "properties": {
+        "actionCase": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActionCaseResponse"
+          }
+        },
+        "appointment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppointmentResponse"
+          }
+        },
+        "attachment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttachmetResponse"
+          }
+        },
+        "basicOperations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasicOperationResponse"
+          }
+        },
+        "case": {
+          "$ref": "#/definitions/InfoCaseResponse"
+        },
+        "client": {
+          "$ref": "#/definitions/InfoClientResponse"
+        },
+        "contactInfo": {
+          "$ref": "#/definitions/ContactInfoResponse"
+        },
+        "information": {
+          "$ref": "#/definitions/AditionalInfoResponse"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientResponse"
+        },
+        "userAssigned": {
+          "$ref": "#/definitions/PersonData"
+        }
+      },
+      "title": "CaseDetailResponse"
+    },
+    "CaseDetailToExecutiveResponse": {
+      "type": "object",
+      "properties": {
+        "authorizedRole": {
+          "type": "string"
+        },
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "caseId": {
+          "type": "string"
+        },
+        "contactInfo": {
+          "$ref": "#/definitions/ContactInfoResponse"
+        },
+        "information": {
+          "$ref": "#/definitions/InfoCaseToExecutiveResponse"
+        },
+        "status": {
+          "type": "string"
+        },
+        "subTypeClient": {
+          "type": "string"
+        },
+        "typeClient": {
+          "type": "string"
+        }
+      },
+      "title": "CaseDetailToExecutiveResponse"
+    },
+    "CaseEntity": {
+      "type": "object",
+      "properties": {
+        "actionCase": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActionCaseEntity"
+          }
+        },
+        "appointmentCase": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppointmentEntity"
+          }
+        },
+        "attachment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttachmetCaseEntity"
+          }
+        },
+        "attentionGroupAssigned": {
+          "$ref": "#/definitions/AttentionGroupEntity"
+        },
+        "attentionThreshold": {
+          "$ref": "#/definitions/AttentionThresholdEntity"
+        },
+        "caseCode": {
+          "type": "string"
+        },
+        "caseCodeSalesForce": {
+          "type": "string"
+        },
+        "caseCodeSrm": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommentCaseEntity"
+          }
+        },
+        "company": {
+          "$ref": "#/definitions/CompanyEntity"
+        },
+        "companyInfo": {
+          "$ref": "#/definitions/CompanyInfoEntity"
+        },
+        "contact": {
+          "$ref": "#/definitions/ContactEntity"
+        },
+        "contactInfo": {
+          "$ref": "#/definitions/ContactInfoEntity"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createUser": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "dataLevelThematic": {
+          "$ref": "#/definitions/BasicDataEntity"
+        },
+        "dateAssigned": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "fatherCaseCode": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "internal": {
+          "type": "boolean"
+        },
+        "modifyDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifyUser": {
+          "$ref": "#/definitions/PersonDataEntity"
+        },
+        "nameExternal": {
+          "type": "string"
+        },
+        "nameInternal": {
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/definitions/OriginCaseEntity"
+        },
+        "petition": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "service": {
+          "$ref": "#/definitions/ServiceCaseEntity"
+        },
+        "status": {
+          "type": "string"
+        },
+        "thematic": {
+          "$ref": "#/definitions/ThematicForCaseEntity"
+        },
+        "thematicId": {
+          "type": "string"
+        },
+        "userAssigned": {
+          "$ref": "#/definitions/UserEntity"
+        },
+        "userCode": {
+          "type": "string"
+        }
+      },
+      "title": "CaseEntity"
+    },
+    "CaseRequest": {
+      "type": "object",
+      "properties": {
+        "attachment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttachmentCaseRequest"
+          }
+        },
+        "comment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommentCaseRequest"
+          }
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "contactId": {
+          "type": "string"
+        },
+        "contactInfo": {
+          "$ref": "#/definitions/ContactInfoRequest"
+        },
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "fatherCaseCode": {
+          "type": "string"
+        },
+        "internal": {
+          "type": "boolean"
+        },
+        "origin": {
+          "$ref": "#/definitions/OriginCaseRequest"
+        },
+        "petition": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "service": {
+          "$ref": "#/definitions/ServiceCaseRequest"
+        },
+        "thematicId": {
+          "type": "string"
+        },
+        "userAction": {
+          "type": "string"
+        },
+        "userCode": {
+          "type": "string"
+        }
+      },
+      "title": "CaseRequest"
+    },
+    "CaseRequestApp": {
+      "type": "object",
+      "properties": {
+        "attachment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttachmentCaseRequest"
+          }
+        },
+        "comment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommentCaseRequest"
+          }
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "contactId": {
+          "type": "string"
+        },
+        "contactInfo": {
+          "$ref": "#/definitions/ContactInfoRequest"
+        },
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "internal": {
+          "type": "boolean"
+        },
+        "origin": {
+          "$ref": "#/definitions/OriginCaseRequest"
+        },
+        "petition": {
+          "type": "string"
+        },
+        "service": {
+          "$ref": "#/definitions/ServiceCaseRequest"
+        },
+        "thematicId": {
+          "type": "string"
+        },
+        "userAction": {
+          "type": "string"
+        }
+      },
+      "title": "CaseRequestApp"
+    },
+    "CaseResponse": {
+      "type": "object",
+      "properties": {
+        "assignedTo": {
+          "type": "string"
+        },
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "contact": {
+          "$ref": "#/definitions/ContactResponse"
+        },
+        "contactInfo": {
+          "$ref": "#/definitions/ContactInfoResponse"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "creationDateFormatted": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "modificationDate": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "thematic": {
+          "$ref": "#/definitions/ThematicResponse"
+        }
+      },
+      "title": "CaseResponse"
+    },
+    "CaseSaveResponse": {
+      "type": "object",
+      "properties": {
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "CaseSaveResponse"
+    },
+    "CloseCaseRequest": {
+      "type": "object",
+      "properties": {
+        "attentionThreshold": {
+          "$ref": "#/definitions/AttentionThresholdRequest"
+        },
+        "closeBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "closeMotive": {
+          "type": "string"
+        },
+        "dataClose": {
+          "$ref": "#/definitions/HistoryCloseRequest"
+        },
+        "idAttentionGroup": {
+          "type": "string"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "idCompany": {
+          "type": "string"
+        },
+        "typeUser": {
+          "type": "string"
+        }
+      },
+      "title": "CloseCaseRequest"
+    },
+    "CommentCaseEntity": {
+      "type": "object",
+      "properties": {
+        "internal": {
+          "type": "boolean"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "title": "CommentCaseEntity"
+    },
+    "CommentCaseRequest": {
+      "type": "object",
+      "properties": {
+        "internal": {
+          "type": "boolean"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "title": "CommentCaseRequest"
+    },
+    "CompanyEntity": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/AddressEntity"
+        },
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        },
+        "salesGroup": {
+          "$ref": "#/definitions/AttentionGroupEntity"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientEntity"
+        },
+        "typeDocument": {
+          "$ref": "#/definitions/TypeDocumentEntity"
+        }
+      },
+      "title": "CompanyEntity"
+    },
+    "CompanyInfoEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "commercialName": {
+          "type": "string"
+        },
+        "idCompany": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "salesGroup": {
+          "type": "string"
+        },
+        "salesGroupStatus": {
+          "type": "boolean"
+        }
+      },
+      "title": "CompanyInfoEntity"
+    },
+    "CompanyRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        }
+      },
+      "title": "CompanyRequest"
+    },
+    "ConfirmedActionRequest": {
+      "type": "object",
+      "properties": {
+        "actionCode": {
+          "type": "string"
+        },
+        "codeOperation": {
+          "type": "string"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "idCompany": {
+          "type": "string"
+        },
+        "userData": {
+          "$ref": "#/definitions/ConfirmedRequest"
+        }
+      },
+      "title": "ConfirmedActionRequest"
+    },
+    "ConfirmedRequest": {
+      "type": "object",
+      "properties": {
+        "idUser": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "ConfirmedRequest"
+    },
+    "ContactEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "$ref": "#/definitions/DocumentTypeEntity"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "surName": {
+          "type": "string"
+        }
+      },
+      "title": "ContactEntity"
+    },
+    "ContactInfoEntity": {
+      "type": "object",
+      "properties": {
+        "calledPhoneNumber": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        }
+      },
+      "title": "ContactInfoEntity"
+    },
+    "ContactInfoRequest": {
+      "type": "object",
+      "properties": {
+        "calledPhoneNumber": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        }
+      },
+      "title": "ContactInfoRequest"
+    },
+    "ContactInfoResponse": {
+      "type": "object",
+      "properties": {
+        "calledPhoneNumber": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "numberDocument": {
+          "type": "string"
+        }
+      },
+      "title": "ContactInfoResponse"
+    },
+    "ContactResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "surNames": {
+          "type": "string"
+        }
+      },
+      "title": "ContactResponse"
+    },
+    "DateAppointment": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "endAppointment": {
+          "type": "string"
+        },
+        "startAppointment": {
+          "type": "string"
+        }
+      },
+      "title": "DateAppointment"
+    },
+    "DateAppointmentEntity": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "endAppointment": {
+          "type": "string"
+        },
+        "startAppointment": {
+          "type": "string"
+        }
+      },
+      "title": "DateAppointmentEntity"
+    },
+    "DateAppointmentRequest": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "endAppointment": {
+          "type": "string"
+        },
+        "startAppointment": {
+          "type": "string"
+        }
+      },
+      "title": "DateAppointmentRequest"
+    },
+    "DeleteResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "DeleteResponse"
+    },
+    "DerivedCaseRequest": {
+      "type": "object",
+      "properties": {
+        "actualGroupAttentionId": {
+          "type": "string"
+        },
+        "caseId": {
+          "type": "string"
+        },
+        "derivedBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "groupAttentionId": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "title": "DerivedCaseRequest"
+    },
+    "DocumentTypeEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "DocumentTypeEntity"
+    },
+    "Flux«AssignedResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«AssignedResponse»"
+    },
+    "Flux«AttentionGroupResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«AttentionGroupResponse»"
+    },
+    "Flux«CaseSaveResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«CaseSaveResponse»"
+    },
+    "Flux«DeleteResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«DeleteResponse»"
+    },
+    "Flux«GroupedFlux«string,CaseEntity»»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«GroupedFlux«string,CaseEntity»»"
+    },
+    "Flux«Response»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Response»"
+    },
+    "Flux«SolicitudeStatusResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«SolicitudeStatusResponse»"
+    },
+    "Flux«ThematicCombo»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«ThematicCombo»"
+    },
+    "Flux«Thematic»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«Thematic»"
+    },
+    "Flux«object»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«object»"
+    },
+    "GroupResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientResponse"
+        }
+      },
+      "title": "GroupResponse"
+    },
+    "GroupSaleRequest": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "companyInfoId": {
+          "type": "string"
+        },
+        "groupSaleId": {
+          "type": "string"
+        },
+        "newGroupSaleId": {
+          "type": "string"
+        }
+      },
+      "title": "GroupSaleRequest"
+    },
+    "GroupedFlux«string,CaseEntity»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GroupedFlux«string,CaseEntity»"
+    },
+    "HistoryAction": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryAction"
+    },
+    "HistoryActionRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryActionRequest"
+    },
+    "HistoryAppointment": {
+      "type": "object",
+      "properties": {
+        "appointmentMatter": {
+          "type": "string"
+        },
+        "cancelBy": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "commentAppointment": {
+          "type": "string"
+        },
+        "contactAppointment": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "dateAppointment": {
+          "$ref": "#/definitions/DateAppointment"
+        }
+      },
+      "title": "HistoryAppointment"
+    },
+    "HistoryAppointmentRequest": {
+      "type": "object",
+      "properties": {
+        "appointmentMatter": {
+          "type": "string"
+        },
+        "cancelBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "commentAppointment": {
+          "type": "string"
+        },
+        "contactAppointment": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "dateAppointment": {
+          "$ref": "#/definitions/DateAppointmentRequest"
+        }
+      },
+      "title": "HistoryAppointmentRequest"
+    },
+    "HistoryAssigned": {
+      "type": "object",
+      "properties": {
+        "newUser": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "oldUser": {
+          "$ref": "#/definitions/PersonData"
+        }
+      },
+      "title": "HistoryAssigned"
+    },
+    "HistoryAssignedRequest": {
+      "type": "object",
+      "properties": {
+        "newUser": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "oldUser": {
+          "$ref": "#/definitions/PersonDataRequest"
+        }
+      },
+      "title": "HistoryAssignedRequest"
+    },
+    "HistoryCase": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/HistoryAction"
+        },
+        "appointment": {
+          "$ref": "#/definitions/HistoryAppointment"
+        },
+        "assigned": {
+          "$ref": "#/definitions/HistoryAssigned"
+        },
+        "closeData": {
+          "$ref": "#/definitions/HistoryClose"
+        },
+        "comment": {
+          "$ref": "#/definitions/HistoryComment"
+        },
+        "createBy": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "derived": {
+          "$ref": "#/definitions/HistoryDerived"
+        },
+        "file": {
+          "$ref": "#/definitions/HistoryFile"
+        },
+        "id": {
+          "type": "string"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "typeUser": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryCase"
+    },
+    "HistoryCaseRequest": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/HistoryActionRequest"
+        },
+        "appointment": {
+          "$ref": "#/definitions/HistoryAppointmentRequest"
+        },
+        "assigned": {
+          "$ref": "#/definitions/HistoryAssignedRequest"
+        },
+        "closeData": {
+          "$ref": "#/definitions/HistoryCloseRequest"
+        },
+        "comment": {
+          "$ref": "#/definitions/HistoryCommentRequest"
+        },
+        "createBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "derived": {
+          "$ref": "#/definitions/HistoryDerivedRequest"
+        },
+        "file": {
+          "$ref": "#/definitions/HistoryFile"
+        },
+        "id": {
+          "type": "string"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "typeUser": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryCaseRequest"
+    },
+    "HistoryClose": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryClose"
+    },
+    "HistoryCloseRequest": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryCloseRequest"
+    },
+    "HistoryComment": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "internal": {
+          "type": "boolean"
+        }
+      },
+      "title": "HistoryComment"
+    },
+    "HistoryCommentRequest": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "internal": {
+          "type": "boolean"
+        }
+      },
+      "title": "HistoryCommentRequest"
+    },
+    "HistoryDerived": {
+      "type": "object",
+      "properties": {
+        "attentionGroupDerived": {
+          "$ref": "#/definitions/AttentionGroup"
+        },
+        "derivedBy": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryDerived"
+    },
+    "HistoryDerivedRequest": {
+      "type": "object",
+      "properties": {
+        "attentionGroupDerived": {
+          "$ref": "#/definitions/AttentionGroupRequest"
+        },
+        "derivedBy": {
+          "$ref": "#/definitions/PersonDataRequest"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryDerivedRequest"
+    },
+    "HistoryFile": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "internal": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "HistoryFile"
+    },
+    "HomeDetailResponse": {
+      "type": "object",
+      "properties": {
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "caseId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "HomeDetailResponse"
+    },
+    "InfoCaseAppResponse": {
+      "type": "object",
+      "properties": {
+        "assignCode": {
+          "type": "string"
+        },
+        "assignedId": {
+          "type": "string"
+        },
+        "assignedTo": {
+          "type": "string"
+        },
+        "attachment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttachmetResponse"
+          }
+        },
+        "attentionTime": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "creator": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "petition": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleDetailResponse"
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "typeService": {
+          "type": "string"
+        }
+      },
+      "title": "InfoCaseAppResponse"
+    },
+    "InfoCaseResponse": {
+      "type": "object",
+      "properties": {
+        "assignedId": {
+          "type": "string"
+        },
+        "assignedTo": {
+          "type": "string"
+        },
+        "attentionGroupAssigned": {
+          "$ref": "#/definitions/AttentionGroupEntity"
+        },
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "idCase": {
+          "type": "string"
+        },
+        "petition": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "thematic": {
+          "$ref": "#/definitions/ThematicResponse"
+        }
+      },
+      "title": "InfoCaseResponse"
+    },
+    "InfoCaseToExecutiveResponse": {
+      "type": "object",
+      "properties": {
+        "assignedId": {
+          "type": "string"
+        },
+        "assignedTo": {
+          "type": "string"
+        },
+        "attachment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttachmetResponse"
+          }
+        },
+        "attentionGroupAssigned": {
+          "$ref": "#/definitions/AttentionGroupEntity"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "creator": {
+          "$ref": "#/definitions/PersonData"
+        },
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "lastModification": {
+          "type": "string"
+        },
+        "petition": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "relatedCaseCode": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleDetailResponse"
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "thematic": {
+          "$ref": "#/definitions/ThematicToAppResponse"
+        },
+        "typeService": {
+          "type": "string"
+        },
+        "userModification": {
+          "type": "string"
+        }
+      },
+      "title": "InfoCaseToExecutiveResponse"
+    },
+    "InfoClientResponse": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/AddressResponse"
+        },
+        "contactCode": {
+          "type": "string"
+        },
+        "corporateMail": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "extraMobileNumber": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "fullNameExternal": {
+          "type": "string"
+        },
+        "idContact": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "personalMail": {
+          "type": "string"
+        },
+        "portfolio": {
+          "$ref": "#/definitions/Portfolio"
+        },
+        "subType": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "InfoClientResponse"
+    },
+    "IntentFailPasswordEntity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "numberIntent": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timeIntent": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "IntentFailPasswordEntity"
+    },
+    "Mono«CaseAppDetailResponse»": {
+      "type": "object",
+      "title": "Mono«CaseAppDetailResponse»"
+    },
+    "Mono«CaseDetailResponse»": {
+      "type": "object",
+      "title": "Mono«CaseDetailResponse»"
+    },
+    "Mono«CaseDetailToExecutiveResponse»": {
+      "type": "object",
+      "title": "Mono«CaseDetailToExecutiveResponse»"
+    },
+    "Mono«CaseResponse»": {
+      "type": "object",
+      "title": "Mono«CaseResponse»"
+    },
+    "Mono«CaseSaveResponse»": {
+      "type": "object",
+      "title": "Mono«CaseSaveResponse»"
+    },
+    "Mono«HistoryCase»": {
+      "type": "object",
+      "title": "Mono«HistoryCase»"
+    },
+    "Mono«MotiveCloseResponse»": {
+      "type": "object",
+      "title": "Mono«MotiveCloseResponse»"
+    },
+    "Mono«PageCountResponse»": {
+      "type": "object",
+      "title": "Mono«PageCountResponse»"
+    },
+    "Mono«PageSupport«HistoryCase»»": {
+      "type": "object",
+      "title": "Mono«PageSupport«HistoryCase»»"
+    },
+    "Mono«PageSupport«Thematic»»": {
+      "type": "object",
+      "title": "Mono«PageSupport«Thematic»»"
+    },
+    "Mono«SaveMotiveCloseResponse»": {
+      "type": "object",
+      "title": "Mono«SaveMotiveCloseResponse»"
+    },
+    "Mono«ShowDataResponse»": {
+      "type": "object",
+      "title": "Mono«ShowDataResponse»"
+    },
+    "Mono«SolicitudeHomeResponse»": {
+      "type": "object",
+      "title": "Mono«SolicitudeHomeResponse»"
+    },
+    "Mono«ThematicAffiliationResponse»": {
+      "type": "object",
+      "title": "Mono«ThematicAffiliationResponse»"
+    },
+    "Mono«ThematicCombo»": {
+      "type": "object",
+      "title": "Mono«ThematicCombo»"
+    },
+    "Mono«Thematic»": {
+      "type": "object",
+      "title": "Mono«Thematic»"
+    },
+    "Mono«boolean»": {
+      "type": "object",
+      "title": "Mono«boolean»"
+    },
+    "Mono«object»": {
+      "type": "object",
+      "title": "Mono«object»"
+    },
+    "MotiveCloseRequest": {
+      "type": "object",
+      "properties": {
+        "motive": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nameThematic": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "MotiveCloseRequest"
+    },
+    "MotiveCloseResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "motive": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nameThematic": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "MotiveCloseResponse"
+    },
+    "NoticeResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "title": "NoticeResponse"
+    },
+    "OriginCaseEntity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeCaseEntity"
+          }
+        }
+      },
+      "title": "OriginCaseEntity"
+    },
+    "OriginCaseRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeRequest"
+          }
+        }
+      },
+      "title": "OriginCaseRequest"
+    },
+    "PageCountResponse": {
+      "type": "object",
+      "properties": {
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageCountResponse"
+    },
+    "PageSupport«HistoryCase»": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HistoryCase"
+          }
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageSupport«HistoryCase»"
+    },
+    "PageSupport«Thematic»": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Thematic"
+          }
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageSupport«Thematic»"
+    },
+    "PersonData": {
+      "type": "object",
+      "properties": {
+        "codeUser": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "fullNameExternal": {
+          "type": "string"
+        },
+        "idContact": {
+          "type": "string"
+        },
+        "idUser": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      },
+      "title": "PersonData"
+    },
+    "PersonDataEntity": {
+      "type": "object",
+      "properties": {
+        "codeUser": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "fullNameExternal": {
+          "type": "string"
+        },
+        "idContact": {
+          "type": "string"
+        },
+        "idUser": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      },
+      "title": "PersonDataEntity"
+    },
+    "PersonDataRequest": {
+      "type": "object",
+      "properties": {
+        "codeUser": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "PersonDataRequest"
+    },
+    "Portfolio": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "$ref": "#/definitions/CompanyRequest"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Role"
+          }
+        }
+      },
+      "title": "Portfolio"
+    },
+    "PortfolioEntity": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "$ref": "#/definitions/CompanyEntity"
+        },
+        "rol": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleEntity"
+          }
+        }
+      },
+      "title": "PortfolioEntity"
+    },
+    "ProductCaseEntity": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "ProductCaseEntity"
+    },
+    "ProductCaseRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "ProductCaseRequest"
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "Response"
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRole"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "Role"
+    },
+    "RoleDetailResponse": {
+      "type": "object",
+      "properties": {
+        "commercialRole": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "onlineChannelRole": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "RoleDetailResponse"
+    },
+    "RoleEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubRoleEntity"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "RoleEntity"
+    },
+    "SaveMotiveCloseResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SaveMotiveCloseResponse"
+    },
+    "ServiceCaseEntity": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductCaseEntity"
+          }
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "ServiceCaseEntity"
+    },
+    "ServiceCaseRequest": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "product": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductCaseRequest"
+          }
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "ServiceCaseRequest"
+    },
+    "ShowDataResponse": {
+      "type": "object",
+      "properties": {
+        "caseCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "thematic": {
+          "$ref": "#/definitions/ThematicResponse"
+        }
+      },
+      "title": "ShowDataResponse"
+    },
+    "SolicitudeHomeResponse": {
+      "type": "object",
+      "properties": {
+        "homeDetailResponse": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HomeDetailResponse"
+          }
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "SolicitudeHomeResponse"
+    },
+    "SolicitudeResponse": {
+      "type": "object",
+      "properties": {
+        "answerPending": {
+          "type": "string"
+        },
+        "assignedTo": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "solicitudeCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        }
+      },
+      "title": "SolicitudeResponse"
+    },
+    "SolicitudeStatusResponse": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "SolicitudeStatusResponse"
+    },
+    "SubRole": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubRole"
+    },
+    "SubRoleEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubRoleEntity"
+    },
+    "Thematic": {
+      "type": "object",
+      "properties": {
+        "associatedServices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attentionGroup": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeAttentionGroup"
+          }
+        },
+        "attentionTime": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionTime"
+          }
+        },
+        "basicData": {
+          "$ref": "#/definitions/BasicData"
+        },
+        "basicOperations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasicOperations"
+          }
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string"
+        },
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        },
+        "nameExternal": {
+          "type": "string"
+        },
+        "nameInternal": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClient"
+        },
+        "typeThematic": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updateDate": {
+          "type": "string"
+        }
+      },
+      "title": "Thematic"
+    },
+    "ThematicAffiliationResponse": {
+      "type": "object",
+      "properties": {
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        },
+        "nameExternal": {
+          "type": "string"
+        },
+        "nameInternal": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeThematic": {
+          "type": "string"
+        }
+      },
+      "title": "ThematicAffiliationResponse"
+    },
+    "ThematicCombo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "level2": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThematicComboLvl2"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "ThematicCombo"
+    },
+    "ThematicComboLvl2": {
+      "type": "object",
+      "properties": {
+        "associatedServices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "idThematic": {
+          "type": "string"
+        },
+        "level3": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThematicComboLvl3"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClient"
+        }
+      },
+      "title": "ThematicComboLvl2"
+    },
+    "ThematicComboLvl2Request": {
+      "type": "object",
+      "properties": {
+        "associatedServices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "level3": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThematicComboLvl3Request"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientRequest"
+        }
+      },
+      "title": "ThematicComboLvl2Request"
+    },
+    "ThematicComboLvl3": {
+      "type": "object",
+      "properties": {
+        "associatedServices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "idThematic": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClient"
+        }
+      },
+      "title": "ThematicComboLvl3"
+    },
+    "ThematicComboLvl3Request": {
+      "type": "object",
+      "properties": {
+        "associatedServices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientRequest"
+        }
+      },
+      "title": "ThematicComboLvl3Request"
+    },
+    "ThematicComboRequest": {
+      "type": "object",
+      "properties": {
+        "dummy": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level2": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThematicComboLvl2Request"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "ThematicComboRequest"
+    },
+    "ThematicForCaseEntity": {
+      "type": "object",
+      "properties": {
+        "attentionGroup": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeAttentionGroupEntity"
+          }
+        },
+        "attentionTime": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionTimeEntity"
+          }
+        },
+        "basicOperations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasicOperationsEntity"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "nameExternal": {
+          "type": "string"
+        },
+        "nameInternal": {
+          "type": "string"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientEntity"
+        }
+      },
+      "title": "ThematicForCaseEntity"
+    },
+    "ThematicGroupResponse": {
+      "type": "object",
+      "properties": {
+        "derivation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GroupResponse"
+          }
+        },
+        "reception": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GroupResponse"
+          }
+        }
+      },
+      "title": "ThematicGroupResponse"
+    },
+    "ThematicRequest": {
+      "type": "object",
+      "properties": {
+        "associatedServices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attentionGroup": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeAttentionGroupRequest"
+          }
+        },
+        "attentionTime": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionTimeRequest"
+          }
+        },
+        "basicData": {
+          "$ref": "#/definitions/BasicDataRequest"
+        },
+        "basicOperations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasicOperationsRequest"
+          }
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string"
+        },
+        "dummy": {
+          "type": "boolean"
+        },
+        "dynamicGuide": {
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        },
+        "nameExternal": {
+          "type": "string"
+        },
+        "nameInternal": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "thematicComboRequest": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThematicComboRequest"
+          }
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientRequest"
+        },
+        "typeThematic": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updateDate": {
+          "type": "string"
+        }
+      },
+      "title": "ThematicRequest"
+    },
+    "ThematicResponse": {
+      "type": "object",
+      "properties": {
+        "attention": {
+          "$ref": "#/definitions/NoticeResponse"
+        },
+        "attentionGroup": {
+          "$ref": "#/definitions/ThematicGroupResponse"
+        },
+        "externalName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "internalName": {
+          "type": "string"
+        }
+      },
+      "title": "ThematicResponse"
+    },
+    "ThematicToAppResponse": {
+      "type": "object",
+      "properties": {
+        "attention": {
+          "$ref": "#/definitions/NoticeResponse"
+        },
+        "externalName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "internalName": {
+          "type": "string"
+        }
+      },
+      "title": "ThematicToAppResponse"
+    },
+    "TypeAttentionGroup": {
+      "type": "object",
+      "properties": {
+        "derivation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionGroup"
+          }
+        },
+        "reception": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionGroup"
+          }
+        }
+      },
+      "title": "TypeAttentionGroup"
+    },
+    "TypeAttentionGroupEntity": {
+      "type": "object",
+      "properties": {
+        "derivation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionGroupEntity"
+          }
+        },
+        "reception": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionGroupEntity"
+          }
+        }
+      },
+      "title": "TypeAttentionGroupEntity"
+    },
+    "TypeAttentionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "derivation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionGroupRequest"
+          }
+        },
+        "reception": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttentionGroupRequest"
+          }
+        }
+      },
+      "title": "TypeAttentionGroupRequest"
+    },
+    "TypeCaseEntity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "TypeCaseEntity"
+    },
+    "TypeClient": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeClient"
+    },
+    "TypeClientEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeClientEntity"
+          }
+        }
+      },
+      "title": "TypeClientEntity"
+    },
+    "TypeClientRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeClientRequest"
+          }
+        }
+      },
+      "title": "TypeClientRequest"
+    },
+    "TypeClientResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeClientResponse"
+    },
+    "TypeDocumentEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TypeDocumentEntity"
+    },
+    "TypeRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "TypeRequest"
+    },
+    "UserEntity": {
+      "type": "object",
+      "properties": {
+        "contact": {
+          "$ref": "#/definitions/ContactEntity"
+        },
+        "id": {
+          "type": "string"
+        },
+        "portfolio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PortfolioEntity"
+          }
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "UserEntity"
+    },
+    "Ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "case-app-controller",
+      "description": "Case App Controller"
+    },
+    {
+      "name": "case-controller",
+      "description": "Case Controller"
+    },
+    {
+      "name": "dashboard-controller",
+      "description": "Dashboard Controller"
+    },
+    {
+      "name": "history-case-controller",
+      "description": "History Case Controller"
+    },
+    {
+      "name": "thematic-combo-controller",
+      "description": "Thematic Combo Controller"
+    },
+    {
+      "name": "thematic-controller",
+      "description": "Thematic Controller"
+    }
+  ]
+}
