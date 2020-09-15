@@ -1,0 +1,504 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Attention Group Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/attention-group",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/attention-group/save": {
+      "post": {
+        "description": "saveAttentionGroup",
+        "operationId": "saveAttentionGroupUsingPOST",
+        "summary": "saveAttentionGroup",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "attentionGroupRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AttentionGroupRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«AttentionGroupSaveResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/attention-group/type": {
+      "get": {
+        "description": "getAllAttentionsGroupByType",
+        "operationId": "getAllAttentionsGroupByTypeUsingGET",
+        "summary": "getAllAttentionsGroupByType",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "typeClient",
+            "in": "query",
+            "description": "typeClient",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«AttentionGroupResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/attention-group/update": {
+      "put": {
+        "description": "update",
+        "operationId": "updateUsingPUT",
+        "summary": "update",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "attentionGroupRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AttentionGroupRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«AttentionGroupResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/attention-group/filter": {
+      "get": {
+        "description": "filterAttention",
+        "operationId": "filterAttentionUsingGET",
+        "summary": "filterAttention",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "level",
+            "in": "query",
+            "description": "level",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/attention-group/filter-count": {
+      "get": {
+        "description": "filterAttentionCount",
+        "operationId": "filterAttentionCountUsingGET",
+        "summary": "filterAttentionCount",
+        "tags": [
+          "attention-group-controller"
+        ],
+        "parameters": [
+          {
+            "name": "level",
+            "in": "query",
+            "description": "level",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Format - int32. page",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Format - int32. size",
+            "type": "integer",
+            "default": "20"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«PageCountResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AttentionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "canal": {
+          "type": "string"
+        },
+        "codeAgent": {
+          "type": "string"
+        },
+        "hasLeader": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientRequest"
+        }
+      },
+      "title": "AttentionGroupRequest"
+    },
+    "AttentionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "canal": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "info": {
+          "$ref": "#/definitions/InfoUserAttentionGroupResponse"
+        },
+        "level": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "typeClient": {
+          "$ref": "#/definitions/TypeClientResponse"
+        },
+        "updateDate": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionGroupResponse"
+    },
+    "AttentionGroupSaveResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "AttentionGroupSaveResponse"
+    },
+    "Flux": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux"
+    },
+    "Flux«AttentionGroupResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«AttentionGroupResponse»"
+    },
+    "InfoUserAttentionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "leader": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "members": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InfoUserAttentionGroupResponse"
+    },
+    "Mono«AttentionGroupResponse»": {
+      "type": "object",
+      "title": "Mono«AttentionGroupResponse»"
+    },
+    "Mono«AttentionGroupSaveResponse»": {
+      "type": "object",
+      "title": "Mono«AttentionGroupSaveResponse»"
+    },
+    "Mono«PageCountResponse»": {
+      "type": "object",
+      "title": "Mono«PageCountResponse»"
+    },
+    "PageCountResponse": {
+      "type": "object",
+      "properties": {
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageCountResponse"
+    },
+    "TypeClientRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeClientRequest"
+          }
+        }
+      },
+      "title": "TypeClientRequest"
+    },
+    "TypeClientResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeClientResponse"
+          }
+        }
+      },
+      "title": "TypeClientResponse"
+    }
+  },
+  "tags": [
+    {
+      "name": "attention-group-controller",
+      "description": "Attention Group Controller"
+    }
+  ]
+}
