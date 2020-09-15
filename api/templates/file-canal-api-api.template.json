@@ -1,0 +1,1418 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "File Canal Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": false,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "file-ca",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/5f4dd5f8d4ce84279438999b')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"File\":{\"type\":\"object\",\"properties\":{\"absolute\":{\"type\":\"boolean\"},\"absoluteFile\":{\"$ref\":\"#/definitions/File\"},\"absolutePath\":{\"type\":\"string\"},\"canonicalFile\":{\"$ref\":\"#/definitions/File\"},\"canonicalPath\":{\"type\":\"string\"},\"directory\":{\"type\":\"boolean\"},\"file\":{\"type\":\"boolean\"},\"freeSpace\":{\"type\":\"integer\",\"format\":\"int64\"},\"hidden\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"parent\":{\"type\":\"string\"},\"parentFile\":{\"$ref\":\"#/definitions/File\"},\"path\":{\"type\":\"string\"},\"totalSpace\":{\"type\":\"integer\",\"format\":\"int64\"},\"usableSpace\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"File\"},\"InputStream\":{\"type\":\"object\",\"title\":\"InputStream\"},\"InputStreamResource\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"file\":{\"$ref\":\"#/definitions/File\"},\"filename\":{\"type\":\"string\"},\"inputStream\":{\"$ref\":\"#/definitions/InputStream\"},\"open\":{\"type\":\"boolean\"},\"readable\":{\"type\":\"boolean\"},\"uri\":{\"$ref\":\"#/definitions/URI\"},\"url\":{\"$ref\":\"#/definitions/URL\"}},\"title\":\"InputStreamResource\"},\"Resource\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"file\":{\"$ref\":\"#/definitions/File\"},\"filename\":{\"type\":\"string\"},\"inputStream\":{\"$ref\":\"#/definitions/InputStream\"},\"open\":{\"type\":\"boolean\"},\"readable\":{\"type\":\"boolean\"},\"uri\":{\"$ref\":\"#/definitions/URI\"},\"url\":{\"$ref\":\"#/definitions/URL\"}},\"title\":\"Resource\"},\"URI\":{\"type\":\"object\",\"properties\":{\"absolute\":{\"type\":\"boolean\"},\"authority\":{\"type\":\"string\"},\"fragment\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"opaque\":{\"type\":\"boolean\"},\"path\":{\"type\":\"string\"},\"port\":{\"type\":\"integer\",\"format\":\"int32\"},\"query\":{\"type\":\"string\"},\"rawAuthority\":{\"type\":\"string\"},\"rawFragment\":{\"type\":\"string\"},\"rawPath\":{\"type\":\"string\"},\"rawQuery\":{\"type\":\"string\"},\"rawSchemeSpecificPart\":{\"type\":\"string\"},\"rawUserInfo\":{\"type\":\"string\"},\"scheme\":{\"type\":\"string\"},\"schemeSpecificPart\":{\"type\":\"string\"},\"userInfo\":{\"type\":\"string\"}},\"title\":\"URI\"},\"URL\":{\"type\":\"object\",\"properties\":{\"authority\":{\"type\":\"string\"},\"content\":{\"type\":\"object\"},\"defaultPort\":{\"type\":\"integer\",\"format\":\"int32\"},\"file\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"path\":{\"type\":\"string\"},\"port\":{\"type\":\"integer\",\"format\":\"int32\"},\"protocol\":{\"type\":\"string\"},\"query\":{\"type\":\"string\"},\"ref\":{\"type\":\"string\"},\"userInfo\":{\"type\":\"string\"}},\"title\":\"URL\"}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/allCasesReportStandardUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "allCasesReportStandard",
+        "method": "GET",
+        "urlTemplate": "/csv/cases/report/standard",
+        "templateParameters": [],
+        "description": "allCasesReportStandard",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/allCasesReportStandardUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'allCasesReportStandardUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/allCasesReportStandardDownloadUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'file-canal-api', '5f4dd5f8d4ce84279438999b')]"
+      ],
+      "properties": {
+        "displayName": "allCasesReportStandardDownload",
+        "method": "GET",
+        "urlTemplate": "/csv/cases/download-report/standard",
+        "templateParameters": [],
+        "description": "allCasesReportStandardDownload",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv",
+                "schemaId": "5f4dd5f8d4ce84279438999b",
+                "typeName": "Resource"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/allCasesReportStandardDownloadUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'allCasesReportStandardDownloadUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/excelCustomersReportUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'file-canal-api', '5f4dd5f8d4ce84279438999b')]"
+      ],
+      "properties": {
+        "displayName": "excelCustomersReport",
+        "method": "GET",
+        "urlTemplate": "/excel/rr-aa/report",
+        "templateParameters": [],
+        "description": "excelCustomersReport",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f4dd5f8d4ce84279438999b",
+                "typeName": "InputStreamResource"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/excelCustomersReportUsingGET/excel-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'excelCustomersReportUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "excel-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportUsingGET_1')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "financingReport",
+        "method": "GET",
+        "urlTemplate": "/csv/financing/report?endDate={endDate}&startDate={startDate}&typeService={typeService}",
+        "templateParameters": [
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeService",
+            "description": "typeService",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "financingReport",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportUsingGET_1/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'financingReportUsingGET_1')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "financingReport",
+        "method": "GET",
+        "urlTemplate": "/csv/financing/report-osiptel?endDate={endDate}&startDate={startDate}",
+        "templateParameters": [
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "financingReport",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'financingReportUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportAzureUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'file-canal-api', '5f4dd5f8d4ce84279438999b')]"
+      ],
+      "properties": {
+        "displayName": "financingReportAzure",
+        "method": "GET",
+        "urlTemplate": "/csv/financing/report-blob?typeService={typeService}",
+        "templateParameters": [
+          {
+            "name": "typeService",
+            "description": "typeService",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "financingReportAzure",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f4dd5f8d4ce84279438999b",
+                "typeName": "Resource"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportAzureUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'financingReportAzureUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportDetailUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "financingReportDetail",
+        "method": "GET",
+        "urlTemplate": "/csv/financing/report-detail?endDate={endDate}&startDate={startDate}&typeService={typeService}",
+        "templateParameters": [
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeService",
+            "description": "typeService",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "financingReportDetail",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportDetailUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'financingReportDetailUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportSolicitudeUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "financingReportSolicitude",
+        "method": "GET",
+        "urlTemplate": "/csv/financing/report-solicitude?endDate={endDate}&startDate={startDate}&typeService={typeService}",
+        "templateParameters": [
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeService",
+            "description": "typeService",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "financingReportSolicitude",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/financingReportSolicitudeUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'financingReportSolicitudeUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/makeCsvUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "makeCsv",
+        "method": "GET",
+        "urlTemplate": "/downloadcsv/{code}",
+        "templateParameters": [
+          {
+            "name": "code",
+            "description": "code",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "makeCsv",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/makeCsvUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'makeCsvUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/makeCsvThematicUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "makeCsvThematic",
+        "method": "GET",
+        "urlTemplate": "/download-thematic-csv",
+        "templateParameters": [],
+        "description": "makeCsvThematic",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/makeCsvThematicUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'makeCsvThematicUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/marketingReportUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "marketingReport",
+        "method": "GET",
+        "urlTemplate": "/csv/financing/report-marketing?endDate={endDate}&startDate={startDate}",
+        "templateParameters": [
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "marketingReport",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/marketingReportUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'marketingReportUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/newRepAuthReportUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'file-canal-api', '5f4dd5f8d4ce84279438999b')]"
+      ],
+      "properties": {
+        "displayName": "newRepAuthReport",
+        "method": "GET",
+        "urlTemplate": "/csv/rr-aa/report/new-user",
+        "templateParameters": [],
+        "description": "newRepAuthReport",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv",
+                "schemaId": "5f4dd5f8d4ce84279438999b",
+                "typeName": "Resource"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/newRepAuthReportUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'newRepAuthReportUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/newRepAuthReportDailyUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "newRepAuthReportDaily",
+        "method": "GET",
+        "urlTemplate": "/csv/rr-aa/report/new-user-daily",
+        "templateParameters": [],
+        "description": "newRepAuthReportDaily",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/newRepAuthReportDailyUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'newRepAuthReportDailyUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/pdfUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'file-canal-api', '5f4dd5f8d4ce84279438999b')]"
+      ],
+      "properties": {
+        "displayName": "Obtiene el resumen de compra en formato pdf",
+        "method": "GET",
+        "urlTemplate": "/pdf/get-shopping-summary-file-pdf/{userId}",
+        "templateParameters": [
+          {
+            "name": "userId",
+            "description": "userId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Obtiene el resumen de compra en formato pdf",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "view",
+              "description": "view",
+              "type": "boolean",
+              "defaultValue": "False",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/pdf",
+                "schemaId": "5f4dd5f8d4ce84279438999b",
+                "typeName": "InputStreamResource"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/pdf"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/pdf"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/pdf"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/pdfUsingGET/pdf-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'pdfUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "pdf-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/reportAuthorizedUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'file-canal-api', '5f4dd5f8d4ce84279438999b')]"
+      ],
+      "properties": {
+        "displayName": "reportAuthorized",
+        "method": "GET",
+        "urlTemplate": "/csv/rr-aa/report",
+        "templateParameters": [],
+        "description": "reportAuthorized",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv",
+                "schemaId": "5f4dd5f8d4ce84279438999b",
+                "typeName": "Resource"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/reportAuthorizedUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'reportAuthorizedUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/reportAuthorizedDailyUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "displayName": "reportAuthorizedDaily",
+        "method": "GET",
+        "urlTemplate": "/csv/rr-aa/report-daily",
+        "templateParameters": [],
+        "description": "reportAuthorizedDaily",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "text/csv"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/reportAuthorizedDailyUsingGET/csv-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'file-canal-api', 'reportAuthorizedDailyUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "csv-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/file-canal-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/file-canal-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'file-canal-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'file-canal-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}
