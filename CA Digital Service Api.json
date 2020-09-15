@@ -1,0 +1,1590 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "CA Digital Service Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/ca-digital-service",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/office365/quantity-licenses": {
+      "get": {
+        "description": "Obtiene la cantidad de licencias adquiridas del servicio Office 365",
+        "operationId": "getQuantityLicensesUsingGET",
+        "summary": "Obtiene la cantidad de licencias adquiridas del servicio Office 365",
+        "tags": [
+          "office-365-controller"
+        ],
+        "parameters": [
+          {
+            "name": "ruc",
+            "in": "query",
+            "description": "ruc",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userDocumentNumber",
+            "in": "query",
+            "description": "userDocumentNumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userDocumentType",
+            "in": "query",
+            "description": "userDocumentType",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Obtiene la cantidad de licencias adquiridas del servicio Office 365",
+            "schema": {
+              "$ref": "#/definitions/Office365Quantity-licensesGet200ApplicationJsonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraron datos"
+          },
+          "500": {
+            "description": "Se ha producido un error interno"
+          }
+        }
+      }
+    },
+    "/virtualAnswer/quantity-Landlines": {
+      "get": {
+        "description": "Obtiene la cantidad de lineas adquiridas del servicio Contestador Virtual",
+        "operationId": "getQuantityLandlinesUsingGET",
+        "summary": "Obtiene la cantidad de lineas adquiridas del servicio Contestador Virtual",
+        "tags": [
+          "virtual-answer-controller"
+        ],
+        "parameters": [
+          {
+            "name": "productType",
+            "in": "query",
+            "description": "productType",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ruc",
+            "in": "query",
+            "description": "ruc",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userDocumentNumber",
+            "in": "query",
+            "description": "userDocumentNumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userDocumentType",
+            "in": "query",
+            "description": "userDocumentType",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Obtiene la cantidad de lineas adquiridas del servicio Contestador Virtual",
+            "schema": {
+              "$ref": "#/definitions/VirtualAnswerQuantity-LandlinesGet200ApplicationJsonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraron datos"
+          },
+          "500": {
+            "description": "Se ha producido un error interno"
+          }
+        }
+      }
+    },
+    "/oauth2/token": {
+      "get": {
+        "description": "obtiene el token",
+        "operationId": "getAccessTokenForRefreshTokenUsingGET",
+        "summary": "Obtiene token ",
+        "tags": [
+          "authentication-controller"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TokenResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/office365/supply-service": {
+      "post": {
+        "description": "Envía los datos del servicio office 365 al proveedor para su registro y provisión",
+        "operationId": "getSupplyServiceUsingPOST",
+        "summary": "Envía los datos del servicio office 365 al proveedor para su registro y provisión",
+        "tags": [
+          "office-365-controller"
+        ],
+        "parameters": [
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          },
+          {
+            "name": "office365SupplyRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Office365SupplyRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Los datos del servicio han sido registrados correctamente por el proveedor",
+            "schema": {
+              "$ref": "#/definitions/Office365Supply-servicePost200ApplicationJsonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraron datos"
+          },
+          "500": {
+            "description": "Se ha producido un error interno"
+          }
+        }
+      }
+    },
+    "/provider/cancel": {
+      "post": {
+        "description": "getSupplyService",
+        "operationId": "getSupplyServiceUsingPOST_1",
+        "summary": "getSupplyService",
+        "tags": [
+          "provider-controller"
+        ],
+        "parameters": [
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          },
+          {
+            "name": "providerVisualSoftCancelRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProviderVisualSoftCancelRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ProviderVisualSoftCancelResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/provider/login": {
+      "get": {
+        "description": "providerLogin",
+        "operationId": "providerLoginUsingGET",
+        "summary": "providerLogin",
+        "tags": [
+          "provider-controller"
+        ],
+        "parameters": [
+          {
+            "name": "productType",
+            "in": "query",
+            "description": "productType",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ruc",
+            "in": "query",
+            "description": "ruc",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userDocumentNumber",
+            "in": "query",
+            "description": "userDocumentNumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userDocumentType",
+            "in": "query",
+            "description": "userDocumentType",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«LoginResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/provider/services-list": {
+      "get": {
+        "description": "providerServicesList",
+        "operationId": "providerServicesListUsingGET",
+        "summary": "providerServicesList",
+        "tags": [
+          "provider-controller"
+        ],
+        "parameters": [
+          {
+            "name": "productType",
+            "in": "query",
+            "description": "productType",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ruc",
+            "in": "query",
+            "description": "ruc",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userDocumentNumber",
+            "in": "query",
+            "description": "userDocumentNumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userDocumentType",
+            "in": "query",
+            "description": "userDocumentType",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Flux«ServicesListResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/webViewApi/payment/{userId}": {
+      "post": {
+        "description": "Recibe los datos del cliente y la compra, para procesar el pago",
+        "operationId": "getPaymentUsingPOST",
+        "summary": "Recibe los datos del cliente y la compra, para procesar el pago",
+        "tags": [
+          "web-view-api-controller"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "webViewApiRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/WebViewApiRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "El pago ha sido procesado con exito",
+            "schema": {
+              "$ref": "#/definitions/WebViewApiResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Se ha producido un error interno"
+          }
+        }
+      }
+    },
+    "/facturaToke/sendEnterprise": {
+      "post": {
+        "description": "Registro del servicio de facturacion a una empresa",
+        "operationId": "getSendEnterpriseUsingPOST",
+        "summary": "Registro del servicio de facturacion a una empresa",
+        "tags": [
+          "factura-toke-controller"
+        ],
+        "parameters": [
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          },
+          {
+            "name": "facturaTokeSendRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/FacturaTokeSendRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro del servicio de facturacion a una empresa",
+            "schema": {
+              "$ref": "#/definitions/FacturaTokeSendEnterprisePost200ApplicationJsonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraron datos"
+          },
+          "500": {
+            "description": "Se ha producido un error interno"
+          }
+        }
+      }
+    },
+    "/facturaToke/status": {
+      "get": {
+        "description": "Obtiene el estado del servicio Factura al Toke de la empresa ingresando Origen, Tipo Solicitante y Ruc de la empresa",
+        "operationId": "getServiceStatusUsingGET",
+        "summary": "Obtiene el estado del servicio Factura al Toke de la empresa ingresando Origen, Tipo Solicitante y Ruc de la empresa",
+        "tags": [
+          "factura-toke-controller"
+        ],
+        "parameters": [
+          {
+            "name": "applicantType",
+            "in": "query",
+            "description": "Format - int32. applicantType",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "ruc",
+            "in": "query",
+            "description": "ruc",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Format - int32. source",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Obtiene el estado del servicio Factura al Toke de la empresa ingresando Origen, Tipo Solicitante y Ruc de la empresa",
+            "schema": {
+              "$ref": "#/definitions/FacturaTokeStatusGet200ApplicationJsonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraron datos"
+          },
+          "500": {
+            "description": "Se ha producido un error interno"
+          }
+        }
+      }
+    },
+    "/provider/quantity": {
+      "get": {
+        "description": "providerQuantity",
+        "operationId": "providerQuantityUsingGET",
+        "summary": "providerQuantity",
+        "tags": [
+          "provider-controller"
+        ],
+        "parameters": [
+          {
+            "name": "companyDocumentNumber",
+            "in": "query",
+            "description": "companyDocumentNumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "companyDocumentType",
+            "in": "query",
+            "description": "Format - int32. companyDocumentType",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "productType",
+            "in": "query",
+            "description": "Format - int32. productType",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "userDocumentType",
+            "in": "query",
+            "description": "Format - int32. userDocumentType",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "userdocumentNumber",
+            "in": "query",
+            "description": "userdocumentNumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idService",
+            "in": "query",
+            "description": "idService",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«VisualSoftListServiceResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/virtualAnswer/supply-service": {
+      "post": {
+        "description": "Envía los datos del servicio contestador virtual al proveedor para su registro y provisión",
+        "operationId": "getSupplyServiceUsingPOST_2",
+        "summary": "Envía los datos del servicio contestador virtual al proveedor para su registro y provisión",
+        "tags": [
+          "virtual-answer-controller"
+        ],
+        "parameters": [
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          },
+          {
+            "name": "virtualAnswerSupplyRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/VirtualAnswerSupplyRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Los datos del servicio han sido registrados correctamente por el proveedor",
+            "schema": {
+              "$ref": "#/definitions/VirtualAnswerSupply-servicePost200ApplicationJsonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "No se encontraron datos"
+          },
+          "500": {
+            "description": "Se ha producido un error interno"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CancelRequestType": {
+      "type": "object",
+      "properties": {
+        "companyDocumentNumber": {
+          "type": "string"
+        },
+        "companyDocumentType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "productType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "userDocumentNumber": {
+          "type": "string"
+        },
+        "userDocumentType": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "CancelRequestType"
+    },
+    "FacturaAlTokeSendResponse": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "$ref": "#/definitions/FacturaAlTokeService"
+        }
+      },
+      "title": "FacturaAlTokeSendResponse"
+    },
+    "FacturaAlTokeService": {
+      "type": "object",
+      "properties": {
+        "activationDate": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusResponse": {
+          "type": "boolean"
+        },
+        "unsubscribeDate": {
+          "type": "string"
+        }
+      },
+      "title": "FacturaAlTokeService"
+    },
+    "FacturaAlTokeStatus": {
+      "type": "object",
+      "properties": {
+        "activationDate": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusResponse": {
+          "type": "boolean"
+        },
+        "unsubscribeDate": {
+          "type": "string"
+        }
+      },
+      "title": "FacturaAlTokeStatus"
+    },
+    "FacturaAlTokeStatusResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/FacturaAlTokeStatus"
+        }
+      },
+      "title": "FacturaAlTokeStatusResponse"
+    },
+    "FacturaTokeSendRequest": {
+      "type": "object",
+      "properties": {
+        "channelId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "planId": {
+          "type": "string"
+        },
+        "ruc": {
+          "type": "string"
+        },
+        "segment": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "serviceId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "source": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tradeName": {
+          "type": "string"
+        },
+        "userEmail": {
+          "type": "string"
+        },
+        "userLastName": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        }
+      },
+      "title": "FacturaTokeSendRequest"
+    },
+    "Flux«ServicesListResponse»": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flux«ServicesListResponse»"
+    },
+    "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "Authorized": {
+          "$ref": "#/definitions/VirtualAnswerSupply"
+        }
+      },
+      "title": "LoginResponse"
+    },
+    "Mono«FacturaAlTokeSendResponse»": {
+      "type": "object",
+      "title": "Mono«FacturaAlTokeSendResponse»"
+    },
+    "Mono«FacturaAlTokeStatusResponse»": {
+      "type": "object",
+      "title": "Mono«FacturaAlTokeStatusResponse»"
+    },
+    "Mono«LoginResponse»": {
+      "type": "object",
+      "title": "Mono«LoginResponse»"
+    },
+    "Mono«Office365LicenseResponse»": {
+      "type": "object",
+      "title": "Mono«Office365LicenseResponse»"
+    },
+    "Mono«Office365SupplyResponse»": {
+      "type": "object",
+      "title": "Mono«Office365SupplyResponse»"
+    },
+    "Mono«ProviderVisualSoftCancelResponse»": {
+      "type": "object",
+      "title": "Mono«ProviderVisualSoftCancelResponse»"
+    },
+    "Mono«TokenResponse»": {
+      "type": "object",
+      "title": "Mono«TokenResponse»"
+    },
+    "Mono«VirtualAnswerLandlineResponse»": {
+      "type": "object",
+      "title": "Mono«VirtualAnswerLandlineResponse»"
+    },
+    "Mono«VirtualAnswerSupplyResponse»": {
+      "type": "object",
+      "title": "Mono«VirtualAnswerSupplyResponse»"
+    },
+    "Mono«VisualSoftListServiceResponse»": {
+      "type": "object",
+      "title": "Mono«VisualSoftListServiceResponse»"
+    },
+    "Mono«WebViewApiResponse»": {
+      "type": "object",
+      "title": "Mono«WebViewApiResponse»"
+    },
+    "Office365License": {
+      "type": "object",
+      "properties": {
+        "activeService": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Office365License"
+    },
+    "Office365LicenseResponse": {
+      "type": "object",
+      "properties": {
+        "Service": {
+          "$ref": "#/definitions/Office365License"
+        }
+      },
+      "title": "Office365LicenseResponse"
+    },
+    "Office365Supply": {
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        }
+      },
+      "title": "Office365Supply"
+    },
+    "Office365SupplyRequest": {
+      "type": "object",
+      "properties": {
+        "addressCustomer": {
+          "type": "string"
+        },
+        "billingCycle": {
+          "type": "string"
+        },
+        "cityCustomer": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "offerId": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "planDescription": {
+          "type": "string"
+        },
+        "planId": {
+          "type": "string"
+        },
+        "planPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "planProductName": {
+          "type": "string"
+        },
+        "planQtyOptions": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "quantityLicenses": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ruc": {
+          "type": "string"
+        },
+        "termDuration": {
+          "type": "string"
+        },
+        "userDocumentType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userEmail": {
+          "type": "string"
+        },
+        "userLastName": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userdocumentNumber": {
+          "type": "string"
+        }
+      },
+      "title": "Office365SupplyRequest"
+    },
+    "Office365SupplyResponse": {
+      "type": "object",
+      "properties": {
+        "Service": {
+          "$ref": "#/definitions/Office365Supply"
+        }
+      },
+      "title": "Office365SupplyResponse"
+    },
+    "ProviderVisualSoftCancelRequest": {
+      "type": "object",
+      "properties": {
+        "cancelRequest": {
+          "$ref": "#/definitions/CancelRequestType"
+        }
+      },
+      "title": "ProviderVisualSoftCancelRequest"
+    },
+    "ProviderVisualSoftCancelResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/ResponseType"
+        }
+      },
+      "title": "ProviderVisualSoftCancelResponse"
+    },
+    "ResponseType": {
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        },
+        "date": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ResponseType"
+    },
+    "ServicesListResponse": {
+      "type": "object",
+      "properties": {
+        "activationDate": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "providerId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "ServicesListResponse"
+    },
+    "TokenResponse": {
+      "type": "object",
+      "properties": {
+        "generateDate": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "TokenResponse"
+    },
+    "VirtualAnswerLandline": {
+      "type": "object",
+      "properties": {
+        "activeService": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "VirtualAnswerLandline"
+    },
+    "VirtualAnswerLandlineResponse": {
+      "type": "object",
+      "properties": {
+        "LandLine": {
+          "$ref": "#/definitions/VirtualAnswerLandline"
+        }
+      },
+      "title": "VirtualAnswerLandlineResponse"
+    },
+    "VirtualAnswerSupply": {
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "urlAccess": {
+          "type": "string"
+        }
+      },
+      "title": "VirtualAnswerSupply"
+    },
+    "VirtualAnswerSupplyRequest": {
+      "type": "object",
+      "properties": {
+        "companyName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "planDescription": {
+          "type": "string"
+        },
+        "planId": {
+          "type": "string"
+        },
+        "planPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "planProductName": {
+          "type": "string"
+        },
+        "planQtyOptions": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "productType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ruc": {
+          "type": "string"
+        },
+        "subscriptionTime": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userDocumentType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userEmail": {
+          "type": "string"
+        },
+        "userLastName": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userdocumentNumber": {
+          "type": "string"
+        }
+      },
+      "title": "VirtualAnswerSupplyRequest"
+    },
+    "VirtualAnswerSupplyResponse": {
+      "type": "object",
+      "properties": {
+        "Service": {
+          "$ref": "#/definitions/VirtualAnswerSupply"
+        }
+      },
+      "title": "VirtualAnswerSupplyResponse"
+    },
+    "VisualSoftListService": {
+      "type": "object",
+      "properties": {
+        "activeService": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "quantityFree": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "quantityPrice": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VisualSoftServiceType"
+          }
+        }
+      },
+      "title": "VisualSoftListService"
+    },
+    "VisualSoftListServiceResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/VisualSoftListService"
+        }
+      },
+      "title": "VisualSoftListServiceResponse"
+    },
+    "VisualSoftServiceType": {
+      "type": "object",
+      "properties": {
+        "activationDate": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string"
+        },
+        "pricePlanType": {
+          "type": "string"
+        },
+        "quantityUnit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "quatityUnitAssigned": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "VisualSoftServiceType"
+    },
+    "WebViewApiPayload": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "application": {
+          "type": "string"
+        },
+        "channelId": {
+          "type": "string"
+        },
+        "correlationId": {
+          "type": "string"
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "displayedText": {
+          "type": "string"
+        },
+        "itemId": {
+          "type": "string"
+        },
+        "itemName": {
+          "type": "string"
+        },
+        "itemType": {
+          "type": "string"
+        }
+      },
+      "title": "WebViewApiPayload"
+    },
+    "WebViewApiRequest": {
+      "type": "object",
+      "properties": {
+        "callback_url": {
+          "type": "string"
+        },
+        "nonce": {
+          "type": "string"
+        },
+        "payload": {
+          "$ref": "#/definitions/WebViewApiPayload"
+        }
+      },
+      "title": "WebViewApiRequest"
+    },
+    "WebViewApiResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "WebViewApiResponse"
+    },
+    "FacturaTokeSendEnterprisePost200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "FacturaTokeStatusGet200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "Office365Quantity-licensesGet200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "Office365Supply-servicePost200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "VirtualAnswerQuantity-LandlinesGet200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "VirtualAnswerSupply-servicePost200ApplicationJsonResponse": {
+      "type": "object"
+    }
+  },
+  "tags": [
+    {
+      "name": "authentication-controller",
+      "description": "Authentication Controller"
+    },
+    {
+      "name": "office-365-controller",
+      "description": "Office 365 Controller"
+    },
+    {
+      "name": "virtual-answer-controller",
+      "description": "Virtual Answer Controller"
+    },
+    {
+      "name": "provider-controller",
+      "description": "Provider Controller"
+    },
+    {
+      "name": "web-view-api-controller",
+      "description": "Web View Api Controller"
+    },
+    {
+      "name": "factura-toke-controller",
+      "description": "Factura Toke Controller"
+    }
+  ]
+}
