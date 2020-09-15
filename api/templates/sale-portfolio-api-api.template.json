@@ -1,0 +1,868 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Sale Portfolio Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": true,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "sale-portfolio",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/5e20e5628512ce0d2c09d005')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"CompanyResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"numberDocument\":{\"type\":\"string\"},\"typeClient\":{\"$ref\":\"#/definitions/TypeClientResponse\"},\"typeDocument\":{\"$ref\":\"#/definitions/TypeDocumentResponse\"}},\"title\":\"CompanyResponse\"},\"ExecutiveOpportunityResponse\":{\"type\":\"object\",\"properties\":{\"currencyType\":{\"type\":\"string\"},\"opportunityQuantity\":{\"type\":\"integer\",\"format\":\"int64\"},\"opportunityStatus\":{\"type\":\"string\"},\"saleProjection\":{\"type\":\"number\",\"format\":\"double\"}},\"title\":\"ExecutiveOpportunityResponse\"},\"ExecutivePortfolioResponse\":{\"type\":\"object\",\"properties\":{\"address\":{\"type\":\"string\"},\"companyId\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"opportunity\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ExecutiveOpportunityResponse\"}},\"sector\":{\"type\":\"string\"}},\"title\":\"ExecutivePortfolioResponse\"},\"Flux«ExecutivePortfolioResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«ExecutivePortfolioResponse»\"},\"Flux«OpportunityResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«OpportunityResponse»\"},\"Mono«PageCountResponse»\":{\"type\":\"object\",\"title\":\"Mono«PageCountResponse»\"},\"Mono«Response»\":{\"type\":\"object\",\"title\":\"Mono«Response»\"},\"OpportunityRequest\":{\"type\":\"object\",\"properties\":{\"clientTypeCodeEnum\":{\"type\":\"string\"},\"clientTypeNameEnum\":{\"type\":\"string\"},\"currency\":{\"type\":\"string\"},\"documentNumber\":{\"type\":\"string\"},\"documentType\":{\"type\":\"string\"},\"finalDate\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"stage\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"value\":{\"type\":\"number\",\"format\":\"double\"}},\"title\":\"OpportunityRequest\"},\"OpportunityResponse\":{\"type\":\"object\",\"properties\":{\"businessLine\":{\"type\":\"string\"},\"company\":{\"$ref\":\"#/definitions/CompanyResponse\"},\"createDate\":{\"type\":\"string\"},\"currency\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"finishDate\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"internalOpportunityId\":{\"type\":\"string\"},\"numberDocument\":{\"type\":\"string\"},\"opportunityId\":{\"type\":\"string\"},\"opportunityName\":{\"type\":\"string\"},\"stage\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"subSegment\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"title\":\"OpportunityResponse\"},\"PageCountResponse\":{\"type\":\"object\",\"properties\":{\"totalElements\":{\"type\":\"integer\",\"format\":\"int64\"},\"totalPages\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"PageCountResponse\"},\"Response\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"title\":\"Response\"},\"TypeClientResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"TypeClientResponse\"},\"TypeDocumentResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"TypeDocumentResponse\"},\"Sale-portfolioDashboardOpportunitiesGet200ApplicationStream-jsonResponse\":{\"type\":\"object\"}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/filterOpportunityUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'sale-portfolio-api', '5e20e5628512ce0d2c09d005')]"
+      ],
+      "properties": {
+        "displayName": "filterOpportunity",
+        "method": "GET",
+        "urlTemplate": "/opportunity/filter",
+        "templateParameters": [],
+        "description": "filterOpportunity",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "businessLine",
+              "description": "businessLine",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "stage",
+              "description": "stage",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "subSegment",
+              "description": "subSegment",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "type",
+              "description": "type",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeClient",
+              "description": "typeClient",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Se obtuvo la lista de oportunidades correctamente.",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e20e5628512ce0d2c09d005",
+                "typeName": "Flux«OpportunityResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/filterOpportunityUsingGET/opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'sale-portfolio-api', 'filterOpportunityUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/filterOpportunityCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'sale-portfolio-api', '5e20e5628512ce0d2c09d005')]"
+      ],
+      "properties": {
+        "displayName": "filterOpportunityCount",
+        "method": "GET",
+        "urlTemplate": "/opportunity/filter-count",
+        "templateParameters": [],
+        "description": "filterOpportunityCount",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "businessLine",
+              "description": "businessLine",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "stage",
+              "description": "stage",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "subSegment",
+              "description": "subSegment",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "type",
+              "description": "type",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeClient",
+              "description": "typeClient",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Se obtuvo el total de oportunidades de forma correcta.",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5e20e5628512ce0d2c09d005",
+                "typeName": "Mono«PageCountResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/filterOpportunityCountUsingGET/opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'sale-portfolio-api', 'filterOpportunityCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/getBusinessOpportunityUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'sale-portfolio-api', '5e20e5628512ce0d2c09d005')]"
+      ],
+      "properties": {
+        "displayName": "Lista todas las empresas y cartera correspondiente, oportunidades y proyeccion de venta",
+        "method": "GET",
+        "urlTemplate": "/sale-portfolio/dashboard/getBusinessOpportunity",
+        "templateParameters": [],
+        "description": "Lista todas las empresas y cartera correspondiente, oportunidades y proyeccion de venta",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "salesGroupId",
+              "description": "salesGroupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Obtiene todas las empresas o mi cartera de empresas",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5e20e5628512ce0d2c09d005",
+                "typeName": "ExecutivePortfolioResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "No se encontraron empresas",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/getBusinessOpportunityUsingGET/dashboard-opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'sale-portfolio-api', 'getBusinessOpportunityUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "dashboard-opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/findAllUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'sale-portfolio-api', '5e20e5628512ce0d2c09d005')]"
+      ],
+      "properties": {
+        "displayName": "Lista todas las oportunidades",
+        "method": "GET",
+        "urlTemplate": "/opportunity/find-all",
+        "templateParameters": [],
+        "description": "Lista todas las oportunidades",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Se obtuvo la lista de oportunidades correctamente.",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5e20e5628512ce0d2c09d005",
+                "typeName": "Response"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/findAllUsingGET/opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'sale-portfolio-api', 'findAllUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/getDetailCaseUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'sale-portfolio-api', '5e20e5628512ce0d2c09d005')]"
+      ],
+      "properties": {
+        "displayName": "Obtiene datos para el dashboard de oportunidades",
+        "method": "GET",
+        "urlTemplate": "/sale-portfolio/dashboard/opportunities?attentionGroupSale={attentionGroupSale}",
+        "templateParameters": [
+          {
+            "name": "attentionGroupSale",
+            "description": "attentionGroupSale",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "Obtiene datos para el dashboard de oportunidades",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/stream+json",
+                "schemaId": "5e20e5628512ce0d2c09d005",
+                "typeName": "Sale-portfolioDashboardOpportunitiesGet200ApplicationStream-jsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/stream+json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/getDetailCaseUsingGET/dashboard-opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'sale-portfolio-api', 'getDetailCaseUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "dashboard-opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/getBusinessOpportunityCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'sale-portfolio-api', '5e20e5628512ce0d2c09d005')]"
+      ],
+      "properties": {
+        "displayName": "Obtiene el total de elementos y total de paginas",
+        "method": "GET",
+        "urlTemplate": "/sale-portfolio/dashboard/countBusinessOpportunity",
+        "templateParameters": [],
+        "description": "Obtiene el total de elementos y total de paginas",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "salesGroupId",
+              "description": "salesGroupId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Obtiene total de elementos y paginas",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5e20e5628512ce0d2c09d005",
+                "typeName": "PageCountResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "No se obtuvo elementos y paginas",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/getBusinessOpportunityCountUsingGET/dashboard-opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'sale-portfolio-api', 'getBusinessOpportunityCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "dashboard-opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/registerUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'sale-portfolio-api', '5e20e5628512ce0d2c09d005')]"
+      ],
+      "properties": {
+        "displayName": "Registra oportunidades para las empresas, proyecciones de ventas",
+        "method": "POST",
+        "urlTemplate": "/opportunity/",
+        "templateParameters": [],
+        "description": "Registra oportunidades para las empresas, proyecciones de ventas",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5e20e5628512ce0d2c09d005",
+              "typeName": "OpportunityRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Se registro correctamente.",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5e20e5628512ce0d2c09d005",
+                "typeName": "Response"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "No se encontraron datos.",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 500,
+            "description": "Se produjo un error en la aplicación",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/registerUsingPOST/opportunity-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'sale-portfolio-api', 'registerUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "opportunity-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/sale-portfolio-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/sale-portfolio-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'sale-portfolio-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'sale-portfolio-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}
