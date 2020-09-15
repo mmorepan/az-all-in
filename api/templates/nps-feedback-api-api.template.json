@@ -1,0 +1,839 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Nps Feedback Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": true,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "nps-feedback-api",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/5daa4bf38512ce0b3c82f18a')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"AnswerRequest\":{\"type\":\"object\",\"properties\":{\"answer\":{\"type\":\"string\"},\"codeQuestion\":{\"type\":\"string\"},\"detailContact\":{\"$ref\":\"#/definitions/PersonDataRequest\"},\"question\":{\"type\":\"string\"}},\"title\":\"AnswerRequest\"},\"AnswerResponse\":{\"type\":\"object\",\"properties\":{\"answer\":{\"type\":\"string\"},\"date\":{\"type\":\"string\",\"format\":\"date-time\"},\"detailContact\":{\"$ref\":\"#/definitions/PersonDataRequest\"},\"question\":{\"type\":\"string\"}},\"title\":\"AnswerResponse\"},\"Flux«AnswerResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«AnswerResponse»\"},\"Flux«ResultCount»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«ResultCount»\"},\"Flux«ResultNps»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«ResultNps»\"},\"Mono«SaveResponse»\":{\"type\":\"object\",\"title\":\"Mono«SaveResponse»\"},\"Mono«TotalCommentNps»\":{\"type\":\"object\",\"title\":\"Mono«TotalCommentNps»\"},\"Mono«boolean»\":{\"type\":\"object\",\"title\":\"Mono«boolean»\"},\"Mono«long»\":{\"type\":\"object\",\"title\":\"Mono«long»\"},\"NetPromoterScoreRequest\":{\"type\":\"object\",\"properties\":{\"detailAnswer\":{\"$ref\":\"#/definitions/AnswerRequest\"},\"from\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"idCompany\":{\"type\":\"string\"},\"idUser\":{\"type\":\"string\"},\"point\":{\"type\":\"integer\",\"format\":\"int32\"},\"typeUser\":{\"type\":\"string\"}},\"title\":\"NetPromoterScoreRequest\"},\"PersonDataRequest\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"fullName\":{\"type\":\"string\"},\"idContact\":{\"type\":\"string\"},\"idUser\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"surName\":{\"type\":\"string\"}},\"title\":\"PersonDataRequest\"},\"ResultCount\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"total\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"ResultCount\"},\"ResultNps\":{\"type\":\"object\",\"properties\":{\"count\":{\"type\":\"integer\",\"format\":\"int32\"},\"id\":{\"type\":\"string\"},\"percentage\":{\"type\":\"number\",\"format\":\"double\"}},\"title\":\"ResultNps\"},\"SaveResponse\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"title\":\"SaveResponse\"},\"TotalCommentNps\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"total\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"TotalCommentNps\"},\"NpsValidate-npsUserIdTypeVoteTypeClientGet200-Response\":{\"type\":\"boolean\"}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getCaseAppDetailUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'nps-feedback-api', '5daa4bf38512ce0b3c82f18a')]"
+      ],
+      "properties": {
+        "displayName": "guarda el NPS",
+        "method": "POST",
+        "urlTemplate": "/nps/save",
+        "templateParameters": [],
+        "description": "guarda el NPS",
+        "request": {
+          "description": "netPromoterScoreRequest",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5daa4bf38512ce0b3c82f18a",
+              "typeName": "NetPromoterScoreRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5daa4bf38512ce0b3c82f18a",
+                "typeName": "SaveResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getCaseAppDetailUsingPOST/net-promoter-score-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'nps-feedback-api', 'getCaseAppDetailUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "net-promoter-score-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getCaseAppDetailUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'nps-feedback-api', '5daa4bf38512ce0b3c82f18a')]"
+      ],
+      "properties": {
+        "displayName": "resultados del NPS",
+        "method": "GET",
+        "urlTemplate": "/nps/find?from={from}&typeUser={typeUser}",
+        "templateParameters": [
+          {
+            "name": "from",
+            "description": "from",
+            "type": "array",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeUser",
+            "description": "typeUser",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "resultados el NPS",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "since",
+              "description": "since",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "until",
+              "description": "until",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5daa4bf38512ce0b3c82f18a",
+                "typeName": "SaveResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getCaseAppDetailUsingGET/net-promoter-score-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'nps-feedback-api', 'getCaseAppDetailUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "net-promoter-score-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getDetailNpsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'nps-feedback-api', '5daa4bf38512ce0b3c82f18a')]"
+      ],
+      "properties": {
+        "displayName": "resultados el NPS",
+        "method": "GET",
+        "urlTemplate": "/nps/detail?from={from}&typeUser={typeUser}",
+        "templateParameters": [
+          {
+            "name": "from",
+            "description": "from",
+            "type": "array",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeUser",
+            "description": "typeUser",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "detalle nps",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "since",
+              "description": "since",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "until",
+              "description": "until",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5daa4bf38512ce0b3c82f18a",
+                "typeName": "SaveResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getDetailNpsUsingGET/net-promoter-score-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'nps-feedback-api', 'getDetailNpsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "net-promoter-score-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getTotalUserNpsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'nps-feedback-api', '5daa4bf38512ce0b3c82f18a')]"
+      ],
+      "properties": {
+        "displayName": "total de usuarios del NPS",
+        "method": "GET",
+        "urlTemplate": "/nps/total-user?from={from}&typeUser={typeUser}",
+        "templateParameters": [
+          {
+            "name": "from",
+            "description": "from",
+            "type": "array",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeUser",
+            "description": "typeUser",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "total de usuarios",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "since",
+              "description": "since",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "until",
+              "description": "until",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5daa4bf38512ce0b3c82f18a",
+                "typeName": "SaveResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getTotalUserNpsUsingGET/net-promoter-score-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'nps-feedback-api', 'getTotalUserNpsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "net-promoter-score-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getTotalCommentByRangeCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'nps-feedback-api', '5daa4bf38512ce0b3c82f18a')]"
+      ],
+      "properties": {
+        "displayName": "total de usuarios del NPS",
+        "method": "GET",
+        "urlTemplate": "/nps/total-comment-count?from={from}&typeUser={typeUser}",
+        "templateParameters": [
+          {
+            "name": "from",
+            "description": "from",
+            "type": "array",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeUser",
+            "description": "typeUser",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "total de usuarios",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "since",
+              "description": "since",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int64. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "typeNps",
+              "description": "typeNps",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "until",
+              "description": "until",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5daa4bf38512ce0b3c82f18a",
+                "typeName": "SaveResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getTotalCommentByRangeCountUsingGET/net-promoter-score-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'nps-feedback-api', 'getTotalCommentByRangeCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "net-promoter-score-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getTotalCommentByRangeUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'nps-feedback-api', '5daa4bf38512ce0b3c82f18a')]"
+      ],
+      "properties": {
+        "displayName": "total de usuarios del NPS",
+        "method": "GET",
+        "urlTemplate": "/nps/total-comment?from={from}&typeUser={typeUser}",
+        "templateParameters": [
+          {
+            "name": "from",
+            "description": "from",
+            "type": "array",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeUser",
+            "description": "typeUser",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "total de usuarios",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "since",
+              "description": "since",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "typeNps",
+              "description": "typeNps",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "until",
+              "description": "until",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5daa4bf38512ce0b3c82f18a",
+                "typeName": "SaveResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/getTotalCommentByRangeUsingGET/net-promoter-score-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'nps-feedback-api', 'getTotalCommentByRangeUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "net-promoter-score-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/validateVoteNpsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'nps-feedback-api', '5daa4bf38512ce0b3c82f18a')]"
+      ],
+      "properties": {
+        "displayName": "valida si el usuario realizo el voto",
+        "method": "GET",
+        "urlTemplate": "/nps/validate-nps/{userId}/{typeVote}/{typeClient}",
+        "templateParameters": [
+          {
+            "name": "typeClient",
+            "description": "typeClient",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeVote",
+            "description": "typeVote",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "userId",
+            "description": "userId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "valida votos",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5daa4bf38512ce0b3c82f18a",
+                "typeName": "NpsValidate-npsUserIdTypeVoteTypeClientGet200-Response"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/validateVoteNpsUsingGET/net-promoter-score-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'nps-feedback-api', 'validateVoteNpsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "net-promoter-score-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/nps-feedback-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/nps-feedback-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'nps-feedback-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'nps-feedback-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}
