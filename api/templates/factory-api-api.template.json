@@ -1,0 +1,2178 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Factory Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": true,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "factory",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/5f52658ad4ce841be4c1ccd6')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"AttachmentCaseRequest\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"internal\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"size\":{\"type\":\"string\"}},\"title\":\"AttachmentCaseRequest\"},\"BillingDetailEntity\":{\"type\":\"object\",\"properties\":{\"billingInvoiceNumber\":{\"type\":\"string\"},\"debtToFinance\":{\"type\":\"number\",\"format\":\"double\"},\"dueDate\":{\"type\":\"string\",\"format\":\"date\"},\"invoiceIdMobile\":{\"type\":\"string\"},\"mobileIssueDate\":{\"type\":\"string\",\"format\":\"date\"},\"typeDocumentLandLine\":{\"type\":\"string\"}},\"title\":\"BillingDetailEntity\"},\"CancelDigitalProductRequest\":{\"type\":\"object\",\"properties\":{\"comment\":{\"type\":\"string\"},\"factoryId\":{\"type\":\"string\"},\"reason\":{\"type\":\"string\"}},\"title\":\"CancelDigitalProductRequest\"},\"CancelDigitalProductResponse\":{\"type\":\"object\",\"properties\":{\"completed\":{\"type\":\"boolean\"},\"factoryId\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"title\":\"CancelDigitalProductResponse\"},\"CaseDetailResponse\":{\"type\":\"object\",\"properties\":{\"caseCode\":{\"type\":\"integer\",\"format\":\"int32\"},\"id\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"}},\"title\":\"CaseDetailResponse\"},\"CaseRequest\":{\"type\":\"object\",\"properties\":{\"attachment\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/AttachmentCaseRequest\"}},\"comment\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/CommentCaseRequest\"}},\"companyId\":{\"type\":\"string\"},\"contactId\":{\"type\":\"string\"},\"contactInfo\":{\"$ref\":\"#/definitions/ContactInfoRequest\"},\"dynamicGuide\":{\"type\":\"object\"},\"fatherCaseCode\":{\"type\":\"string\"},\"internal\":{\"type\":\"boolean\"},\"origin\":{\"$ref\":\"#/definitions/OriginCaseRequest\"},\"petition\":{\"type\":\"string\"},\"priority\":{\"type\":\"string\"},\"service\":{\"$ref\":\"#/definitions/ServiceCaseRequest\"},\"thematicId\":{\"type\":\"string\"},\"userAction\":{\"type\":\"string\"},\"userCode\":{\"type\":\"string\"}},\"title\":\"CaseRequest\"},\"CommentCaseRequest\":{\"type\":\"object\",\"properties\":{\"internal\":{\"type\":\"boolean\"},\"text\":{\"type\":\"string\"}},\"title\":\"CommentCaseRequest\"},\"CompanyResponse\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"title\":\"CompanyResponse\"},\"ContactInfoRequest\":{\"type\":\"object\",\"properties\":{\"calledPhoneNumber\":{\"type\":\"string\"},\"fullName\":{\"type\":\"string\"},\"numberDocument\":{\"type\":\"string\"}},\"title\":\"ContactInfoRequest\"},\"DetailBilling\":{\"type\":\"object\",\"properties\":{\"amount\":{\"type\":\"number\",\"format\":\"double\"},\"billingInvoiceNumber\":{\"type\":\"string\"},\"dueDate\":{\"type\":\"string\",\"format\":\"date\"},\"issueDate\":{\"type\":\"string\",\"format\":\"date\"},\"numberReceipt\":{\"type\":\"string\"},\"typeDocumentLandLine\":{\"type\":\"string\"}},\"title\":\"DetailBilling\"},\"DetailBillingResponse\":{\"type\":\"object\",\"properties\":{\"amount\":{\"type\":\"number\",\"format\":\"double\"},\"billingInvoiceNumber\":{\"type\":\"string\"},\"dueDate\":{\"type\":\"string\"},\"issueDate\":{\"type\":\"string\"},\"numberReceipt\":{\"type\":\"string\"},\"typeDocumentLandLine\":{\"type\":\"string\"}},\"title\":\"DetailBillingResponse\"},\"DigitalProductRequest\":{\"type\":\"object\",\"properties\":{\"chargePlan\":{\"type\":\"string\"},\"chargePlanPadre\":{\"type\":\"string\"},\"codGrouper\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"},\"companyCode\":{\"type\":\"string\"},\"createDate\":{\"type\":\"string\",\"format\":\"date-time\"},\"documentOwner\":{\"type\":\"string\"},\"durationMonth\":{\"type\":\"integer\",\"format\":\"int32\"},\"factoryId\":{\"type\":\"string\"},\"fullNameOwner\":{\"type\":\"string\"},\"groupProducts\":{\"type\":\"string\"},\"highDate\":{\"type\":\"string\",\"format\":\"date\"},\"idFatherPlan\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"nameCommercialPlan\":{\"type\":\"string\"},\"nameFatherPlan\":{\"type\":\"string\"},\"number\":{\"type\":\"string\"},\"numberAssociated\":{\"type\":\"string\"},\"product\":{\"type\":\"string\"},\"providerServiceDate\":{\"type\":\"string\",\"format\":\"date-time\"},\"providerServiceId\":{\"type\":\"string\"},\"purchaseOrderCode\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"typeDocument\":{\"type\":\"string\"},\"typeDocumentOwner\":{\"type\":\"string\"},\"typeProduct\":{\"type\":\"string\"},\"typeService\":{\"type\":\"string\"}},\"title\":\"DigitalProductRequest\"},\"DigitalProductResponse\":{\"type\":\"object\",\"properties\":{\"factoryId\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"title\":\"DigitalProductResponse\"},\"FactoryResponse\":{\"type\":\"object\",\"properties\":{\"activationDate\":{\"type\":\"string\"},\"codeOwner\":{\"type\":\"string\"},\"codeProduct\":{\"type\":\"string\"},\"endDateDigital\":{\"type\":\"string\"},\"financialAccount\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"nameFatherPlan\":{\"type\":\"string\"},\"product\":{\"type\":\"string\"},\"productCatalogCode\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"}},\"title\":\"FactoryResponse\"},\"FinancialAccountDetailResponse\":{\"type\":\"object\",\"properties\":{\"amountToFinance\":{\"type\":\"number\",\"format\":\"double\"},\"billingArrangement\":{\"type\":\"string\"},\"billingCycle\":{\"type\":\"string\"},\"caseDetail\":{\"$ref\":\"#/definitions/CaseDetailResponse\"},\"codeCompany\":{\"type\":\"string\"},\"customerCode\":{\"type\":\"string\"},\"detailBilling\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/DetailBillingResponse\"}},\"factoryId\":{\"type\":\"string\"},\"financialAccount\":{\"type\":\"string\"},\"financingProcess\":{\"type\":\"boolean\"},\"grouped\":{\"type\":\"boolean\"},\"id\":{\"type\":\"string\"},\"lastBilling\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"subscription\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"totalDebt\":{\"type\":\"number\",\"format\":\"double\"},\"typeService\":{\"type\":\"string\"}},\"title\":\"FinancialAccountDetailResponse\"},\"FinancialAccountRequest\":{\"type\":\"object\",\"properties\":{\"amountToFinance\":{\"type\":\"number\",\"format\":\"double\"},\"billingArrangement\":{\"type\":\"string\"},\"billingCycle\":{\"type\":\"string\"},\"codeCompany\":{\"type\":\"string\"},\"count\":{\"type\":\"integer\",\"format\":\"int32\"},\"customerCode\":{\"type\":\"string\"},\"detailBilling\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/DetailBilling\"}},\"id\":{\"type\":\"string\"},\"primaryFactoryId\":{\"type\":\"string\"},\"primaryNumberResource\":{\"type\":\"string\"},\"subscription\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"totalDebt\":{\"type\":\"number\",\"format\":\"double\"},\"typeServices\":{\"type\":\"string\"}},\"title\":\"FinancialAccountRequest\"},\"FinancialAccountResponse\":{\"type\":\"object\",\"properties\":{\"caseDetail\":{\"$ref\":\"#/definitions/CaseDetailResponse\"},\"customerCode\":{\"type\":\"string\"},\"financialAccount\":{\"type\":\"string\"},\"grouped\":{\"type\":\"boolean\"},\"id\":{\"type\":\"string\"},\"numberAssociated\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"title\":\"FinancialAccountResponse\"},\"FinancialAccountResume\":{\"type\":\"object\",\"properties\":{\"count\":{\"type\":\"integer\",\"format\":\"int32\"},\"name\":{\"type\":\"string\"}},\"title\":\"FinancialAccountResume\"},\"FinancialAccountSaveResponse\":{\"type\":\"object\",\"properties\":{\"financialAccount\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"title\":\"FinancialAccountSaveResponse\"},\"FinancingEntity\":{\"type\":\"object\",\"properties\":{\"acceptTermsAndConditions\":{\"type\":\"boolean\"},\"amountToFinance\":{\"type\":\"number\",\"format\":\"double\"},\"billingArrangement\":{\"type\":\"string\"},\"billingDetail\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/BillingDetailEntity\"}},\"caseCode\":{\"type\":\"string\"},\"caseDetail\":{\"$ref\":\"#/definitions/CaseDetailResponse\"},\"company\":{\"$ref\":\"#/definitions/CompanyResponse\"},\"companyNumberDocument\":{\"type\":\"string\"},\"companyTypeDocument\":{\"type\":\"string\"},\"createUserCode\":{\"type\":\"string\"},\"currencyUnit\":{\"type\":\"string\"},\"customerId\":{\"type\":\"string\"},\"cycleCode\":{\"type\":\"string\"},\"cycleStarDate\":{\"type\":\"string\",\"format\":\"date\"},\"factoryId\":{\"type\":\"string\"},\"financialAccount\":{\"type\":\"string\"},\"financingDate\":{\"type\":\"string\",\"format\":\"date-time\"},\"financingPlan\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"legalName\":{\"type\":\"string\"},\"mte\":{\"type\":\"boolean\"},\"numberOfLine\":{\"type\":\"integer\",\"format\":\"int32\"},\"numberOfReceipt\":{\"type\":\"integer\",\"format\":\"int32\"},\"pastDueDebt\":{\"type\":\"number\",\"format\":\"double\"},\"primaryResource\":{\"type\":\"string\"},\"status\":{\"type\":\"boolean\"},\"statusCase\":{\"type\":\"string\"},\"totalDebt\":{\"type\":\"number\",\"format\":\"double\"},\"typeService\":{\"type\":\"string\"}},\"title\":\"FinancingEntity\"},\"FinancingInfoResponse\":{\"type\":\"object\",\"properties\":{\"billingDetail\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/BillingDetailEntity\"}},\"caseDetail\":{\"$ref\":\"#/definitions/CaseDetailResponse\"},\"financialAccount\":{\"type\":\"string\"},\"financingDate\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"}},\"title\":\"FinancingInfoResponse\"},\"FinancingRequest\":{\"type\":\"object\",\"properties\":{\"caseRequest\":{\"$ref\":\"#/definitions/CaseRequest\"},\"financialAccountId\":{\"type\":\"string\"},\"financingPlan\":{\"type\":\"string\"},\"typeDevice\":{\"type\":\"string\"},\"userCode\":{\"type\":\"string\"}},\"title\":\"FinancingRequest\"},\"FinancingResponse\":{\"type\":\"object\",\"properties\":{\"caseCode\":{\"type\":\"integer\",\"format\":\"int32\"},\"caseId\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"title\":\"FinancingResponse\"},\"Flux«FactoryResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«FactoryResponse»\"},\"Flux«FinancialAccountResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«FinancialAccountResponse»\"},\"Flux«FinancialAccountResume»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«FinancialAccountResume»\"},\"Flux«FinancingEntity»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«FinancingEntity»\"},\"Flux«FinancingInfoResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«FinancingInfoResponse»\"},\"Flux«GroupDashBoard»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«GroupDashBoard»\"},\"Flux«SubscriptionResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«SubscriptionResponse»\"},\"Flux«UpdateFinancialAccountResponse»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«UpdateFinancialAccountResponse»\"},\"Flux«object»\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Flux«object»\"},\"GroupDashBoard\":{\"type\":\"object\",\"properties\":{\"count\":{\"type\":\"integer\",\"format\":\"int64\"},\"id\":{\"type\":\"string\"}},\"title\":\"GroupDashBoard\"},\"Mono«CancelDigitalProductResponse»\":{\"type\":\"object\",\"title\":\"Mono«CancelDigitalProductResponse»\"},\"Mono«CompanyResponse»\":{\"type\":\"object\",\"title\":\"Mono«CompanyResponse»\"},\"Mono«DigitalProductResponse»\":{\"type\":\"object\",\"title\":\"Mono«DigitalProductResponse»\"},\"Mono«FinancialAccountDetailResponse»\":{\"type\":\"object\",\"title\":\"Mono«FinancialAccountDetailResponse»\"},\"Mono«FinancialAccountSaveResponse»\":{\"type\":\"object\",\"title\":\"Mono«FinancialAccountSaveResponse»\"},\"Mono«FinancingResponse»\":{\"type\":\"object\",\"title\":\"Mono«FinancingResponse»\"},\"Mono«PageCountResponse»\":{\"type\":\"object\",\"title\":\"Mono«PageCountResponse»\"},\"OriginCaseRequest\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/TypeRequest\"}}},\"title\":\"OriginCaseRequest\"},\"PageCountResponse\":{\"type\":\"object\",\"properties\":{\"totalElements\":{\"type\":\"integer\",\"format\":\"int64\"},\"totalPages\":{\"type\":\"integer\",\"format\":\"int64\"}},\"title\":\"PageCountResponse\"},\"ProductCaseRequest\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"title\":\"ProductCaseRequest\"},\"ServiceCaseRequest\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"product\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ProductCaseRequest\"}},\"subscription\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"type\":{\"type\":\"string\"}},\"title\":\"ServiceCaseRequest\"},\"SubscriptionResponse\":{\"type\":\"object\",\"properties\":{\"number\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"}},\"title\":\"SubscriptionResponse\"},\"TypeRequest\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"title\":\"TypeRequest\"},\"UpdateFinancialAccountResponse\":{\"type\":\"object\",\"properties\":{\"financialAccount\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"typeService\":{\"type\":\"string\"}},\"title\":\"UpdateFinancialAccountResponse\"},\"FactoryFinancial-accountGet200-Response\":{\"type\":\"string\"},\"FactoryFinancial-accountGet200ApplicationJsonResponse\":{\"type\":\"string\"},\"FactoryFinancial-account-countGet200-Response\":{\"type\":\"string\"},\"FactoryFinancial-account-countGet200ApplicationJsonResponse\":{\"type\":\"string\"},\"FactoryFinancial-account-dashboardGet200-Response\":{\"type\":\"string\"},\"FactoryFinancial-account-dashboardGet200ApplicationJsonResponse\":{\"type\":\"string\"}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/cancelDigitalProductUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "Cancel Digital Product",
+        "method": "POST",
+        "urlTemplate": "/factory/digital-product/cancel",
+        "templateParameters": [],
+        "description": "cancela un producto digital en la coleccion factory",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f52658ad4ce841be4c1ccd6",
+              "typeName": "CancelDigitalProductRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "DigitalProductResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/cancelDigitalProductUsingPOST/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'cancelDigitalProductUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getFinancialAccountCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "contador de cuentas financieras",
+        "method": "GET",
+        "urlTemplate": "/factory/financial-account-count",
+        "templateParameters": [],
+        "description": "contador",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyCode",
+              "description": "companyCode",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "search",
+              "description": "search",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "typeService",
+              "description": "typeService",
+              "type": "array",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "FactoryFinancial-account-countGet200-Response"
+              },
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "FactoryFinancial-account-countGet200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getFinancialAccountCountUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'getFinancialAccountCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/createDigitalProductUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "Create Digital Product",
+        "method": "POST",
+        "urlTemplate": "/factory/digital-product",
+        "templateParameters": [],
+        "description": "crear y guarda los productos digitales en la coleccion factory",
+        "request": {
+          "description": "digitalProductRequest",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f52658ad4ce841be4c1ccd6",
+              "typeName": "DigitalProductRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "DigitalProductResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/createDigitalProductUsingPOST/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'createDigitalProductUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/filterFactoryUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "filterFactory",
+        "method": "GET",
+        "urlTemplate": "/factory/filter",
+        "templateParameters": [],
+        "description": "filterFactory",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "code",
+              "description": "code",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "groupProducts",
+              "description": "groupProducts",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "idFatherPlan",
+              "description": "idFatherPlan",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "product",
+              "description": "product",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "typeService",
+              "description": "typeService",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "virtual",
+              "description": "virtual",
+              "type": "boolean",
+              "defaultValue": "False",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Flux«FactoryResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/filterFactoryUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'filterFactoryUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/filterFactoryComboUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "filterFactoryCombo",
+        "method": "GET",
+        "urlTemplate": "/factory/filter-combo",
+        "templateParameters": [],
+        "description": "filterFactoryCombo",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "code",
+              "description": "code",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "groupProducts",
+              "description": "groupProducts",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "idFatherPlan",
+              "description": "idFatherPlan",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "product",
+              "description": "product",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "typeCombo",
+              "description": "typeCombo",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeService",
+              "description": "typeService",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "virtual",
+              "description": "virtual",
+              "type": "boolean",
+              "defaultValue": "False",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Flux«object»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/filterFactoryComboUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'filterFactoryComboUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/filterFactoryCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "filterFactoryCount",
+        "method": "GET",
+        "urlTemplate": "/factory/filter-count",
+        "templateParameters": [],
+        "description": "filterFactoryCount",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "code",
+              "description": "code",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "groupProducts",
+              "description": "groupProducts",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "idFatherPlan",
+              "description": "idFatherPlan",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "product",
+              "description": "product",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "request",
+              "description": "request",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "typeService",
+              "description": "typeService",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "virtual",
+              "description": "virtual",
+              "type": "boolean",
+              "defaultValue": "False",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Mono«PageCountResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/filterFactoryCountUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'filterFactoryCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/generateReportUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "generateReport",
+        "method": "GET",
+        "urlTemplate": "/factory/financing/report?endDate={endDate}&startDate={startDate}&typeService={typeService}",
+        "templateParameters": [
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeService",
+            "description": "typeService",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "generateReport",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Flux«FinancingEntity»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/generateReportUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'generateReportUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/generateReportOsiptelUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "generateReportOsiptel",
+        "method": "GET",
+        "urlTemplate": "/factory/financing/report-osiptel?endDate={endDate}&startDate={startDate}",
+        "templateParameters": [
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "generateReportOsiptel",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "typeService",
+              "description": "typeService",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Flux«FinancingEntity»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/generateReportOsiptelUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'generateReportOsiptelUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getCompanyBySubscriptionUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "getCompanyBySubscription",
+        "method": "GET",
+        "urlTemplate": "/factory/company?subscription={subscription}",
+        "templateParameters": [
+          {
+            "name": "subscription",
+            "description": "subscription",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getCompanyBySubscription",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Mono«CompanyResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getCompanyBySubscriptionUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'getCompanyBySubscriptionUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getFinancingUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "getFinancing",
+        "method": "GET",
+        "urlTemplate": "/factory/financing-by-fa?financialAccount={financialAccount}&numberDocument={numberDocument}&typeDocument={typeDocument}&typeService={typeService}",
+        "templateParameters": [
+          {
+            "name": "financialAccount",
+            "description": "financialAccount",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "numberDocument",
+            "description": "numberDocument",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeDocument",
+            "description": "typeDocument",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeService",
+            "description": "typeService",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getFinancing",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Flux«FinancingInfoResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getFinancingUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'getFinancingUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getSubscriptionUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "getSubscription",
+        "method": "GET",
+        "urlTemplate": "/factory/get-subscription?ruc={ruc}&typeService={typeService}",
+        "templateParameters": [
+          {
+            "name": "ruc",
+            "description": "ruc",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeService",
+            "description": "typeService",
+            "type": "array",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getSubscription",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "search",
+              "description": "search",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Flux«SubscriptionResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getSubscriptionUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'getSubscriptionUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getSubscriptionCountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "getSubscriptionCount",
+        "method": "GET",
+        "urlTemplate": "/factory/get-subscription-count?ruc={ruc}&typeService={typeService}",
+        "templateParameters": [
+          {
+            "name": "ruc",
+            "description": "ruc",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "typeService",
+            "description": "typeService",
+            "type": "array",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getSubscriptionCount",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "search",
+              "description": "search",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Mono«PageCountResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getSubscriptionCountUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'getSubscriptionCountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/groupProductsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "groupProducts",
+        "method": "GET",
+        "urlTemplate": "/factory/dashboard",
+        "templateParameters": [],
+        "description": "groupProducts",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyCode",
+              "description": "companyCode",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "status",
+              "description": "status",
+              "type": "array",
+              "values": []
+            },
+            {
+              "name": "virtual",
+              "description": "virtual",
+              "type": "boolean",
+              "defaultValue": "False",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Flux«GroupDashBoard»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/groupProductsUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'groupProductsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getFinancialAccountUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "obtiene todas las cuentas financieras",
+        "method": "GET",
+        "urlTemplate": "/factory/financial-account",
+        "templateParameters": [],
+        "description": "lista las cuentas financieras",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyCode",
+              "description": "companyCode",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "page",
+              "description": "Format - int32. page",
+              "type": "integer",
+              "defaultValue": "0",
+              "values": []
+            },
+            {
+              "name": "search",
+              "description": "search",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "size",
+              "description": "Format - int32. size",
+              "type": "integer",
+              "defaultValue": "20",
+              "values": []
+            },
+            {
+              "name": "typeService",
+              "description": "typeService",
+              "type": "array",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "FactoryFinancial-accountGet200-Response"
+              },
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "FactoryFinancial-accountGet200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getFinancialAccountUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'getFinancialAccountUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/reportFinancingCsvUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]"
+      ],
+      "properties": {
+        "displayName": "reportFinancingCsv",
+        "method": "GET",
+        "urlTemplate": "/report/financing",
+        "templateParameters": [],
+        "description": "reportFinancingCsv",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/reportFinancingCsvUsingGET/report-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'reportFinancingCsvUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "report-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getFinancialAccountCountUsingGET_1')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "resumen de financial account",
+        "method": "GET",
+        "urlTemplate": "/factory/financial-account-dashboard",
+        "templateParameters": [],
+        "description": "resume",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyCode",
+              "description": "companyCode",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeService",
+              "description": "typeService",
+              "type": "array",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "FactoryFinancial-account-dashboardGet200-Response"
+              },
+              {
+                "contentType": "application/json",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "FactoryFinancial-account-dashboardGet200ApplicationJsonResponse"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              },
+              {
+                "contentType": "application/json"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/getFinancialAccountCountUsingGET_1/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'getFinancialAccountCountUsingGET_1')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/saveFinancialUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "saveFinancial",
+        "method": "GET",
+        "urlTemplate": "/factory/financial",
+        "templateParameters": [],
+        "description": "saveFinancial",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "companyCode",
+              "description": "companyCode",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "typeService",
+              "description": "typeService",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Flux«UpdateFinancialAccountResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/saveFinancialUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'saveFinancialUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/saveFinancingUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "saveFinancing",
+        "method": "POST",
+        "urlTemplate": "/factory/financing",
+        "templateParameters": [],
+        "description": "saveFinancing",
+        "request": {
+          "description": "financingRequest",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f52658ad4ce841be4c1ccd6",
+              "typeName": "FinancingRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Mono«FinancingResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/saveFinancingUsingPOST/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'saveFinancingUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/saveFinancingUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "saveFinancing",
+        "method": "GET",
+        "urlTemplate": "/factory/financial-account/detail/{financialAccountId}",
+        "templateParameters": [
+          {
+            "name": "financialAccountId",
+            "description": "financialAccountId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "saveFinancing",
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Mono«FinancialAccountDetailResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/saveFinancingUsingGET/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'saveFinancingUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/updateFinancialAccountUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'factory-api', '5f52658ad4ce841be4c1ccd6')]"
+      ],
+      "properties": {
+        "displayName": "updateFinancialAccount",
+        "method": "PUT",
+        "urlTemplate": "/factory/financial/update",
+        "templateParameters": [],
+        "description": "updateFinancialAccount",
+        "request": {
+          "description": "financialAccountRequest",
+          "queryParameters": [],
+          "headers": [],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f52658ad4ce841be4c1ccd6",
+              "typeName": "FinancialAccountRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f52658ad4ce841be4c1ccd6",
+                "typeName": "Mono«FinancialAccountSaveResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/updateFinancialAccountUsingPUT/factory-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'factory-api', 'updateFinancialAccountUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "factory-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/factory-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/factory-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'factory-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'factory-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}
