@@ -1,0 +1,319 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Service Activation Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/serviceActivation",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/serviceActivations": {
+      "post": {
+        "description": "provisionService",
+        "operationId": "provisionServiceUsingPOST",
+        "summary": "provisionService",
+        "tags": [
+          "service-activation-controller"
+        ],
+        "parameters": [
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "description": "UNICA-Application",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "description": "UNICA-ServiceId",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-Timestamp",
+            "in": "header",
+            "description": "UNICA-Timestamp",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "description": "UNICA-User",
+            "type": "string"
+          },
+          {
+            "name": "serviceActivationRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ServiceActivationRequest"
+            },
+            "description": "serviceActivationRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Mono«ServiceActivationResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ActivationItemRequest": {
+      "type": "object",
+      "properties": {
+        "characteristics": {
+          "$ref": "#/definitions/CharacteristicsRequest"
+        },
+        "description": {
+          "type": "string"
+        },
+        "itemId": {
+          "type": "string"
+        },
+        "place": {
+          "$ref": "#/definitions/PlaceRequest"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "targetEntity": {
+          "$ref": "#/definitions/TargetRequest"
+        }
+      },
+      "title": "ActivationItemRequest"
+    },
+    "ActivationItemResponse": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "instantiatedServices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "itemId": {
+          "type": "string"
+        },
+        "place": {
+          "$ref": "#/definitions/PlaceResponse"
+        },
+        "quantity": {
+          "type": "string"
+        },
+        "requestedServiceType": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusReason": {
+          "type": "string"
+        },
+        "subStatus": {
+          "type": "string"
+        },
+        "targetEntity": {
+          "$ref": "#/definitions/TargetResponse"
+        }
+      },
+      "title": "ActivationItemResponse"
+    },
+    "CharacteristicsRequest": {
+      "type": "object",
+      "properties": {
+        "serviceType": {
+          "type": "string"
+        }
+      },
+      "title": "CharacteristicsRequest"
+    },
+    "Mono«ServiceActivationResponse»": {
+      "type": "object",
+      "title": "Mono«ServiceActivationResponse»"
+    },
+    "PlaceRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "PlaceRequest"
+    },
+    "PlaceResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "PlaceResponse"
+    },
+    "ServiceActivationRequest": {
+      "type": "object",
+      "properties": {
+        "activationItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivationItemRequest"
+          }
+        },
+        "correlationId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "relatedOrderId": {
+          "type": "string"
+        },
+        "requestedCompletionDate": {
+          "type": "string"
+        }
+      },
+      "title": "ServiceActivationRequest"
+    },
+    "ServiceActivationResponse": {
+      "type": "object",
+      "properties": {
+        "activationItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivationItemResponse"
+          }
+        },
+        "completionDate": {
+          "type": "string"
+        },
+        "correlationId": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "expectedCompletionDate": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "relatedOrderId": {
+          "type": "string"
+        },
+        "requestedCompletionDate": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusReason": {
+          "type": "string"
+        },
+        "subStatus": {
+          "type": "string"
+        }
+      },
+      "title": "ServiceActivationResponse"
+    },
+    "TargetRequest": {
+      "type": "object",
+      "properties": {
+        "@referredType": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "TargetRequest"
+    },
+    "TargetResponse": {
+      "type": "object",
+      "properties": {
+        "@referredType": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "TargetResponse"
+    }
+  },
+  "tags": [
+    {
+      "name": "service-activation-controller",
+      "description": "Service Activation Controller"
+    }
+  ]
+}

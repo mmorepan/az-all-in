@@ -1,0 +1,207 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Service Activation Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": true,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "serviceActivation",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api/5f56a4f3d4ce8413580638f9')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"ActivationItemRequest\":{\"type\":\"object\",\"properties\":{\"characteristics\":{\"$ref\":\"#/definitions/CharacteristicsRequest\"},\"description\":{\"type\":\"string\"},\"itemId\":{\"type\":\"string\"},\"place\":{\"$ref\":\"#/definitions/PlaceRequest\"},\"quantity\":{\"type\":\"integer\",\"format\":\"int32\"},\"targetEntity\":{\"$ref\":\"#/definitions/TargetRequest\"}},\"title\":\"ActivationItemRequest\"},\"ActivationItemResponse\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"instantiatedServices\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"itemId\":{\"type\":\"string\"},\"place\":{\"$ref\":\"#/definitions/PlaceResponse\"},\"quantity\":{\"type\":\"string\"},\"requestedServiceType\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"statusReason\":{\"type\":\"string\"},\"subStatus\":{\"type\":\"string\"},\"targetEntity\":{\"$ref\":\"#/definitions/TargetResponse\"}},\"title\":\"ActivationItemResponse\"},\"CharacteristicsRequest\":{\"type\":\"object\",\"properties\":{\"serviceType\":{\"type\":\"string\"}},\"title\":\"CharacteristicsRequest\"},\"Mono«ServiceActivationResponse»\":{\"type\":\"object\",\"title\":\"Mono«ServiceActivationResponse»\"},\"PlaceRequest\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"title\":\"PlaceRequest\"},\"PlaceResponse\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"title\":\"PlaceResponse\"},\"ServiceActivationRequest\":{\"type\":\"object\",\"properties\":{\"activationItem\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ActivationItemRequest\"}},\"correlationId\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"relatedOrderId\":{\"type\":\"string\"},\"requestedCompletionDate\":{\"type\":\"string\"}},\"title\":\"ServiceActivationRequest\"},\"ServiceActivationResponse\":{\"type\":\"object\",\"properties\":{\"activationItem\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ActivationItemResponse\"}},\"completionDate\":{\"type\":\"string\"},\"correlationId\":{\"type\":\"string\"},\"date\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"expectedCompletionDate\":{\"type\":\"string\"},\"href\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"relatedOrderId\":{\"type\":\"string\"},\"requestedCompletionDate\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"statusReason\":{\"type\":\"string\"},\"subStatus\":{\"type\":\"string\"}},\"title\":\"ServiceActivationResponse\"},\"TargetRequest\":{\"type\":\"object\",\"properties\":{\"@referredType\":{\"type\":\"string\"},\"href\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"}},\"title\":\"TargetRequest\"},\"TargetResponse\":{\"type\":\"object\",\"properties\":{\"@referredType\":{\"type\":\"string\"},\"href\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"}},\"title\":\"TargetResponse\"}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api/provisionServiceUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'service-activation-api', '5f56a4f3d4ce8413580638f9')]"
+      ],
+      "properties": {
+        "displayName": "provisionService",
+        "method": "POST",
+        "urlTemplate": "/serviceActivations",
+        "templateParameters": [],
+        "description": "provisionService",
+        "request": {
+          "description": "serviceActivationRequest",
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-Application",
+              "description": "UNICA-Application",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "UNICA-ServiceId",
+              "description": "UNICA-ServiceId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "UNICA-Timestamp",
+              "description": "UNICA-Timestamp",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "description": "UNICA-User",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f56a4f3d4ce8413580638f9",
+              "typeName": "ServiceActivationRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f56a4f3d4ce8413580638f9",
+                "typeName": "Mono«ServiceActivationResponse»"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 401,
+            "description": "Unauthorized",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 403,
+            "description": "Forbidden",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          },
+          {
+            "statusCode": 404,
+            "description": "Not Found",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api/provisionServiceUsingPOST/service-activation-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'service-activation-api', 'provisionServiceUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "service-activation-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/service-activation-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'service-activation-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}
