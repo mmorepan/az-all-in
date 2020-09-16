@@ -1,0 +1,121 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Factory Integration",
+    "version": "1.0"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/factory-integration",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/get-report/process": {
+      "get": {
+        "operationId": "updateFactoryGetReport",
+        "summary": "updateFactoryGetReport",
+        "tags": [
+          "get-report-controller"
+        ],
+        "parameters": [
+          {
+            "name": "typeDocument",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "numberDocument",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "default response",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            }
+          }
+        }
+      }
+    },
+    "/get-report/valid-process": {
+      "get": {
+        "operationId": "validProcessFactoryGetReport",
+        "summary": "validProcessFactoryGetReport",
+        "tags": [
+          "get-report-controller"
+        ],
+        "parameters": [
+          {
+            "name": "typeDocument",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "numberDocument",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "default response",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GenericResponse": {
+      "type": "object",
+      "properties": {
+        "messageResponse": {
+          "type": "string"
+        },
+        "object": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "tags": []
+}
