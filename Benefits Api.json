@@ -1,0 +1,774 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Benefits Api",
+    "version": "1.0",
+    "description": "Api Documentation"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/benefits",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    },
+    "oauth2WappeServerCertOauth2": {
+      "type": "oauth2",
+      "scopes": {},
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [],
+      "oauth2WappeServerCertOauth2": []
+    },
+    {
+      "apiKeyQuery": [],
+      "oauth2WappeServerCertOauth2": []
+    }
+  ],
+  "paths": {
+    "/corporate/customer/createBenefits": {
+      "post": {
+        "description": "createBenefits",
+        "operationId": "createBenefitsUsingPOST",
+        "summary": "createBenefits",
+        "tags": [
+          "customer-benefits-controller"
+        ],
+        "parameters": [
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "clientId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "12122322"
+          },
+          {
+            "name": "benefitsRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BenefitsRequest"
+            },
+            "description": "request"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/BenefitsResponse"
+            }
+          }
+        }
+      }
+    },
+    "/corporate/customer/getAllBenefits": {
+      "get": {
+        "description": "getAllBenefits",
+        "operationId": "getAllBenefitsUsingGET",
+        "summary": "getAllBenefits",
+        "tags": [
+          "customer-benefits-controller"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "clientId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "12122322"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CustomerBenefitsResponse"
+            }
+          }
+        }
+      }
+    },
+    "/corporate/customer/getAllBenefits/export": {
+      "get": {
+        "description": "exportCustomerBenefitsCsv",
+        "operationId": "exportCustomerBenefitsCsvUsingGET",
+        "summary": "exportCustomerBenefitsCsv",
+        "tags": [
+          "customer-benefits-controller"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "clientId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "12122322"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/corporate/customer/getAllCasesBmte": {
+      "get": {
+        "description": "findAllCaseByThematicBmteNameAndDate",
+        "operationId": "findAllCaseByThematicBmteNameAndDateUsingGET",
+        "summary": "findAllCaseByThematicBmteNameAndDate",
+        "tags": [
+          "customer-benefits-controller"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "clientId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "12122322"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseResponse"
+            }
+          }
+        }
+      }
+    },
+    "/corporate/customer/getAllCasesBmte/export": {
+      "get": {
+        "description": "findAllCaseByThematicBmteNameAndDateCsv",
+        "operationId": "findAllCaseByThematicBmteNameAndDateCsvUsingGET",
+        "summary": "findAllCaseByThematicBmteNameAndDateCsv",
+        "tags": [
+          "customer-benefits-controller"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "clientId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "12122322"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/corporate/customer/getAllCasesByThematic": {
+      "get": {
+        "description": "findAllCaseByThematicNameAndDate",
+        "operationId": "findAllCaseByThematicNameAndDateUsingGET",
+        "summary": "findAllCaseByThematicNameAndDate",
+        "tags": [
+          "customer-benefits-controller"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "type": "string"
+          },
+          {
+            "name": "thematicId",
+            "in": "query",
+            "description": "thematicId",
+            "type": "string"
+          },
+          {
+            "name": "thematicNameInternal",
+            "in": "query",
+            "description": "thematicNameInternal",
+            "type": "string"
+          },
+          {
+            "name": "thematicNameExternal",
+            "in": "query",
+            "description": "thematicNameExternal",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "clientId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "12122322"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CaseResponse"
+            }
+          }
+        }
+      }
+    },
+    "/corporate/customer/getAllCasesByThematic/export": {
+      "get": {
+        "description": "findAllCaseByThematicNameAndDateCsv",
+        "operationId": "findAllCaseByThematicNameAndDateCsvUsingGET",
+        "summary": "findAllCaseByThematicNameAndDateCsv",
+        "tags": [
+          "customer-benefits-controller"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "type": "string"
+          },
+          {
+            "name": "thematicId",
+            "in": "query",
+            "description": "thematicId",
+            "type": "string"
+          },
+          {
+            "name": "thematicNameInternal",
+            "in": "query",
+            "description": "thematicNameInternal",
+            "type": "string"
+          },
+          {
+            "name": "thematicNameExternal",
+            "in": "query",
+            "description": "thematicNameExternal",
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "clientId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "12122322"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BenefitsRequest": {
+      "type": "object",
+      "required": [
+        "creationDate",
+        "exists"
+      ],
+      "properties": {
+        "creationDate": {
+          "type": "string"
+        },
+        "documentCompany": {
+          "type": "string"
+        },
+        "emailContact": {
+          "type": "string"
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "personDocument": {
+          "type": "string"
+        },
+        "phoneContact": {
+          "type": "string"
+        },
+        "typeDocument": {
+          "type": "string"
+        }
+      },
+      "title": "BenefitsRequest"
+    },
+    "BenefitsResponse": {
+      "type": "object",
+      "properties": {
+        "manager": {
+          "$ref": "#/definitions/Manager"
+        }
+      },
+      "title": "BenefitsResponse"
+    },
+    "CaseResponse": {
+      "type": "object",
+      "properties": {
+        "companyInfoCode": {
+          "type": "string"
+        },
+        "companyInfoLegalName": {
+          "type": "string"
+        },
+        "contactInfoCalledPhoneNumber": {
+          "type": "string"
+        },
+        "contactInfoFullName": {
+          "type": "string"
+        },
+        "contactInfoNumberDocument": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modifyDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "nameInternal": {
+          "type": "string"
+        },
+        "originType": {
+          "type": "string"
+        },
+        "petition": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        }
+      },
+      "title": "CaseResponse"
+    },
+    "CustomerBenefitsResponse": {
+      "type": "object",
+      "properties": {
+        "creationDate": {
+          "type": "string"
+        },
+        "documentCompany": {
+          "type": "string"
+        },
+        "emailContact": {
+          "type": "string"
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "personDocument": {
+          "type": "string"
+        },
+        "phoneContact": {
+          "type": "string"
+        },
+        "typeDocument": {
+          "type": "string"
+        }
+      },
+      "title": "CustomerBenefitsResponse"
+    },
+    "GenesisException": {
+      "type": "object",
+      "properties": {
+        "exceptionDetails": {
+          "type": "array",
+          "description": "Lista de detalles del error",
+          "items": {
+            "$ref": "#/definitions/GenesisExceptionDetail"
+          }
+        },
+        "exceptionId": {
+          "type": "string",
+          "example": "SVC0001",
+          "description": "Identificador de la excepción"
+        },
+        "exceptionText": {
+          "type": "string",
+          "example": "Mensaje de error",
+          "description": "Descripcion del error de Sistema"
+        },
+        "moreInfo": {
+          "type": "string",
+          "example": "https://help.tdp.com/2020",
+          "description": "URI donde se proporciona más información sobre la excepción"
+        },
+        "properties": {
+          "type": "object",
+          "description": "Lista de propiedades especiales.",
+          "additionalProperties": {
+            "$ref": "#/definitions/Serializable"
+          }
+        },
+        "userMessage": {
+          "type": "string",
+          "example": "Error al llamar al servicio",
+          "description": "Descripcion del error de Sistema"
+        }
+      },
+      "title": "GenesisException",
+      "description": "Datos del error de sistema."
+    },
+    "GenesisExceptionDetail": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "MB0008",
+          "description": "Codigo de error del Detalle/Proveedor"
+        },
+        "component": {
+          "type": "string",
+          "example": "MB.ProductsV2",
+          "description": "Nombre del componente de falla"
+        },
+        "description": {
+          "type": "string",
+          "example": "Codigo invalido para el canal",
+          "description": "Descripcion del Detalle"
+        }
+      },
+      "title": "GenesisExceptionDetail",
+      "description": "Datos del error t&eacute;cnico."
+    },
+    "Manager": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      },
+      "title": "Manager"
+    },
+    "Resource": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Resource"
+    },
+    "Serializable": {
+      "type": "object",
+      "title": "Serializable"
+    }
+  },
+  "tags": [
+    {
+      "name": "customer-benefits-controller",
+      "description": "Customer Benefits Controller"
+    }
+  ]
+}

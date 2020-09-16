@@ -1,0 +1,790 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Benefits Api",
+        "apiRevision": "1",
+        "description": "Api Documentation",
+        "subscriptionRequired": true,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "benefits",
+        "protocols": [
+          "http",
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/5f28b3e2d4ce8413d493b4bc')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"BenefitsRequest\":{\"type\":\"object\",\"required\":[\"creationDate\",\"exists\"],\"properties\":{\"creationDate\":{\"type\":\"string\"},\"documentCompany\":{\"type\":\"string\"},\"emailContact\":{\"type\":\"string\"},\"exists\":{\"type\":\"boolean\"},\"personDocument\":{\"type\":\"string\"},\"phoneContact\":{\"type\":\"string\"},\"typeDocument\":{\"type\":\"string\"}},\"title\":\"BenefitsRequest\"},\"BenefitsResponse\":{\"type\":\"object\",\"properties\":{\"manager\":{\"$ref\":\"#/definitions/Manager\"}},\"title\":\"BenefitsResponse\"},\"CaseResponse\":{\"type\":\"object\",\"properties\":{\"companyInfoCode\":{\"type\":\"string\"},\"companyInfoLegalName\":{\"type\":\"string\"},\"contactInfoCalledPhoneNumber\":{\"type\":\"string\"},\"contactInfoFullName\":{\"type\":\"string\"},\"contactInfoNumberDocument\":{\"type\":\"string\"},\"createDate\":{\"type\":\"string\",\"format\":\"date-time\"},\"id\":{\"type\":\"string\"},\"modifyDate\":{\"type\":\"string\",\"format\":\"date-time\"},\"nameInternal\":{\"type\":\"string\"},\"originType\":{\"type\":\"string\"},\"petition\":{\"type\":\"string\"},\"priority\":{\"type\":\"string\"}},\"title\":\"CaseResponse\"},\"CustomerBenefitsResponse\":{\"type\":\"object\",\"properties\":{\"creationDate\":{\"type\":\"string\"},\"documentCompany\":{\"type\":\"string\"},\"emailContact\":{\"type\":\"string\"},\"exists\":{\"type\":\"boolean\"},\"personDocument\":{\"type\":\"string\"},\"phoneContact\":{\"type\":\"string\"},\"typeDocument\":{\"type\":\"string\"}},\"title\":\"CustomerBenefitsResponse\"},\"GenesisException\":{\"type\":\"object\",\"properties\":{\"exceptionDetails\":{\"type\":\"array\",\"description\":\"Lista de detalles del error\",\"items\":{\"$ref\":\"#/definitions/GenesisExceptionDetail\"}},\"exceptionId\":{\"type\":\"string\",\"example\":\"SVC0001\",\"description\":\"Identificador de la excepción\"},\"exceptionText\":{\"type\":\"string\",\"example\":\"Mensaje de error\",\"description\":\"Descripcion del error de Sistema\"},\"moreInfo\":{\"type\":\"string\",\"example\":\"https://help.tdp.com/2020\",\"description\":\"URI donde se proporciona más información sobre la excepción\"},\"properties\":{\"type\":\"object\",\"description\":\"Lista de propiedades especiales.\",\"additionalProperties\":{\"$ref\":\"#/definitions/Serializable\"}},\"userMessage\":{\"type\":\"string\",\"example\":\"Error al llamar al servicio\",\"description\":\"Descripcion del error de Sistema\"}},\"title\":\"GenesisException\",\"description\":\"Datos del error de sistema.\"},\"GenesisExceptionDetail\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"example\":\"MB0008\",\"description\":\"Codigo de error del Detalle/Proveedor\"},\"component\":{\"type\":\"string\",\"example\":\"MB.ProductsV2\",\"description\":\"Nombre del componente de falla\"},\"description\":{\"type\":\"string\",\"example\":\"Codigo invalido para el canal\",\"description\":\"Descripcion del Detalle\"}},\"title\":\"GenesisExceptionDetail\",\"description\":\"Datos del error t&eacute;cnico.\"},\"Manager\":{\"type\":\"object\",\"properties\":{\"result\":{\"type\":\"boolean\"}},\"title\":\"Manager\"},\"Resource\":{\"type\":\"object\",\"properties\":{\"prefetch\":{\"type\":\"integer\",\"format\":\"int32\"}},\"title\":\"Resource\"},\"Serializable\":{\"type\":\"object\",\"title\":\"Serializable\"}}"
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/createBenefitsUsingPOST')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'benefits-api', '5f28b3e2d4ce8413d493b4bc')]"
+      ],
+      "properties": {
+        "displayName": "createBenefits",
+        "method": "POST",
+        "urlTemplate": "/corporate/customer/createBenefits",
+        "templateParameters": [],
+        "description": "createBenefits",
+        "request": {
+          "description": "request",
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "clientId",
+              "type": "string",
+              "defaultValue": "12122322",
+              "required": true,
+              "values": []
+            }
+          ],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f28b3e2d4ce8413d493b4bc",
+              "typeName": "BenefitsRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 201,
+            "description": "Created",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f28b3e2d4ce8413d493b4bc",
+                "typeName": "BenefitsResponse"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/createBenefitsUsingPOST/customer-benefits-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'benefits-api', 'createBenefitsUsingPOST')]"
+      ],
+      "properties": {
+        "displayName": "customer-benefits-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/exportCustomerBenefitsCsvUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]"
+      ],
+      "properties": {
+        "displayName": "exportCustomerBenefitsCsv",
+        "method": "GET",
+        "urlTemplate": "/corporate/customer/getAllBenefits/export?startDate={startDate}&endDate={endDate}",
+        "templateParameters": [
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "exportCustomerBenefitsCsv",
+        "request": {
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "clientId",
+              "type": "string",
+              "defaultValue": "12122322",
+              "required": true,
+              "values": []
+            }
+          ],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/exportCustomerBenefitsCsvUsingGET/customer-benefits-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'benefits-api', 'exportCustomerBenefitsCsvUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "customer-benefits-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/findAllCaseByThematicBmteNameAndDateUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'benefits-api', '5f28b3e2d4ce8413d493b4bc')]"
+      ],
+      "properties": {
+        "displayName": "findAllCaseByThematicBmteNameAndDate",
+        "method": "GET",
+        "urlTemplate": "/corporate/customer/getAllCasesBmte?startDate={startDate}&endDate={endDate}",
+        "templateParameters": [
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "findAllCaseByThematicBmteNameAndDate",
+        "request": {
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "clientId",
+              "type": "string",
+              "defaultValue": "12122322",
+              "required": true,
+              "values": []
+            }
+          ],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f28b3e2d4ce8413d493b4bc",
+                "typeName": "CaseResponse"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/findAllCaseByThematicBmteNameAndDateUsingGET/customer-benefits-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'benefits-api', 'findAllCaseByThematicBmteNameAndDateUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "customer-benefits-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/findAllCaseByThematicBmteNameAndDateCsvUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]"
+      ],
+      "properties": {
+        "displayName": "findAllCaseByThematicBmteNameAndDateCsv",
+        "method": "GET",
+        "urlTemplate": "/corporate/customer/getAllCasesBmte/export?startDate={startDate}&endDate={endDate}",
+        "templateParameters": [
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "findAllCaseByThematicBmteNameAndDateCsv",
+        "request": {
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "clientId",
+              "type": "string",
+              "defaultValue": "12122322",
+              "required": true,
+              "values": []
+            }
+          ],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/findAllCaseByThematicBmteNameAndDateCsvUsingGET/customer-benefits-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'benefits-api', 'findAllCaseByThematicBmteNameAndDateCsvUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "customer-benefits-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/findAllCaseByThematicNameAndDateUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'benefits-api', '5f28b3e2d4ce8413d493b4bc')]"
+      ],
+      "properties": {
+        "displayName": "findAllCaseByThematicNameAndDate",
+        "method": "GET",
+        "urlTemplate": "/corporate/customer/getAllCasesByThematic",
+        "templateParameters": [],
+        "description": "findAllCaseByThematicNameAndDate",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "startDate",
+              "description": "startDate",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "endDate",
+              "description": "endDate",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "thematicId",
+              "description": "thematicId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "thematicNameInternal",
+              "description": "thematicNameInternal",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "thematicNameExternal",
+              "description": "thematicNameExternal",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "clientId",
+              "type": "string",
+              "defaultValue": "12122322",
+              "required": true,
+              "values": []
+            }
+          ],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f28b3e2d4ce8413d493b4bc",
+                "typeName": "CaseResponse"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/findAllCaseByThematicNameAndDateUsingGET/customer-benefits-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'benefits-api', 'findAllCaseByThematicNameAndDateUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "customer-benefits-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/findAllCaseByThematicNameAndDateCsvUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]"
+      ],
+      "properties": {
+        "displayName": "findAllCaseByThematicNameAndDateCsv",
+        "method": "GET",
+        "urlTemplate": "/corporate/customer/getAllCasesByThematic/export",
+        "templateParameters": [],
+        "description": "findAllCaseByThematicNameAndDateCsv",
+        "request": {
+          "queryParameters": [
+            {
+              "name": "startDate",
+              "description": "startDate",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "endDate",
+              "description": "endDate",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "thematicId",
+              "description": "thematicId",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "thematicNameInternal",
+              "description": "thematicNameInternal",
+              "type": "string",
+              "values": []
+            },
+            {
+              "name": "thematicNameExternal",
+              "description": "thematicNameExternal",
+              "type": "string",
+              "values": []
+            }
+          ],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "clientId",
+              "type": "string",
+              "defaultValue": "12122322",
+              "required": true,
+              "values": []
+            }
+          ],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/findAllCaseByThematicNameAndDateCsvUsingGET/customer-benefits-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'benefits-api', 'findAllCaseByThematicNameAndDateCsvUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "customer-benefits-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/getAllBenefitsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'benefits-api', '5f28b3e2d4ce8413d493b4bc')]"
+      ],
+      "properties": {
+        "displayName": "getAllBenefits",
+        "method": "GET",
+        "urlTemplate": "/corporate/customer/getAllBenefits?startDate={startDate}&endDate={endDate}",
+        "templateParameters": [
+          {
+            "name": "startDate",
+            "description": "startDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "endDate",
+            "description": "endDate",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "getAllBenefits",
+        "request": {
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "clientId",
+              "type": "string",
+              "defaultValue": "12122322",
+              "required": true,
+              "values": []
+            }
+          ],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f28b3e2d4ce8413d493b4bc",
+                "typeName": "CustomerBenefitsResponse"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/getAllBenefitsUsingGET/customer-benefits-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'benefits-api', 'getAllBenefitsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "customer-benefits-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/benefits-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/benefits-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'benefits-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'benefits-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}
