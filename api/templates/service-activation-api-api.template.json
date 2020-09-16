@@ -21,7 +21,7 @@
   "variables": {},
   "resources": [
     {
-      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api')]",
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation')]",
       "type": "Microsoft.ApiManagement/service/apis",
       "apiVersion": "2019-01-01",
       "dependsOn": [],
@@ -49,11 +49,11 @@
       "resources": []
     },
     {
-      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api/5f56a4f3d4ce8413580638f9')]",
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation/5f56a4f3d4ce8413580638f9')]",
       "type": "Microsoft.ApiManagement/service/apis/schemas",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation')]"
       ],
       "properties": {
         "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
@@ -63,12 +63,12 @@
       }
     },
     {
-      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api/provisionServiceUsingPOST')]",
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation/provisionServiceUsingPOST')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation-api')]",
-        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'service-activation-api', '5f56a4f3d4ce8413580638f9')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'service-activation', '5f56a4f3d4ce8413580638f9')]"
       ],
       "properties": {
         "displayName": "provisionService",
@@ -171,22 +171,22 @@
       "resources": []
     },
     {
-      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api/provisionServiceUsingPOST/service-activation-controller')]",
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation/provisionServiceUsingPOST/service-activation-controller')]",
       "type": "Microsoft.ApiManagement/service/apis/operations/tags",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'service-activation-api', 'provisionServiceUsingPOST')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'service-activation', 'provisionServiceUsingPOST')]"
       ],
       "properties": {
         "displayName": "service-activation-controller"
       }
     },
     {
-      "name": "[concat(parameters('ApimServiceName'), '/service-activation-api/policy')]",
+      "name": "[concat(parameters('ApimServiceName'), '/service-activation/policy')]",
       "type": "Microsoft.ApiManagement/service/apis/policies",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation')]"
       ],
       "properties": {
         "format": "rawxml-link",
@@ -194,11 +194,11 @@
       }
     },
     {
-      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'service-activation-api')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'service-activation')]",
       "type": "Microsoft.ApiManagement/service/products/apis",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'service-activation')]"
       ],
       "properties": {}
     }

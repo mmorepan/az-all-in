@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "ApimServiceName": {
-      "value": "apm-wappe-cert"
+      "value": "APIMNGR-genesis-dev"
     },
     "LinkedTemplatesBaseUrl": {
       "value": ""
