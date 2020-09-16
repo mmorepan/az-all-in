@@ -1,0 +1,502 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Digital Store Api",
+    "version": "1.0",
+    "description": "Template from Genesis Framework to build microservices"
+  },
+  "host": "apm-wappe-cert.azure-api.net",
+  "basePath": "/digitalstore",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
+  "paths": {
+    "/cart/find-all-items": {
+      "get": {
+        "description": "findAllItems",
+        "operationId": "findAllItemsUsingGET",
+        "summary": "findAllItems",
+        "tags": [
+          "cart-controller"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "companyId",
+            "in": "query",
+            "description": "companyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "X-IBM-Client-Id",
+            "in": "header",
+            "type": "string",
+            "default": "9a8ba84e-35ba-4488-0de1-04e436f3e38e"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "default": "Bearer kZTctMDRlNDM2ZmVlMzBl3gw3C83XdPUdxwYjC5dqonYG_YLvIggUf"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CartResponse"
+            }
+          }
+        }
+      }
+    },
+    "/cart/remove-item/{itemCart}": {
+      "delete": {
+        "description": "removeItem",
+        "operationId": "removeItemUsingDELETE",
+        "summary": "removeItem",
+        "tags": [
+          "cart-controller"
+        ],
+        "parameters": [
+          {
+            "name": "itemCart",
+            "in": "path",
+            "description": "itemCart",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "X-IBM-Client-Id",
+            "in": "header",
+            "type": "string",
+            "default": "9a8ba84e-35ba-4488-0de1-04e436f3e38e"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "default": "Bearer kZTctMDRlNDM2ZmVlMzBl3gw3C83XdPUdxwYjC5dqonYG_YLvIggUf"
+          }
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/cart/update-item": {
+      "put": {
+        "description": "updateItem",
+        "operationId": "updateItemUsingPUT",
+        "summary": "updateItem",
+        "tags": [
+          "cart-controller"
+        ],
+        "parameters": [
+          {
+            "name": "UNICA-ServiceId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "1b567df3-0fa8-4ad2-ab0b-a97291904361"
+          },
+          {
+            "name": "UNICA-Application",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "wappe"
+          },
+          {
+            "name": "UNICA-PID",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          {
+            "name": "UNICA-User",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "admin"
+          },
+          {
+            "name": "X-IBM-Client-Id",
+            "in": "header",
+            "type": "string",
+            "default": "9a8ba84e-35ba-4488-0de1-04e436f3e38e"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "default": "Bearer kZTctMDRlNDM2ZmVlMzBl3gw3C83XdPUdxwYjC5dqonYG_YLvIggUf"
+          },
+          {
+            "name": "updateCartRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateCartRequest"
+            },
+            "description": "cartRequest"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CartResponse": {
+      "title": "CartResponse",
+      "type": "object",
+      "properties": {
+        "durationMonth": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idCampaign": {
+          "type": "string"
+        },
+        "idCart": {
+          "type": "string"
+        },
+        "idCatalog": {
+          "type": "string"
+        },
+        "mainImage": {
+          "type": "string"
+        },
+        "percentMTE": {
+          "format": "double",
+          "type": "number"
+        },
+        "planId": {
+          "type": "string"
+        },
+        "planName": {
+          "type": "string"
+        },
+        "price": {
+          "format": "double",
+          "type": "number"
+        },
+        "priceMTE": {
+          "format": "double",
+          "type": "number"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "serviceCode": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "serviceName": {
+          "type": "string"
+        },
+        "subTotal": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "GenesisException": {
+      "title": "GenesisException",
+      "description": "Datos del error de sistema.",
+      "type": "object",
+      "properties": {
+        "exceptionDetails": {
+          "description": "Lista de detalles del error",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GenesisExceptionDetail"
+          }
+        },
+        "exceptionId": {
+          "description": "Identificador de la excepción",
+          "type": "string",
+          "example": "SVC0001"
+        },
+        "exceptionText": {
+          "description": "Descripcion del error de Sistema",
+          "type": "string",
+          "example": "Mensaje de error"
+        },
+        "moreInfo": {
+          "description": "URI donde se proporciona más información sobre la excepción",
+          "type": "string",
+          "example": "https://help.tdp.com/2020"
+        },
+        "properties": {
+          "description": "Lista de propiedades especiales.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Serializable"
+          }
+        },
+        "userMessage": {
+          "description": "Descripcion del error de Sistema",
+          "type": "string",
+          "example": "Error al llamar al servicio"
+        }
+      }
+    },
+    "GenesisExceptionDetail": {
+      "title": "GenesisExceptionDetail",
+      "description": "Datos del error t&eacute;cnico.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Codigo de error del Detalle/Proveedor",
+          "type": "string",
+          "example": "MB0008"
+        },
+        "component": {
+          "description": "Nombre del componente de falla",
+          "type": "string",
+          "example": "MB.ProductsV2"
+        },
+        "description": {
+          "description": "Descripcion del Detalle",
+          "type": "string",
+          "example": "Codigo invalido para el canal"
+        }
+      }
+    },
+    "MessageResponse": {
+      "title": "MessageResponse",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Serializable": {
+      "title": "Serializable",
+      "type": "object"
+    },
+    "UpdateCartRequest": {
+      "title": "UpdateCartRequest",
+      "required": [
+        "quantity"
+      ],
+      "type": "object",
+      "properties": {
+        "itemIdCart": {
+          "type": "string"
+        },
+        "productAvailable": {
+          "type": "string"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateCartResponse": {
+      "title": "UpdateCartResponse",
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/UpdateCartResponse"
+        },
+        "statusCode": {
+          "enum": [
+            "100 CONTINUE",
+            "101 SWITCHING_PROTOCOLS",
+            "102 PROCESSING",
+            "103 CHECKPOINT",
+            "200 OK",
+            "201 CREATED",
+            "202 ACCEPTED",
+            "203 NON_AUTHORITATIVE_INFORMATION",
+            "204 NO_CONTENT",
+            "205 RESET_CONTENT",
+            "206 PARTIAL_CONTENT",
+            "207 MULTI_STATUS",
+            "208 ALREADY_REPORTED",
+            "226 IM_USED",
+            "300 MULTIPLE_CHOICES",
+            "301 MOVED_PERMANENTLY",
+            "302 FOUND",
+            "302 MOVED_TEMPORARILY",
+            "303 SEE_OTHER",
+            "304 NOT_MODIFIED",
+            "305 USE_PROXY",
+            "307 TEMPORARY_REDIRECT",
+            "308 PERMANENT_REDIRECT",
+            "400 BAD_REQUEST",
+            "401 UNAUTHORIZED",
+            "402 PAYMENT_REQUIRED",
+            "403 FORBIDDEN",
+            "404 NOT_FOUND",
+            "405 METHOD_NOT_ALLOWED",
+            "406 NOT_ACCEPTABLE",
+            "407 PROXY_AUTHENTICATION_REQUIRED",
+            "408 REQUEST_TIMEOUT",
+            "409 CONFLICT",
+            "410 GONE",
+            "411 LENGTH_REQUIRED",
+            "412 PRECONDITION_FAILED",
+            "413 PAYLOAD_TOO_LARGE",
+            "413 REQUEST_ENTITY_TOO_LARGE",
+            "414 URI_TOO_LONG",
+            "414 REQUEST_URI_TOO_LONG",
+            "415 UNSUPPORTED_MEDIA_TYPE",
+            "416 REQUESTED_RANGE_NOT_SATISFIABLE",
+            "417 EXPECTATION_FAILED",
+            "418 I_AM_A_TEAPOT",
+            "419 INSUFFICIENT_SPACE_ON_RESOURCE",
+            "420 METHOD_FAILURE",
+            "421 DESTINATION_LOCKED",
+            "422 UNPROCESSABLE_ENTITY",
+            "423 LOCKED",
+            "424 FAILED_DEPENDENCY",
+            "425 TOO_EARLY",
+            "426 UPGRADE_REQUIRED",
+            "428 PRECONDITION_REQUIRED",
+            "429 TOO_MANY_REQUESTS",
+            "431 REQUEST_HEADER_FIELDS_TOO_LARGE",
+            "451 UNAVAILABLE_FOR_LEGAL_REASONS",
+            "500 INTERNAL_SERVER_ERROR",
+            "501 NOT_IMPLEMENTED",
+            "502 BAD_GATEWAY",
+            "503 SERVICE_UNAVAILABLE",
+            "504 GATEWAY_TIMEOUT",
+            "505 HTTP_VERSION_NOT_SUPPORTED",
+            "506 VARIANT_ALSO_NEGOTIATES",
+            "507 INSUFFICIENT_STORAGE",
+            "508 LOOP_DETECTED",
+            "509 BANDWIDTH_LIMIT_EXCEEDED",
+            "510 NOT_EXTENDED",
+            "511 NETWORK_AUTHENTICATION_REQUIRED"
+          ],
+          "type": "string"
+        },
+        "statusCodeValue": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "cart-controller",
+      "description": "Cart Controller"
+    }
+  ]
+}

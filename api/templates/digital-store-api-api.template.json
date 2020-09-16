@@ -1,0 +1,624 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    },
+    "BackendServiceUrl": {
+      "type": "string"
+    },
+    "OauthServerId": {
+      "type": "string"
+    },
+    "ProductsApiName": {
+      "type": "object"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [],
+      "properties": {
+        "displayName": "Digital Store Api",
+        "apiRevision": "1",
+        "description": "Template from Genesis Framework to build microservices",
+        "subscriptionRequired": false,
+        "serviceUrl": "[parameters('BackendServiceUrl')]",
+        "path": "digitalstore",
+        "protocols": [
+          "https"
+        ],
+        "authenticationSettings": {
+          "oAuth2": {
+            "authorizationServerId": "[parameters('OauthServerId')]"
+          }
+        },
+        "authenticationSettings": {},
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "isCurrent": true
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api/5f3c3f2bd4ce8413bc65b6b7')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'digital-store-api')]"
+      ],
+      "properties": {
+        "contentType": "application/vnd.oai.openapi.components+json",
+        "document": {
+          "components": {
+            "schemas": {
+              "CartResponse": {
+                "title": "CartResponse",
+                "type": "object",
+                "properties": {
+                  "durationMonth": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "idCampaign": {
+                    "type": "string"
+                  },
+                  "idCart": {
+                    "type": "string"
+                  },
+                  "idCatalog": {
+                    "type": "string"
+                  },
+                  "mainImage": {
+                    "type": "string"
+                  },
+                  "percentMTE": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "planId": {
+                    "type": "string"
+                  },
+                  "planName": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "priceMTE": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "serviceCode": {
+                    "type": "string"
+                  },
+                  "serviceId": {
+                    "type": "string"
+                  },
+                  "serviceName": {
+                    "type": "string"
+                  },
+                  "subTotal": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "GenesisException": {
+                "title": "GenesisException",
+                "type": "object",
+                "properties": {
+                  "exceptionDetails": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/GenesisExceptionDetail"
+                    },
+                    "description": "Lista de detalles del error"
+                  },
+                  "exceptionId": {
+                    "type": "string",
+                    "description": "Identificador de la excepción",
+                    "example": "SVC0001"
+                  },
+                  "exceptionText": {
+                    "type": "string",
+                    "description": "Descripcion del error de Sistema",
+                    "example": "Mensaje de error"
+                  },
+                  "moreInfo": {
+                    "type": "string",
+                    "description": "URI donde se proporciona más información sobre la excepción",
+                    "example": "https://help.tdp.com/2020"
+                  },
+                  "properties": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/Serializable"
+                    },
+                    "description": "Lista de propiedades especiales."
+                  },
+                  "userMessage": {
+                    "type": "string",
+                    "description": "Descripcion del error de Sistema",
+                    "example": "Error al llamar al servicio"
+                  }
+                },
+                "description": "Datos del error de sistema."
+              },
+              "GenesisExceptionDetail": {
+                "title": "GenesisExceptionDetail",
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "Codigo de error del Detalle/Proveedor",
+                    "example": "MB0008"
+                  },
+                  "component": {
+                    "type": "string",
+                    "description": "Nombre del componente de falla",
+                    "example": "MB.ProductsV2"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Descripcion del Detalle",
+                    "example": "Codigo invalido para el canal"
+                  }
+                },
+                "description": "Datos del error t&eacute;cnico."
+              },
+              "MessageResponse": {
+                "title": "MessageResponse",
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              },
+              "Serializable": {
+                "title": "Serializable",
+                "type": "object"
+              },
+              "UpdateCartRequest": {
+                "title": "UpdateCartRequest",
+                "required": [
+                  "quantity"
+                ],
+                "type": "object",
+                "properties": {
+                  "itemIdCart": {
+                    "type": "string"
+                  },
+                  "productAvailable": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "userId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "UpdateCartResponse": {
+                "title": "UpdateCartResponse",
+                "type": "object",
+                "properties": {
+                  "body": {
+                    "$ref": "#/components/schemas/UpdateCartResponse"
+                  },
+                  "statusCode": {
+                    "enum": [
+                      "100 CONTINUE",
+                      "101 SWITCHING_PROTOCOLS",
+                      "102 PROCESSING",
+                      "103 CHECKPOINT",
+                      "200 OK",
+                      "201 CREATED",
+                      "202 ACCEPTED",
+                      "203 NON_AUTHORITATIVE_INFORMATION",
+                      "204 NO_CONTENT",
+                      "205 RESET_CONTENT",
+                      "206 PARTIAL_CONTENT",
+                      "207 MULTI_STATUS",
+                      "208 ALREADY_REPORTED",
+                      "226 IM_USED",
+                      "300 MULTIPLE_CHOICES",
+                      "301 MOVED_PERMANENTLY",
+                      "302 FOUND",
+                      "302 MOVED_TEMPORARILY",
+                      "303 SEE_OTHER",
+                      "304 NOT_MODIFIED",
+                      "305 USE_PROXY",
+                      "307 TEMPORARY_REDIRECT",
+                      "308 PERMANENT_REDIRECT",
+                      "400 BAD_REQUEST",
+                      "401 UNAUTHORIZED",
+                      "402 PAYMENT_REQUIRED",
+                      "403 FORBIDDEN",
+                      "404 NOT_FOUND",
+                      "405 METHOD_NOT_ALLOWED",
+                      "406 NOT_ACCEPTABLE",
+                      "407 PROXY_AUTHENTICATION_REQUIRED",
+                      "408 REQUEST_TIMEOUT",
+                      "409 CONFLICT",
+                      "410 GONE",
+                      "411 LENGTH_REQUIRED",
+                      "412 PRECONDITION_FAILED",
+                      "413 PAYLOAD_TOO_LARGE",
+                      "413 REQUEST_ENTITY_TOO_LARGE",
+                      "414 URI_TOO_LONG",
+                      "414 REQUEST_URI_TOO_LONG",
+                      "415 UNSUPPORTED_MEDIA_TYPE",
+                      "416 REQUESTED_RANGE_NOT_SATISFIABLE",
+                      "417 EXPECTATION_FAILED",
+                      "418 I_AM_A_TEAPOT",
+                      "419 INSUFFICIENT_SPACE_ON_RESOURCE",
+                      "420 METHOD_FAILURE",
+                      "421 DESTINATION_LOCKED",
+                      "422 UNPROCESSABLE_ENTITY",
+                      "423 LOCKED",
+                      "424 FAILED_DEPENDENCY",
+                      "425 TOO_EARLY",
+                      "426 UPGRADE_REQUIRED",
+                      "428 PRECONDITION_REQUIRED",
+                      "429 TOO_MANY_REQUESTS",
+                      "431 REQUEST_HEADER_FIELDS_TOO_LARGE",
+                      "451 UNAVAILABLE_FOR_LEGAL_REASONS",
+                      "500 INTERNAL_SERVER_ERROR",
+                      "501 NOT_IMPLEMENTED",
+                      "502 BAD_GATEWAY",
+                      "503 SERVICE_UNAVAILABLE",
+                      "504 GATEWAY_TIMEOUT",
+                      "505 HTTP_VERSION_NOT_SUPPORTED",
+                      "506 VARIANT_ALSO_NEGOTIATES",
+                      "507 INSUFFICIENT_STORAGE",
+                      "508 LOOP_DETECTED",
+                      "509 BANDWIDTH_LIMIT_EXCEEDED",
+                      "510 NOT_EXTENDED",
+                      "511 NETWORK_AUTHENTICATION_REQUIRED"
+                    ],
+                    "type": "string"
+                  },
+                  "statusCodeValue": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api/findAllItemsUsingGET')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'digital-store-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'digital-store-api', '5f3c3f2bd4ce8413bc65b6b7')]"
+      ],
+      "properties": {
+        "displayName": "findAllItems",
+        "method": "GET",
+        "urlTemplate": "/cart/find-all-items?userId={userId}&companyId={companyId}",
+        "templateParameters": [
+          {
+            "name": "userId",
+            "description": "userId",
+            "type": "string",
+            "required": true,
+            "values": []
+          },
+          {
+            "name": "companyId",
+            "description": "companyId",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "findAllItems",
+        "request": {
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "X-IBM-Client-Id",
+              "type": "string",
+              "defaultValue": "9a8ba84e-35ba-4488-0de1-04e436f3e38e",
+              "values": []
+            },
+            {
+              "name": "Authorization",
+              "type": "string",
+              "defaultValue": "Bearer kZTctMDRlNDM2ZmVlMzBl3gw3C83XdPUdxwYjC5dqonYG_YLvIggUf",
+              "values": []
+            }
+          ],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f3c3f2bd4ce8413bc65b6b7",
+                "typeName": "CartResponse"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api/findAllItemsUsingGET/cart-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'digital-store-api', 'findAllItemsUsingGET')]"
+      ],
+      "properties": {
+        "displayName": "cart-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api/removeItemUsingDELETE')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'digital-store-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'digital-store-api', '5f3c3f2bd4ce8413bc65b6b7')]"
+      ],
+      "properties": {
+        "displayName": "removeItem",
+        "method": "DELETE",
+        "urlTemplate": "/cart/remove-item/{itemCart}",
+        "templateParameters": [
+          {
+            "name": "itemCart",
+            "description": "itemCart",
+            "type": "string",
+            "required": true,
+            "values": []
+          }
+        ],
+        "description": "removeItem",
+        "request": {
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "X-IBM-Client-Id",
+              "type": "string",
+              "defaultValue": "9a8ba84e-35ba-4488-0de1-04e436f3e38e",
+              "values": []
+            },
+            {
+              "name": "Authorization",
+              "type": "string",
+              "defaultValue": "Bearer kZTctMDRlNDM2ZmVlMzBl3gw3C83XdPUdxwYjC5dqonYG_YLvIggUf",
+              "values": []
+            }
+          ],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [
+              {
+                "contentType": "*/*",
+                "schemaId": "5f3c3f2bd4ce8413bc65b6b7",
+                "typeName": "MessageResponse"
+              }
+            ],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api/removeItemUsingDELETE/cart-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'digital-store-api', 'removeItemUsingDELETE')]"
+      ],
+      "properties": {
+        "displayName": "cart-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api/updateItemUsingPUT')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'digital-store-api')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'digital-store-api', '5f3c3f2bd4ce8413bc65b6b7')]"
+      ],
+      "properties": {
+        "displayName": "updateItem",
+        "method": "PUT",
+        "urlTemplate": "/cart/update-item",
+        "templateParameters": [],
+        "description": "updateItem",
+        "request": {
+          "description": "cartRequest",
+          "queryParameters": [],
+          "headers": [
+            {
+              "name": "UNICA-ServiceId",
+              "type": "string",
+              "defaultValue": "1b567df3-0fa8-4ad2-ab0b-a97291904361",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-Application",
+              "type": "string",
+              "defaultValue": "wappe",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-PID",
+              "type": "string",
+              "defaultValue": "550e8400-e29b-41d4-a716-446655440000",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "UNICA-User",
+              "type": "string",
+              "defaultValue": "admin",
+              "required": true,
+              "values": []
+            },
+            {
+              "name": "X-IBM-Client-Id",
+              "type": "string",
+              "defaultValue": "9a8ba84e-35ba-4488-0de1-04e436f3e38e",
+              "values": []
+            },
+            {
+              "name": "Authorization",
+              "type": "string",
+              "defaultValue": "Bearer kZTctMDRlNDM2ZmVlMzBl3gw3C83XdPUdxwYjC5dqonYG_YLvIggUf",
+              "values": []
+            }
+          ],
+          "representations": [
+            {
+              "contentType": "application/json",
+              "schemaId": "5f3c3f2bd4ce8413bc65b6b7",
+              "typeName": "UpdateCartRequest"
+            }
+          ]
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "OK",
+            "representations": [],
+            "headers": []
+          }
+        ]
+      },
+      "resources": []
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api/updateItemUsingPUT/cart-controller')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'digital-store-api', 'updateItemUsingPUT')]"
+      ],
+      "properties": {
+        "displayName": "cart-controller"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/digital-store-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'digital-store-api')]"
+      ],
+      "properties": {
+        "format": "rawxml-link",
+        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/digital-store-api-apiPolicy.xml')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'digital-store-api')]",
+      "type": "Microsoft.ApiManagement/service/products/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'digital-store-api')]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+}
