@@ -1981,7 +1981,7 @@
       }
     },
     {
-      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').unlimited, '/', 'catalogue-api')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductsApiName').wappedev, '/', 'catalogue-api')]",
       "type": "Microsoft.ApiManagement/service/products/apis",
       "apiVersion": "2019-01-01",
       "dependsOn": [
